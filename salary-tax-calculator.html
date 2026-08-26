@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>In-Hand Salary & Income Tax Calculator (New Tax Regime)</title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6QZWH8C69J"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6QZWH8C69J');</script>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #0f172a; color: #fff; max-width: 600px; margin: 0 auto; }
+    input, button { width: 100%; padding: 12px; margin: 8px 0; border-radius: 6px; border: none; font-size: 16px; box-sizing: border-box; }
+    button { background: #38bdf8; font-weight: bold; cursor: pointer; color: #000; }
+    .card { background: #1e293b; padding: 15px; border-radius: 6px; margin-top: 15px; border-left: 4px solid #38bdf8; }
+    .related-section { margin-top: 30px; background: #1e293b; padding: 15px; border-radius: 8px; }
+    .chip { display: inline-block; background: #334155; color: #38bdf8; padding: 8px 12px; border-radius: 20px; text-decoration: none; font-size: 14px; margin: 4px; border: 1px solid #475569; }
+    .chip:hover { background: #38bdf8; color: #000; }
+  </style>
+</head>
+<body>
+  <h2>💼 In-Hand Salary & Income Tax Calculator</h2>
+  <label>Monthly CTC/Gross Salary (₹):</label>
+  <input type="number" id="ctc" placeholder="e.g. 50000">
+  <button onclick="calcTax()">Calculate In-Hand Salary</button>
+  <div id="taxResult"></div>
+
+  <div class="related-section">
+    <h3>📌 Related Tools & Options</h3>
+    <a class="chip" href="yojana-search.html">🏛️ Yojana Search (State & District)</a>
+    <a class="chip" href="health-calculator.html">🩺 Health & BMI Calculator</a>
+    <a class="chip" href="electricity-calculator.html">⚡ Electricity Bill Calculator</a>
+    <a class="chip" href="index.html">🎓 CGPA Calculator</a>
+  </div>
+
+  <script>
+    function calcTax() {
+      let ctc = parseFloat(document.getElementById('ctc').value) || 0;
+      let annual = ctc * 12;
+      let tax = 0;
+      if (annual > 700000) tax = (annual - 700000) * 0.1;
+      let inHandMonthly = (annual - tax) / 12;
+      document.getElementById('taxResult').innerHTML = `
+        <div class="card">
+          <h3>Estimated Monthly In-Hand: ₹${inHandMonthly.toFixed(0)}</h3>
+          <p>Annual Tax Deduction: ₹${tax.toFixed(0)}</p>
+        </div>`;
+    }
+  </script>
+</body>
+</html>

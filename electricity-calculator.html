@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>State-Wise Electricity Bill Calculator</title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6QZWH8C69J"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6QZWH8C69J');</script>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #0f172a; color: #fff; max-width: 600px; margin: 0 auto; }
+    input, button { width: 100%; padding: 12px; margin: 8px 0; border-radius: 6px; border: none; font-size: 16px; box-sizing: border-box; }
+    button { background: #eab308; font-weight: bold; cursor: pointer; color: #000; }
+    .card { background: #1e293b; padding: 15px; border-radius: 6px; margin-top: 15px; border-left: 4px solid #eab308; }
+    .related-section { margin-top: 30px; background: #1e293b; padding: 15px; border-radius: 8px; }
+    .chip { display: inline-block; background: #334155; color: #38bdf8; padding: 8px 12px; border-radius: 20px; text-decoration: none; font-size: 14px; margin: 4px; border: 1px solid #475569; }
+  </style>
+</head>
+<body>
+  <h2>⚡ Electricity Bill Calculator</h2>
+  <label>Units Consumed (kWh):</label>
+  <input type="number" id="units" placeholder="e.g. 250">
+  <button onclick="calcBill()">Calculate Monthly Bill</button>
+  <div id="billResult"></div>
+
+  <div class="related-section">
+    <h3>📌 Related Tools & Options</h3>
+    <a class="chip" href="salary-tax-calculator.html">💼 Salary & Tax Calculator</a>
+    <a class="chip" href="yojana-search.html">🏛️ Yojana Search</a>
+    <a class="chip" href="health-calculator.html">🩺 Health Calculator</a>
+  </div>
+
+  <script>
+    function calcBill() {
+      let u = parseFloat(document.getElementById('units').value) || 0;
+      let cost = u * 6.5; // Average Indian unit rate
+      document.getElementById('billResult').innerHTML = `
+        <div class="card">
+          <h3>Estimated Bill: ₹${cost.toFixed(0)}</h3>
+          <p>Calculated at avg slab rate of ₹6.5/unit</p>
+        </div>`;
+    }
+  </script>
+</body>
+</html>
