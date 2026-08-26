@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loan EMI & Interest Rate Calculator (Home/Car/Personal Loan)</title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6QZWH8C69J"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6QZWH8C69J');</script>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #0f172a; color: #fff; max-width: 600px; margin: 0 auto; }
+    input, button { width: 100%; padding: 12px; margin: 8px 0; border-radius: 6px; border: none; font-size: 16px; box-sizing: border-box; }
+    button { background: #f59e0b; font-weight: bold; cursor: pointer; color: #000; }
+    .card { background: #1e293b; padding: 15px; border-radius: 6px; margin-top: 15px; border-left: 4px solid #f59e0b; }
+    .related-section { margin-top: 30px; background: #1e293b; padding: 15px; border-radius: 8px; }
+    .chip { display: inline-block; background: #334155; color: #38bdf8; padding: 8px 12px; border-radius: 20px; text-decoration: none; font-size: 14px; margin: 4px; border: 1px solid #475569; }
+  </style>
+</head>
+<body>
+  <h2>🏦 Loan EMI & Interest Calculator</h2>
+  <label>Loan Amount (₹):</label>
+  <input type="number" id="amount" placeholder="e.g. 500000">
+  <label>Interest Rate (% per year):</label>
+  <input type="number" step="0.1" id="rate" placeholder="e.g. 8.5">
+  <label>Tenure (Years):</label>
+  <input type="number" id="years" placeholder="e.g. 5">
+  <button onclick="calcEMI()">Calculate Monthly EMI</button>
+  <div id="emiResult"></div>
+
+  <div class="related-section">
+    <h3>📌 Related Financial Tools</h3>
+    <a class="chip" href="gst-calculator.html">🏷️ GST & Discount Calculator</a>
+    <a class="chip" href="salary-tax-calculator.html">💼 Salary & Tax Calculator</a>
+    <a class="chip" href="yojana-search.html">🏛️ Yojana Search</a>
+    <a class="chip" href="index.html">🎓 CGPA Calculator</a>
+  </div>
+
+  <script>
+    function calcEMI() {
+      let p = parseFloat(document.getElementById('amount').value);
+      let r = parseFloat(document.getElementById('rate').value) / 12 / 100;
+      let n = parseFloat(document.getElementById('years').value) * 12;
+      if(!p || !r || !n) return;
+      let emi = (p * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+      let totalPayment = emi * n;
+      let totalInterest = totalPayment - p;
+      document.getElementById('emiResult').innerHTML = `
+        <div class="card">
+          <h3>Monthly EMI: ₹${emi.toFixed(0)}</h3>
+          <p>Total Interest Payable: ₹${totalInterest.toFixed(0)}</p>
+          <p>Total Payment (Principal + Interest): ₹${totalPayment.toFixed(0)}</p>
+        </div>`;
+    }
+  </script>
+</body>
+</html>

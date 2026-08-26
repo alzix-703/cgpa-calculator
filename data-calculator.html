@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Mobile Data Usage & Video Time Calculator</title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6QZWH8C69J"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6QZWH8C69J');</script>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #0f172a; color: #fff; max-width: 600px; margin: 0 auto; }
+    input, button { width: 100%; padding: 12px; margin: 8px 0; border-radius: 6px; border: none; font-size: 16px; box-sizing: border-box; }
+    button { background: #a855f7; font-weight: bold; cursor: pointer; color: #fff; }
+    .card { background: #1e293b; padding: 15px; border-radius: 6px; margin-top: 15px; border-left: 4px solid #a855f7; }
+    .related-section { margin-top: 30px; background: #1e293b; padding: 15px; border-radius: 8px; }
+    .chip { display: inline-block; background: #334155; color: #38bdf8; padding: 8px 12px; border-radius: 20px; text-decoration: none; font-size: 14px; margin: 4px; border: 1px solid #475569; }
+  </style>
+</head>
+<body>
+  <h2>📱 Daily Mobile Data Usage Estimator</h2>
+  <label>Your Daily Pack Limit (in GB):</label>
+  <input type="number" step="0.5" id="dataLimit" placeholder="e.g. 1.5 or 2">
+  <button onclick="calcData()">Check Daily Limit Hours</button>
+  <div id="dataResult"></div>
+
+  <div class="related-section">
+    <h3>📌 Related Daily Utilities</h3>
+    <a class="chip" href="electricity-calculator.html">⚡ Electricity Bill Calculator</a>
+    <a class="chip" href="health-calculator.html">🩺 Health & BMI Calculator</a>
+    <a class="chip" href="index.html">🎓 CGPA Calculator</a>
+  </div>
+
+  <script>
+    function calcData() {
+      let gb = parseFloat(document.getElementById('dataLimit').value) || 0;
+      let mb = gb * 1024;
+      let youtubeHD = (mb / 700).toFixed(1); // Avg 700MB per hr 720p
+      let reelsHours = (mb / 500).toFixed(1); // Avg 500MB per hr Insta Reels
+      document.getElementById('dataResult').innerHTML = `
+        <div class="card">
+          <h3>Total Data: ${mb} MB</h3>
+          <p>🎥 YouTube (720p HD): ~${youtubeHD} Hours</p>
+          <p>📱 Instagram Reels / Shorts: ~${reelsHours} Hours</p>
+        </div>`;
+    }
+  </script>
+</body>
+</html>
