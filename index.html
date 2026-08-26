@@ -1,35 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CGPA Converter Portal</title>
-    <style>
-        body { font-family: sans-serif; padding: 20px; background: #0f172a; color: #fff; text-align: center; }
-        h1 { color: #38bdf8; margin-top: 40px; }
-        p { color: #94a3b8; }
-        .links { margin-top: 30px; display: flex; flex-direction: column; gap: 15px; align-items: center; }
-        a { background: #1e293b; color: #38bdf8; padding: 14px 24px; border-radius: 8px; text-decoration: none; border: 1px solid #334155; width: 80%; max-width: 320px; font-weight: bold; }
-        a:hover { background: #334155; }
-    </style>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-6QZWH8C69J"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-6QZWH8C69J');
-</script>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All-in-One Utility Portal | CGPA & Daily Calculators</title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6QZWH8C69J"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6QZWH8C69J');</script>
+  <style>
+    body { font-family: sans-serif; padding: 15px; background: #0f172a; color: #fff; max-width: 700px; margin: 0 auto; }
+    h1, h2 { text-align: center; color: #38bdf8; }
+    .search-box { width: 100%; padding: 14px; border-radius: 8px; border: 2px solid #38bdf8; font-size: 16px; box-sizing: border-box; background: #1e293b; color: #fff; margin-bottom: 20px; }
+    .nav-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; background: #1e293b; padding: 10px; border-radius: 8px; }
+    .nav-link { background: #334155; color: #38bdf8; padding: 8px 12px; border-radius: 20px; text-decoration: none; font-size: 13px; font-weight: bold; border: 1px solid #475569; }
+    .nav-link:hover { background: #38bdf8; color: #000; }
+    .uni-btn { display: block; width: 100%; padding: 12px; margin: 6px 0; background: #1e293b; color: #fff; text-decoration: none; border-radius: 6px; text-align: center; border: 1px solid #334155; box-sizing: border-box; font-weight: 500; }
+    .uni-btn:hover { border-color: #38bdf8; background: #334155; }
+    .section-title { margin-top: 25px; color: #f59e0b; border-bottom: 1px solid #334155; padding-bottom: 5px; }
+  </style>
 </head>
 <body>
-    <h1>CGPA Converter Portal</h1>
-    <p>Select your university below:</p>
-    <div class="links">
-        <a href="aktu-lucknow-cgpa-converter.html">AKTU Lucknow</a>
-        <a href="du-delhi-cgpa-converter.html">DU Delhi</a>
-        <a href="sppu-pune-cgpa-converter.html">SPPU Pune</a>
-        <a href="vtu-karnataka-cgpa-converter.html">VTU Karnataka</a>
-    </div>
+  <h1>🌐 Multi-Utility Web Portal</h1>
+  
+  <!-- SEARCH BAR FOR ALL TOOLS & UNIVERSITIES -->
+  <input type="text" id="globalSearch" class="search-box" placeholder="🔍 Search any calculator or university (e.g. Tax, Yojana, AKTU, DU)..." onkeyup="filterPortal()">
+
+  <!-- TOP NAVIGATION MENU -->
+  <div class="nav-bar">
+    <a class="nav-link" href="yojana-search.html">🏛️ Yojana Search</a>
+    <a class="nav-link" href="salary-tax-calculator.html">💼 Salary & Tax</a>
+    <a class="nav-link" href="emi-calculator.html">🏦 Loan EMI</a>
+    <a class="nav-link" href="gst-calculator.html">🏷️ GST Tool</a>
+    <a class="nav-link" href="electricity-calculator.html">⚡ Electricity</a>
+    <a class="nav-link" href="health-calculator.html">🩺 Health BMI</a>
+    <a class="nav-link" href="data-calculator.html">📱 Mobile Data</a>
+  </div>
+
+  <h3 class="section-title">🎓 Top 20 Indian Universities (CGPA Converters)</h3>
+  <div id="uniList">
+    <a class="uni-btn" href="aktu-lucknow-cgpa-calculator.html">AKTU Lucknow</a>
+    <a class="uni-btn" href="du-delhi-cgpa-calculator.html">DU Delhi (Delhi University)</a>
+    <a class="uni-btn" href="sppu-pune-cgpa-calculator.html">SPPU Pune (Savitribai Phule)</a>
+    <a class="uni-btn" href="vtu-karnataka-cgpa-calculator.html">VTU Karnataka</a>
+    <a class="uni-btn" href="gtu-gujarat-cgpa-calculator.html">GTU Gujarat</a>
+    <a class="uni-btn" href="rtu-kota-cgpa-calculator.html">RTU Kota Rajasthan</a>
+    <a class="uni-btn" href="rgpv-bhopal-cgpa-calculator.html">RGPV Bhopal (MP)</a>
+    <a class="uni-btn" href="anna-university-cgpa-calculator.html">Anna University Chennai</a>
+    <a class="uni-btn" href="mdu-rohtak-cgpa-calculator.html">MDU Rohtak Haryana</a>
+    <a class="uni-btn" href="jntu-hyderabad-cgpa-calculator.html">JNTU Hyderabad</a>
+    <a class="uni-btn" href="mu-mumbai-cgpa-calculator.html">Mumbai University</a>
+    <a class="uni-btn" href="csjmu-kanpur-cgpa-calculator.html">CSJMU Kanpur</a>
+    <a class="uni-btn" href="lu-lucknow-cgpa-calculator.html">Lucknow University</a>
+    <a class="uni-btn" href="pu-patna-cgpa-calculator.html">Patna University</a>
+    <a class="uni-btn" href="bhusha-varanasi-cgpa-calculator.html">BHU Varanasi</a>
+    <a class="uni-btn" href="amu-aligarh-cgpa-calculator.html">AMU Aligarh</a>
+    <a class="uni-btn" href="jnu-delhi-cgpa-calculator.html">JNU New Delhi</a>
+    <a class="uni-btn" href="cuk-kerala-cgpa-calculator.html">CU Kerala</a>
+    <a class="uni-btn" href="uok-kota-cgpa-calculator.html">Kota University</a>
+    <a class="uni-btn" href="mgkvp-varanasi-cgpa-calculator.html">MGKVP Varanasi</a>
+  </div>
+
+  <script>
+    function filterPortal() {
+      let input = document.getElementById('globalSearch').value.toLowerCase();
+      let btns = document.getElementsByClassName('uni-btn');
+      for (let i = 0; i < btns.length; i++) {
+        let txt = btns[i].innerText.toLowerCase();
+        btns[i].style.display = txt.includes(input) ? "block" : "none";
+      }
+    }
+  </script>
 </body>
 </html>
