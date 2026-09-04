@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+index_html = '''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -63,4 +63,9 @@
         <a href="/terms.html" class="hover:underline hover:text-slate-300">Terms & Conditions</a>
     </footer>
 </body>
-</html>
+</html>'''
+
+with open("index.html", "w") as f:
+    f.write(index_html)
+
+print("Homepage updated with all tools and internal links!")
