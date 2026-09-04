@@ -1,0 +1,38 @@
+import os
+
+domain = "https://cgpa-calculator-beige-nu.vercel.app"
+
+privacy_html = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Multi-Utility Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white p-6 max-w-4xl mx-auto space-y-4">
+    <a href="/" class="text-indigo-400 hover:underline">&larr; Back to Home</a>
+    <h1 class="text-3xl font-bold text-indigo-400">Privacy Policy</h1>
+    <p class="text-slate-300">We respect your privacy. We do not collect any personal data or store user inputs on our servers. All calculation tools process data locally in your browser.</p>
+    <h2 class="text-xl font-semibold">Third-Party Ads</h2>
+    <p class="text-slate-300">We may use Google AdSense to serve advertisements. Google uses cookies to serve ads based on user visits.</p>
+</body>
+</html>'''
+
+terms_html = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions - Multi-Utility Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white p-6 max-w-4xl mx-auto space-y-4">
+    <a href="/" class="text-indigo-400 hover:underline">&larr; Back to Home</a>
+    <h1 class="text-3xl font-bold text-indigo-400">Terms & Conditions</h1>
+    <p class="text-slate-300">The tools and calculators provided on this portal are for educational and informational purposes only. While we aim for 100% accuracy, users should verify results with official sources.</p>
+</body>
+</html>'''
+
+with open("privacy-policy.html", "w") as f: f.write(privacy_html)
+with open("terms.html", "w") as f: f.write(terms_html)
+
+print("All Legal & Policy Pages successfully generated!")
