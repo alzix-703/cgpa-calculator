@@ -50,4 +50,18 @@ age_html = '''<!DOCTYPE html>
 with open("age-calculator.html", "w") as f:
     f.write(age_html)
 
-print("Age Calculator page created!")
+# Read current index.html and insert Age Calculator link if not present
+with open("index.html", "r") as f:
+    content = f.read()
+
+if "age-calculator.html" not in content:
+    target_str = '💰 Financial & Tax Tools</h2>'
+    new_card = '''<a href="/age-calculator.html" class="bg-slate-800 p-5 rounded-xl border border-slate-700 hover:border-indigo-500 transition block">
+                    <h3 class="text-lg font-bold text-indigo-300">Exact Age Calculator</h3>
+                    <p class="text-sm text-slate-400 mt-1">Calculate exact age in years, months, and days for Sarkari job forms.</p>
+                </a>\n'''
+    content = content.replace(target_str, target_str + "\n" + new_card)
+    with open("index.html", "w") as f:
+        f.write(content)
+
+print("Age Calculator and Homepage link created successfully!")
