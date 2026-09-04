@@ -1,0 +1,150 @@
+scheme_html = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarkari Yojana Eligibility Checker 2026 - Find Schemes by Age</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TPS02BQ6B4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-TPS02BQ6B4');
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white min-h-screen p-4 md:p-8 max-w-3xl mx-auto space-y-6">
+    <a href="/" class="text-indigo-400 hover:underline">&larr; Back to Home</a>
+    
+    <header class="space-y-2">
+        <h1 class="text-3xl font-extrabold text-amber-400">Sarkari Yojana Finder</h1>
+        <p class="text-slate-400 text-sm">Enter your basic details to find all Government Schemes you can apply for.</p>
+    </header>
+
+    <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+                <label class="block text-sm mb-1 text-slate-300">Your Age (Years)</label>
+                <input type="number" id="user-age" placeholder="e.g. 22" class="w-full bg-slate-700 border border-slate-600 rounded p-2 text-white">
+            </div>
+            <div>
+                <label class="block text-sm mb-1 text-slate-300">Gender</label>
+                <select id="user-gender" class="w-full bg-slate-700 border border-slate-600 rounded p-2 text-white">
+                    <option value="all">All / Any</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm mb-1 text-slate-300">Category / Profession</label>
+                <select id="user-category" class="w-full bg-slate-700 border border-slate-600 rounded p-2 text-white">
+                    <option value="student">Student</option>
+                    <option value="farmer">Farmer (Kisan)</option>
+                    <option value="worker">Worker / Business</option>
+                </select>
+            </div>
+        </div>
+
+        <button onclick="findSchemes()" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-lg transition">Find Eligible Schemes</button>
+    </div>
+
+    <!-- Results Section -->
+    <div id="results-area" class="space-y-4 hidden">
+        <h2 class="text-xl font-bold text-emerald-400 border-b border-slate-700 pb-2">Eligible Government Schemes</h2>
+        <div id="schemes-list" class="space-y-3"></div>
+    </div>
+
+    <script>
+        const schemesDatabase = [
+            {
+                name: "PM Kisan Samman Nidhi",
+                minAge: 18, maxAge: 70, category: "farmer", gender: "all",
+                desc: "Get ₹6,000 per year directly in bank account.",
+                link: "/pm-kisan-status.html"
+            },
+            {
+                name: "PM Vishwakarma Yojana",
+                minAge: 18, maxAge: 60, category: "worker", gender: "all",
+                desc: "Get ₹3 Lakh loan at 5% interest + ₹15,000 toolkit incentive.",
+                link: "#"
+            },
+            {
+                name: "NSP Post-Matric Scholarship",
+                minAge: 15, maxAge: 30, category: "student", gender: "all",
+                desc: "Financial assistance for higher secondary and college education.",
+                link: "#"
+            },
+            {
+                name: "Ladli Behna / Female Financial Assist Scheme",
+                minAge: 21, maxAge: 60, category: "all", gender: "female",
+                desc: "Monthly financial support directly for women.",
+                link: "#"
+            },
+            {
+                name: "PM Mudra Loan Scheme",
+                minAge: 18, maxAge: 65, category: "worker", gender: "all",
+                desc: "Collateral-free business loan up to ₹10 Lakhs.",
+                link: "#"
+            }
+        ];
+
+        function findSchemes() {
+            const age = parseInt(document.getElementById('user-age').value);
+            const gender = document.getElementById('user-gender').value;
+            const category = document.getElementById('user-category').value;
+            const listContainer = document.getElementById('schemes-list');
+            const resultsArea = document.getElementById('results-area');
+
+            if (!age) { alert("Please enter your age!"); return; }
+
+            listContainer.innerHTML = "";
+            
+            const matched = schemesDatabase.filter(s => {
+                const ageMatch = age >= s.minAge && age <= s.maxAge;
+                const genderMatch = s.gender === "all" || s.gender === gender;
+                const catMatch = s.category === "all" || s.category === category;
+                return ageMatch && genderMatch && catMatch;
+            });
+
+            resultsArea.classList.remove('hidden');
+
+            if (matched.length === 0) {
+                listContainer.innerHTML = `<p class="text-slate-400">No specific schemes found for this age group and category. Try changing criteria.</p>`;
+                return;
+            }
+
+            matched.forEach(s => {
+                listContainer.innerHTML += `
+                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold text-amber-300 text-lg">${s.name}</h3>
+                            <p class="text-sm text-slate-400">${s.desc}</p>
+                            <span class="inline-block mt-2 text-xs bg-slate-700 px-2 py-1 rounded text-slate-300">Age: ${s.minAge}-${s.maxAge} Yrs</span>
+                        </div>
+                        <a href="${s.link}" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold px-4 py-2 rounded-lg">Check Eligibility &rarr;</a>
+                    </div>
+                `;
+            });
+        }
+    </script>
+</body>
+</html>'''
+
+with open("scheme-calculator.html", "w") as f:
+    f.write(scheme_html)
+
+# Add link to index.html
+with open("index.html", "r") as f:
+    content = f.read()
+
+if "scheme-calculator.html" not in content:
+    target_str = '🏛️ Sarkari Yojana Utilities</h2>'
+    new_card = '''<a href="/scheme-calculator.html" class="bg-slate-800 p-5 rounded-xl border border-slate-700 hover:border-amber-500 transition block">
+                    <h3 class="text-lg font-bold text-amber-300">Age-Wise Sarkari Yojana Finder</h3>
+                    <p class="text-sm text-slate-400 mt-1">Enter your age & gender to find all eligible Government Schemes instantly.</p>
+                </a>\n'''
+    content = content.replace(target_str, target_str + "\n" + new_card)
+    with open("index.html", "w") as f:
+        f.write(content)
+
+print("Smart Scheme Finder generated successfully!")
