@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PM Kisan Samman Nidhi Status & Eligibility Checker 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white min-h-screen p-6 max-w-2xl mx-auto space-y-6">
+    <a href="/" class="text-indigo-400 hover:underline">&larr; Back to Home</a>
+    <h1 class="text-3xl font-bold text-amber-400">PM Kisan Eligibility & Installment Checker</h1>
+    <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 space-y-4">
+        <div>
+            <label class="block text-sm mb-1">Do you have cultivable land in your name?</label>
+            <select id="land" class="w-full bg-slate-700 border border-slate-600 rounded p-2 text-white">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+        </div>
+        <div>
+            <label class="block text-sm mb-1">Is e-KYC & Aadhaar Seeding Completed?</label>
+            <select id="ekyc" class="w-full bg-slate-700 border border-slate-600 rounded p-2 text-white">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+        </div>
+        <button onclick="checkStatus()" class="w-full bg-amber-600 hover:bg-amber-500 py-2 rounded font-semibold text-slate-900">Check Eligibility</button>
+        <div id="status-res" class="hidden p-4 bg-slate-700 rounded-lg text-lg font-medium"></div>
+    </div>
+    <script>
+        function checkStatus() {
+            const l = document.getElementById('land').value;
+            const k = document.getElementById('ekyc').value;
+            const r = document.getElementById('status-res');
+            r.classList.remove('hidden');
+            if(l === 'yes' && k === 'yes') {
+                r.className = "p-4 bg-emerald-900/80 text-emerald-200 rounded-lg";
+                r.innerText = " Eligible! You will receive the ₹2,000 installment directly in your bank account.";
+            } else {
+                r.className = "p-4 bg-rose-900/80 text-rose-200 rounded-lg";
+                r.innerText = " Action Needed: Complete land seeding and e-KYC on pmkisan.gov.in to receive installments.";
+            }
+        }
+    </script>
+</body>
+</html>

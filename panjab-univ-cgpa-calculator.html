@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panjab University CGPA to Percentage Calculator 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white min-h-screen p-6 max-w-2xl mx-auto space-y-6">
+    <a href="/" class="text-indigo-400 hover:underline">&larr; Back to Home</a>
+    <h1 class="text-3xl font-bold text-indigo-400">Panjab University CGPA Converter</h1>
+    <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 space-y-4">
+        <label class="block text-sm">Enter Your Panjab University CGPA</label>
+        <input type="number" step="0.01" id="cgpa" placeholder="e.g. 8.5" class="w-full bg-slate-700 border border-slate-600 rounded p-2 text-white">
+        <button onclick="calc()" class="w-full bg-indigo-600 hover:bg-indigo-500 py-2 rounded font-semibold">Convert to Percentage</button>
+        <div id="res" class="hidden p-4 bg-slate-700 rounded-lg text-emerald-400 font-bold text-xl"></div>
+    </div>
+    <script>
+        function calc() {
+            const val = parseFloat(document.getElementById('cgpa').value);
+            if(!val) return;
+            const pct = (val * 9.5).toFixed(2);
+            const r = document.getElementById('res');
+            r.classList.remove('hidden');
+            r.innerText = 'Percentage: ' + pct + '% (Formula: CGPA × 9.5)';
+        }
+    </script>
+</body>
+</html>
