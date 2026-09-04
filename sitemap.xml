@@ -6744,4 +6744,8 @@
     <loc>https://cgpa-calculator-beige-nu.vercel.app/aktu-cgpa-calculator.html</loc>
     <priority>0.80</priority>
   </url>
+  <url>
+    <loc>https://cgpa-calculator-beige-nu.vercel.app/age-calculator.html</loc>
+    <priority>0.80</priority>
+  </url>
 </urlset>
