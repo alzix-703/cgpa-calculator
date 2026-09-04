@@ -1,52 +1,53 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GST & Shopping Discount Calculator</title>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6QZWH8C69J"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6QZWH8C69J');</script>
-  <style>
-    body { font-family: sans-serif; padding: 20px; background: #0f172a; color: #fff; max-width: 600px; margin: 0 auto; }
-    input, select, button { width: 100%; padding: 12px; margin: 8px 0; border-radius: 6px; border: none; font-size: 16px; box-sizing: border-box; }
-    button { background: #ec4899; font-weight: bold; cursor: pointer; color: #fff; }
-    .card { background: #1e293b; padding: 15px; border-radius: 6px; margin-top: 15px; border-left: 4px solid #ec4899; }
-    .related-section { margin-top: 30px; background: #1e293b; padding: 15px; border-radius: 8px; }
-    .chip { display: inline-block; background: #334155; color: #38bdf8; padding: 8px 12px; border-radius: 20px; text-decoration: none; font-size: 14px; margin: 4px; border: 1px solid #475569; }
-  </style>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GST Calculator India - Add/Remove GST</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h2>🏷️ GST & Shopping Discount Calculator</h2>
-  <label>Original Amount (₹):</label>
-  <input type="number" id="price" placeholder="e.g. 1000">
-  <label>GST Rate (%):</label>
-  <select id="gstRate">
-    <option value="5">5% GST</option>
-    <option value="12">12% GST</option>
-    <option value="18" selected>18% GST</option>
-    <option value="28">28% GST</option>
-  </select>
-  <button onclick="calcGST()">Add GST & Show Final Price</button>
-  <div id="gstResult"></div>
-
-  <div class="related-section">
-    <h3>📌 Related Tools</h3>
-    <a class="chip" href="emi-calculator.html">🏦 Loan EMI Calculator</a>
-    <a class="chip" href="salary-tax-calculator.html">💼 Salary & Tax Calculator</a>
-    <a class="chip" href="electricity-calculator.html">⚡ Electricity Bill Calculator</a>
-  </div>
-
-  <script>
-    function calcGST() {
-      let p = parseFloat(document.getElementById('price').value) || 0;
-      let rate = parseFloat(document.getElementById('gstRate').value);
-      let gstAmount = (p * rate) / 100;
-      let finalPrice = p + gstAmount;
-      document.getElementById('gstResult').innerHTML = `
-        <div class="card">
-          <h3>Final Amount: ₹${finalPrice.toFixed(2)}</h3>
-          <p>Net Price: ₹${p} | Total GST (${rate}%): ₹${gstAmount.toFixed(2)}</p>
-        </div>`;
-    }
-  </script>
+<body class="bg-slate-900 text-white min-h-screen p-6 max-w-3xl mx-auto space-y-6">
+    <a href="/" class="text-indigo-400 hover:underline">&larr; Back to Home</a>
+    <h1 class="text-3xl font-bold text-indigo-400">GST Calculator</h1>
+    <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 space-y-4">
+        <div>
+            <label class="block text-sm mb-1">Amount (₹)</label>
+            <input type="number" id="amount" placeholder="e.g. 5000" class="w-full bg-slate-700 border border-slate-600 rounded p-2 text-white">
+        </div>
+        <div>
+            <label class="block text-sm mb-1">GST Rate (%)</label>
+            <select id="rate" class="w-full bg-slate-700 border border-slate-600 rounded p-2 text-white">
+                <option value="5">5%</option>
+                <option value="12">12%</option>
+                <option value="18" selected>18%</option>
+                <option value="28">28%</option>
+            </select>
+        </div>
+        <div class="flex gap-4">
+            <button onclick="calcGST(true)" class="w-1/2 bg-indigo-600 hover:bg-indigo-500 py-2 rounded font-semibold">Add GST</button>
+            <button onclick="calcGST(false)" class="w-1/2 bg-slate-600 hover:bg-slate-500 py-2 rounded font-semibold">Remove GST</button>
+        </div>
+        <div id="gst-res" class="hidden p-4 bg-slate-700 rounded-lg space-y-1">
+            <p id="gst-amount" class="text-emerald-400 font-medium"></p>
+            <p id="total-amount" class="text-xl font-bold text-white"></p>
+        </div>
+    </div>
+    <script>
+        function calcGST(isAdd) {
+            const amt = parseFloat(document.getElementById('amount').value);
+            const rate = parseFloat(document.getElementById('rate').value);
+            if(!amt) return;
+            let gst = 0, total = 0;
+            if(isAdd) {
+                gst = (amt * rate) / 100;
+                total = amt + gst;
+            } else {
+                total = amt / (1 + (rate / 100));
+                gst = amt - total;
+            }
+            document.getElementById('gst-res').classList.remove('hidden');
+            document.getElementById('gst-amount').innerText = 'GST Amount: ₹' + gst.toFixed(2);
+            document.getElementById('total-amount').innerText = 'Total Amount: ₹' + total.toFixed(2);
+        }
+    </script>
 </body>
 </html>
