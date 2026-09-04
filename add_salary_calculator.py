@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+salary_html = '''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -59,4 +59,9 @@
         }
     </script>
 </body>
-</html>
+</html>'''
+
+with open("salary-tax-calculator.html", "w") as f:
+    f.write(salary_html)
+
+print("Salary & Tax Tool created successfully!")
