@@ -1,0 +1,105 @@
+import glob
+
+# 1. Privacy Policy Page
+privacy_html = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - All-in-One Utility Portal</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TPS02BQ6B4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-TPS02BQ6B4');
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white min-h-screen p-4 md:p-8 max-w-3xl mx-auto space-y-6">
+    <a href="/" class="text-indigo-400 hover:underline">&larr; Back to Home</a>
+    <h1 class="text-3xl font-extrabold text-amber-400">Privacy Policy</h1>
+    <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 space-y-4 text-slate-300 text-sm leading-relaxed">
+        <p>At CGPA & Utility Portal, accessible from our website, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by us and how we use it.</p>
+        <h2 class="text-lg font-bold text-white">Log Files</h2>
+        <p>We follow a standard procedure of using log files. These files log visitors when they visit websites. The information collected includes internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks.</p>
+        <h2 class="text-lg font-bold text-white">Google DoubleClick DART Cookie</h2>
+        <p>Google is one of a third-party vendor on our site. It also uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to our site and other sites on the internet.</p>
+    </div>
+</body>
+</html>'''
+
+# 2. Terms & Conditions Page
+terms_html = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms and Conditions - Utility Portal</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TPS02BQ6B4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-TPS02BQ6B4');
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white min-h-screen p-4 md:p-8 max-w-3xl mx-auto space-y-6">
+    <a href="/" class="text-indigo-400 hover:underline">&larr; Back to Home</a>
+    <h1 class="text-3xl font-extrabold text-amber-400">Terms and Conditions</h1>
+    <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 space-y-4 text-slate-300 text-sm leading-relaxed">
+        <p>Welcome to CGPA & Utility Portal! These terms and conditions outline the rules and regulations for the use of our website.</p>
+        <p>By accessing this website we assume you accept these terms and conditions. Do not continue to use our portal if you do not agree to take all of the terms and conditions stated on this page.</p>
+    </div>
+</body>
+</html>'''
+
+# 3. About Us Page
+about_html = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Utility Portal</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TPS02BQ6B4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-TPS02BQ6B4');
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white min-h-screen p-4 md:p-8 max-w-3xl mx-auto space-y-6">
+    <a href="/" class="text-indigo-400 hover:underline">&larr; Back to Home</a>
+    <h1 class="text-3xl font-extrabold text-amber-400">About Us</h1>
+    <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 space-y-4 text-slate-300 text-sm leading-relaxed">
+        <p>Welcome to the All-in-One Utility Portal created by Arpit Singh. Our portal provides accurate CGPA converters, financial calculators, tax tools, and government scheme eligibility checkers to make daily calculations seamless for students and professionals.</p>
+    </div>
+</body>
+</html>'''
+
+# Save legal files
+with open("privacy-policy.html", "w") as f: f.write(privacy_html)
+with open("terms.html", "w") as f: f.write(terms_html)
+with open("about.html", "w") as f: f.write(about_html)
+
+# Add legal links footer to all pages
+legal_footer = '''
+<footer class="mt-8 pt-4 border-t border-slate-800 text-center text-xs text-slate-500 space-x-4">
+    <a href="/about.html" class="hover:underline">About Us</a>
+    <a href="/privacy-policy.html" class="hover:underline">Privacy Policy</a>
+    <a href="/terms.html" class="hover:underline">Terms & Conditions</a>
+</footer>
+'''
+
+for file_path in glob.glob("*.html"):
+    with open(file_path, "r", encoding="utf-8") as f:
+        content = f.read()
+    if "privacy-policy.html" not in content and "</body>" in content:
+        content = content.replace("</body>", f"{legal_footer}\n</body>")
+        with open(file_path, "w", encoding="utf-8") as f:
+            f.write(content)
+
+print("Legal pages created and linked successfully!")
