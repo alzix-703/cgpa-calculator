@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+age_html = '''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -95,4 +95,9 @@
         }
     </script>
 </body>
-</html>
+</html>'''
+
+with open("age-calculator.html", "w") as f:
+    f.write(age_html)
+
+print("Age Calculator auto-formatting updated successfully!")
