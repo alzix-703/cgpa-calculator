@@ -39,10 +39,9 @@
     <script>
         document.getElementById('target').valueAsDate = new Date();
 
-        // Auto-slash (/) formatting for DD/MM/YYYY
         const dobInput = document.getElementById('dob');
         dobInput.addEventListener('input', function(e) {
-            let v = this.value.replace(/\D/g, ''); // Extract digits only
+            let v = this.value.replace(/\D/g, '');
             if (v.length > 8) v = v.substring(0, 8);
             
             if (v.length > 4) {
