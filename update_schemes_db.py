@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+smart_scheme_html = '''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -329,4 +330,9 @@
     findSchemes();
     </script>
 </body>
-</html>
+</html>'''
+
+with open("smart-scheme-finder.html", "w", encoding="utf-8") as f:
+    f.write(smart_scheme_html)
+
+print("Smart Scheme Finder Database expanded successfully with multi-category support!")
