@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+smart_scheme_html = '''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -296,7 +297,7 @@
         if (filtered.length === 0) {
             listContainer.innerHTML = '<div class="col-span-2 text-center py-10 bg-slate-800/50 rounded-xl border border-slate-700/50">' +
                 '<p class="text-slate-400 text-sm">No specific scheme found for this exact combination.</p>' +
-                '<button onclick="document.getElementById(\'userCategory\').value=\'all\'; findSchemes();" class="mt-2 text-xs text-amber-400 hover:underline">' +
+                '<button onclick="document.getElementById(\\'userCategory\\').value=\\'all\\'; findSchemes();" class="mt-2 text-xs text-amber-400 hover:underline">' +
                     'Try viewing all general schemes' +
                 '</button>' +
             '</div>';
@@ -332,4 +333,9 @@
     findSchemes();
     </script>
 </body>
-</html>
+</html>'''
+
+with open("smart-scheme-finder.html", "w", encoding="utf-8") as f:
+    f.write(smart_scheme_html)
+
+print("Smart Scheme Finder syntax bug fixed successfully!")
