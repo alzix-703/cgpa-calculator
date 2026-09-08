@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+homepage_html = '''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -109,4 +110,9 @@
 
     </div>
 </body>
-</html>
+</html>'''
+
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(homepage_html)
+
+print("Homepage layout successfully restored and updated!")
