@@ -22,19 +22,28 @@
         .card h3 { font-size: 1.1rem; color: #c7d2fe; margin-bottom: 6px; font-weight: 600; }
         .card p { color: #64748b; font-size: 0.85rem; line-height: 1.3; }
 
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); z-index: 1000; justify-content: center; align-items: center; padding: 15px; }
-        .modal-content { background: #131c31; border: 1px solid #38bdf8; border-radius: 16px; padding: 20px; width: 100%; max-width: 450px; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .modal-content h2 { color: #38bdf8; margin-bottom: 15px; font-size: 1.4rem; display: flex; justify-content: space-between; align-items: center; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); z-index: 1000; justify-content: center; align-items: center; padding: 15px; overflow-y: auto; }
+        .modal-content { background: #131c31; border: 1px solid #38bdf8; border-radius: 16px; padding: 20px; width: 100%; max-width: 480px; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.5); max-height: 90vh; overflow-y: auto; }
+        .modal-content h2 { color: #38bdf8; margin-bottom: 15px; font-size: 1.3rem; display: flex; justify-content: space-between; align-items: center; }
         .close-btn { cursor: pointer; color: #94a3b8; font-size: 1.5rem; }
         .close-btn:hover { color: #ef4444; }
 
-        .input-group { margin-bottom: 15px; }
-        .input-group label { display: block; color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px; }
-        .input-group input { width: 100%; padding: 10px; background: #0b1120; border: 1px solid #1e293b; border-radius: 8px; color: #fff; font-size: 1rem; outline: none; }
+        .input-group { margin-bottom: 12px; }
+        .input-group label { display: block; color: #cbd5e1; font-size: 0.82rem; margin-bottom: 4px; }
+        .input-group input { width: 100%; padding: 10px; background: #0b1120; border: 1px solid #1e293b; border-radius: 8px; color: #fff; font-size: 0.95rem; outline: none; }
         .input-group input:focus { border-color: #38bdf8; }
+        
         .action-btn { width: 100%; padding: 12px; background: #38bdf8; color: #0f172a; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; margin-top: 10px; }
         .action-btn:hover { background: #0284c7; color: #fff; }
-        .res-box { margin-top: 15px; padding: 12px; background: #0b1120; border-radius: 8px; border: 1px solid #1e293b; color: #4ade80; font-weight: 600; text-align: center; display: none; line-height: 1.5; }
+
+        .res-box { margin-top: 15px; padding: 14px; background: #0b1120; border-radius: 8px; border: 1px solid #1e293b; display: none; }
+        .res-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.88rem; color: #cbd5e1; }
+        .res-row strong { color: #4ade80; }
+        .regime-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; border-top: 1px dashed #1e293b; padding-top: 10px; }
+        .regime-card { background: #182238; padding: 10px; border-radius: 8px; text-align: center; border: 1px solid #2a3a5c; }
+        .regime-card h4 { font-size: 0.85rem; color: #38bdf8; margin-bottom: 6px; }
+        .regime-card .amt { font-size: 1rem; font-weight: bold; color: #4ade80; }
+        .regime-card .sub { font-size: 0.75rem; color: #94a3b8; margin-top: 3px; }
 
         .uni-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 15px; }
         .uni-btn { background: #131c31; border: 1px solid #1e293b; color: #cbd5e1; padding: 12px 8px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; text-align: center; cursor: pointer; text-transform: uppercase; }
@@ -60,7 +69,7 @@
         <p>Calculate exact age in years, months, and days for Sarkari job forms.</p>
     </div>
 
-    <div class="card">
+    <div class="card" onclick="openSalaryModal()">
         <h3>In-Hand Salary & Tax Calculator</h3>
         <p>Calculate monthly take-home salary and income tax under New vs Old regime.</p>
     </div>
@@ -128,6 +137,42 @@
         </div>
     </div>
 
+    <!-- Salary & Tax Calculator Modal -->
+    <div class="modal" id="salaryModal">
+        <div class="modal-content">
+            <h2>Salary & Tax Calculator <span class="close-btn" onclick="closeSalaryModal()">&times;</span></h2>
+            <div class="input-group">
+                <label>Annual CTC (₹)</label>
+                <input type="number" id="ctcInput" placeholder="e.g. 800000">
+            </div>
+            <div class="input-group">
+                <label>Employee PF Deduction / Year (₹) (Optional)</label>
+                <input type="number" id="pfInput" placeholder="e.g. 21600">
+            </div>
+            <div class="input-group">
+                <label>Deductions under 80C, 80D, HRA etc. (For Old Regime) (₹)</label>
+                <input type="number" id="deductionsInput" placeholder="e.g. 150000">
+            </div>
+            <button class="action-btn" onclick="calculateSalaryAndTax()">Calculate Take-Home</button>
+            
+            <div class="res-box" id="salaryResult">
+                <div class="regime-grid">
+                    <div class="regime-card">
+                        <h4>New Regime</h4>
+                        <div class="amt" id="newInHand">₹0 /mo</div>
+                        <div class="sub" id="newTax">Tax: ₹0/yr</div>
+                    </div>
+                    <div class="regime-card">
+                        <h4>Old Regime</h4>
+                        <div class="amt" id="oldInHand">₹0 /mo</div>
+                        <div class="sub" id="oldTax">Tax: ₹0/yr</div>
+                    </div>
+                </div>
+                <div style="margin-top: 12px; font-size: 0.8rem; color: #fbbf24; text-align: center;" id="recommendation"></div>
+            </div>
+        </div>
+    </div>
+
     <div class="footer">
         <a href="#">Privacy Policy</a>
         <a href="#">Terms & Conditions</a>
@@ -135,7 +180,7 @@
     </div>
 
     <script>
-        // Set Today's date in DD/MM/YYYY format as default target date
+        // Age Calculator setup
         const today = new Date();
         const dd = String(today.getDate()).padStart(2, '0');
         const mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -143,34 +188,19 @@
         document.getElementById('targetDateInput').value = `${dd}/${mm}/${yyyy}`;
 
         function formatDateOnlyNumbers(input) {
-            // Remove everything except numbers (0-9)
             let digits = input.value.replace(/\D/g, '');
-            
-            if (digits.length > 8) {
-                digits = digits.substring(0, 8);
-            }
+            if (digits.length > 8) digits = digits.substring(0, 8);
 
             let formatted = '';
-            if (digits.length > 0) {
-                formatted += digits.substring(0, 2);
-            }
-            if (digits.length >= 3) {
-                formatted += '/' + digits.substring(2, 4);
-            }
-            if (digits.length >= 5) {
-                formatted += '/' + digits.substring(4, 8);
-            }
+            if (digits.length > 0) formatted += digits.substring(0, 2);
+            if (digits.length >= 3) formatted += '/' + digits.substring(2, 4);
+            if (digits.length >= 5) formatted += '/' + digits.substring(4, 8);
 
             input.value = formatted;
         }
 
-        function openAgeModal() {
-            document.getElementById('ageModal').style.display = 'flex';
-        }
-
-        function closeAgeModal() {
-            document.getElementById('ageModal').style.display = 'none';
-        }
+        function openAgeModal() { document.getElementById('ageModal').style.display = 'flex'; }
+        function closeAgeModal() { document.getElementById('ageModal').style.display = 'none'; }
 
         function parseDDMMYYYY(dateStr) {
             const parts = dateStr.split('/');
@@ -180,9 +210,7 @@
             const year = parseInt(parts[2], 10);
             if (isNaN(day) || isNaN(month) || isNaN(year)) return null;
             const d = new Date(year, month, day);
-            if (d.getFullYear() === year && d.getMonth() === month && d.getDate() === day) {
-                return d;
-            }
+            if (d.getFullYear() === year && d.getMonth() === month && d.getDate() === day) return d;
             return null;
         }
 
@@ -226,6 +254,75 @@
             resBox.style.display = 'block';
             resBox.style.color = '#4ade80';
             resBox.innerHTML = `Your Exact Age:<br><span style="font-size:1.2rem; color:#38bdf8;">${y} Years, ${m} Months, ${d} Days</span>`;
+        }
+
+        // Salary Calculator Functions
+        function openSalaryModal() { document.getElementById('salaryModal').style.display = 'flex'; }
+        function closeSalaryModal() { document.getElementById('salaryModal').style.display = 'none'; }
+
+        function calculateTaxNewRegime(taxableIncome) {
+            if (taxableIncome <= 700000) return 0; // Tax rebate u/s 87A up to 7 Lakhs
+            let tax = 0;
+            if (taxableIncome > 300000) tax += Math.min(taxableIncome - 300000, 300000) * 0.05;
+            if (taxableIncome > 600000) tax += Math.min(taxableIncome - 600000, 300000) * 0.10;
+            if (taxableIncome > 900000) tax += Math.min(taxableIncome - 900000, 300000) * 0.15;
+            if (taxableIncome > 1200000) tax += Math.min(taxableIncome - 1200000, 300000) * 0.20;
+            if (taxableIncome > 1500000) tax += (taxableIncome - 1500000) * 0.30;
+            return tax * 1.04; // 4% Cess
+        }
+
+        function calculateTaxOldRegime(taxableIncome) {
+            if (taxableIncome <= 500000) return 0; // Tax rebate u/s 87A up to 5 Lakhs
+            let tax = 0;
+            if (taxableIncome > 250000) tax += Math.min(taxableIncome - 250000, 250000) * 0.05;
+            if (taxableIncome > 500000) tax += Math.min(taxableIncome - 500000, 500000) * 0.20;
+            if (taxableIncome > 1000000) tax += (taxableIncome - 1000000) * 0.30;
+            return tax * 1.04; // 4% Cess
+        }
+
+        function calculateSalaryAndTax() {
+            const ctc = parseFloat(document.getElementById('ctcInput').value) || 0;
+            const pf = parseFloat(document.getElementById('pfInput').value) || 0;
+            const extraDeductions = parseFloat(document.getElementById('deductionsInput').value) || 0;
+            const resBox = document.getElementById('salaryResult');
+
+            if (ctc <= 0) {
+                alert("Please enter a valid Annual CTC!");
+                return;
+            }
+
+            // Standard Deductions
+            const stdDeductionNew = 75000;
+            const stdDeductionOld = 50000;
+
+            // Taxable Incomes
+            const taxableNew = Math.max(0, ctc - stdDeductionNew);
+            const taxableOld = Math.max(0, ctc - stdDeductionOld - extraDeductions);
+
+            // Taxes
+            const taxNew = calculateTaxNewRegime(taxableNew);
+            const taxOld = calculateTaxOldRegime(taxableOld);
+
+            // Monthly In-Hand
+            const inHandNew = Math.round((ctc - pf - taxNew) / 12);
+            const inHandOld = Math.round((ctc - pf - taxOld) / 12);
+
+            document.getElementById('newInHand').innerText = `₹${inHandNew.toLocaleString('en-IN')}/mo`;
+            document.getElementById('newTax').innerText = `Tax: ₹${Math.round(taxNew).toLocaleString('en-IN')}/yr`;
+
+            document.getElementById('oldInHand').innerText = `₹${inHandOld.toLocaleString('en-IN')}/mo`;
+            document.getElementById('oldTax').innerText = `Tax: ₹${Math.round(taxOld).toLocaleString('en-IN')}/yr`;
+
+            const recBox = document.getElementById('recommendation');
+            if (taxNew < taxOld) {
+                recBox.innerText = `💡 New Tax Regime saves you ₹${Math.round(taxOld - taxNew).toLocaleString('en-IN')} more tax every year!`;
+            } else if (taxOld < taxNew) {
+                recBox.innerText = `💡 Old Tax Regime saves you ₹${Math.round(taxNew - taxOld).toLocaleString('en-IN')} more tax every year!`;
+            } else {
+                recBox.innerText = `💡 Both tax regimes result in the exact same tax for you!`;
+            }
+
+            resBox.style.display = 'block';
         }
     </script>
 
