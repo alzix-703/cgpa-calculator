@@ -117,11 +117,11 @@
             <h2>Exact Age Calculator <span class="close-btn" onclick="closeAgeModal()">&times;</span></h2>
             <div class="input-group">
                 <label>Date of Birth (DD/MM/YYYY)</label>
-                <input type="text" id="dobInput" placeholder="DD/MM/YYYY" maxlength="10" onkeyup="autoSlash(this, event)">
+                <input type="text" id="dobInput" placeholder="DD/MM/YYYY" maxlength="10" inputmode="numeric" oninput="formatDateOnlyNumbers(this)">
             </div>
             <div class="input-group">
                 <label>Calculate Age As Of (DD/MM/YYYY)</label>
-                <input type="text" id="targetDateInput" placeholder="DD/MM/YYYY" maxlength="10" onkeyup="autoSlash(this, event)">
+                <input type="text" id="targetDateInput" placeholder="DD/MM/YYYY" maxlength="10" inputmode="numeric" oninput="formatDateOnlyNumbers(this)">
             </div>
             <button class="action-btn" onclick="calculateExactAge()">Calculate Age</button>
             <div class="res-box" id="ageResult"></div>
@@ -142,12 +142,26 @@
         const yyyy = today.getFullYear();
         document.getElementById('targetDateInput').value = `${dd}/${mm}/${yyyy}`;
 
-        function autoSlash(input, e) {
-            if (e.key === 'Backspace') return;
-            let v = input.value;
-            if (v.length === 2 || v.length === 5) {
-                input.value = v + '/';
+        function formatDateOnlyNumbers(input) {
+            // Remove everything except numbers (0-9)
+            let digits = input.value.replace(/\D/g, '');
+            
+            if (digits.length > 8) {
+                digits = digits.substring(0, 8);
             }
+
+            let formatted = '';
+            if (digits.length > 0) {
+                formatted += digits.substring(0, 2);
+            }
+            if (digits.length >= 3) {
+                formatted += '/' + digits.substring(2, 4);
+            }
+            if (digits.length >= 5) {
+                formatted += '/' + digits.substring(4, 8);
+            }
+
+            input.value = formatted;
         }
 
         function openAgeModal() {
