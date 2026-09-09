@@ -58,8 +58,8 @@
         .scheme-apply-btn:hover { background: #22c55e; color: #fff; }
 
         .uni-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 15px; }
-        .uni-btn { background: #131c31; border: 1px solid #1e293b; color: #cbd5e1; padding: 12px 8px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; text-align: center; cursor: pointer; text-transform: uppercase; }
-        .uni-btn:hover { background: #1e293b; border-color: #818cf8; color: #fff; }
+        .uni-btn { background: #131c31; border: 1px solid #1e293b; color: #cbd5e1; padding: 12px 8px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; text-align: center; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+        .uni-btn:hover { background: #1e293b; border-color: #818cf8; color: #fff; transform: translateY(-2px); }
 
         .footer { margin-top: 40px; text-align: center; border-top: 1px solid #1e293b; padding-top: 20px; }
         .footer a { color: #64748b; text-decoration: none; font-size: 0.8rem; margin: 0 10px; }
@@ -105,31 +105,31 @@
     </div>
 
     <!-- University Converters Grid -->
-    <div class="section-title sec-purple">🎓 20+ University CGPA Converters</div>
+    <div class="section-title sec-purple">🎓 22 Official University CGPA Converters</div>
 
     <div class="uni-grid">
-        <div class="uni-btn">AKTU</div>
-        <div class="uni-btn">DU</div>
-        <div class="uni-btn">SPPU</div>
-        <div class="uni-btn">VTU</div>
-        <div class="uni-btn">GTU</div>
-        <div class="uni-btn">RGPV</div>
-        <div class="uni-btn">Anna University</div>
-        <div class="uni-btn">Mumbai University</div>
-        <div class="uni-btn">Calcutta University</div>
-        <div class="uni-btn">JNTU</div>
-        <div class="uni-btn">MG Kashi Vidyapith</div>
-        <div class="uni-btn">CCS University</div>
-        <div class="uni-btn">Bangalore University</div>
-        <div class="uni-btn">Madras University</div>
-        <div class="uni-btn">Panjab University</div>
-        <div class="uni-btn">Patna University</div>
-        <div class="uni-btn">BGU</div>
-        <div class="uni-btn">GGSIPU</div>
-        <div class="uni-btn">LNCT</div>
-        <div class="uni-btn">SRM</div>
-        <div class="uni-btn">AMITY</div>
-        <div class="uni-btn">VIT</div>
+        <div class="uni-btn" onclick="openUniModal('AKTU')">AKTU</div>
+        <div class="uni-btn" onclick="openUniModal('DU')">DU</div>
+        <div class="uni-btn" onclick="openUniModal('SPPU')">SPPU</div>
+        <div class="uni-btn" onclick="openUniModal('VTU')">VTU</div>
+        <div class="uni-btn" onclick="openUniModal('GTU')">GTU</div>
+        <div class="uni-btn" onclick="openUniModal('RGPV')">RGPV</div>
+        <div class="uni-btn" onclick="openUniModal('Anna University')">Anna University</div>
+        <div class="uni-btn" onclick="openUniModal('Mumbai University')">Mumbai University</div>
+        <div class="uni-btn" onclick="openUniModal('Calcutta University')">Calcutta University</div>
+        <div class="uni-btn" onclick="openUniModal('JNTU')">JNTU</div>
+        <div class="uni-btn" onclick="openUniModal('MG Kashi Vidyapith')">MG Kashi Vidyapith</div>
+        <div class="uni-btn" onclick="openUniModal('CCS University')">CCS University</div>
+        <div class="uni-btn" onclick="openUniModal('Bangalore University')">Bangalore University</div>
+        <div class="uni-btn" onclick="openUniModal('Madras University')">Madras University</div>
+        <div class="uni-btn" onclick="openUniModal('Panjab University')">Panjab University</div>
+        <div class="uni-btn" onclick="openUniModal('Patna University')">Patna University</div>
+        <div class="uni-btn" onclick="openUniModal('BGU')">BGU</div>
+        <div class="uni-btn" onclick="openUniModal('GGSIPU')">GGSIPU</div>
+        <div class="uni-btn" onclick="openUniModal('LNCT')">LNCT</div>
+        <div class="uni-btn" onclick="openUniModal('SRM')">SRM</div>
+        <div class="uni-btn" onclick="openUniModal('AMITY')">AMITY</div>
+        <div class="uni-btn" onclick="openUniModal('VIT')">VIT</div>
     </div>
 
     <!-- Age Calculator Modal -->
@@ -168,16 +168,16 @@
             <button class="action-btn" onclick="calculateSalaryAndTax()">Calculate Take-Home</button>
             
             <div class="res-box" id="salaryResult">
-                <div class="regime-grid">
-                    <div class="regime-card">
-                        <h4>New Regime</h4>
-                        <div class="amt" id="newInHand">₹0 /mo</div>
-                        <div class="sub" id="newTax">Tax: ₹0/yr</div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                    <div style="background:#182238; padding:10px; border-radius:8px;">
+                        <h4 style="color:#38bdf8;">New Regime</h4>
+                        <div style="font-size:1.1rem; font-weight:bold; color:#4ade80; margin-top:4px;" id="newInHand">₹0 /mo</div>
+                        <div style="font-size:0.75rem; color:#94a3b8;" id="newTax">Tax: ₹0/yr</div>
                     </div>
-                    <div class="regime-card">
-                        <h4>Old Regime</h4>
-                        <div class="amt" id="oldInHand">₹0 /mo</div>
-                        <div class="sub" id="oldTax">Tax: ₹0/yr</div>
+                    <div style="background:#182238; padding:10px; border-radius:8px;">
+                        <h4 style="color:#38bdf8;">Old Regime</h4>
+                        <div style="font-size:1.1rem; font-weight:bold; color:#4ade80; margin-top:4px;" id="oldInHand">₹0 /mo</div>
+                        <div style="font-size:0.75rem; color:#94a3b8;" id="oldTax">Tax: ₹0/yr</div>
                     </div>
                 </div>
                 <div style="margin-top: 12px; font-size: 0.8rem; color: #fbbf24; text-align: center;" id="recommendation"></div>
@@ -278,6 +278,29 @@
 
             <div class="res-box" id="kisanResultBox">
                 <div id="kisanMessage"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Universal CGPA Converter Modal -->
+    <div class="modal" id="uniModal">
+        <div class="modal-content">
+            <h2><span id="uniModalTitle">CGPA Converter</span> <span class="close-btn" onclick="closeUniModal()">&times;</span></h2>
+            
+            <div class="input-group">
+                <label>Enter CGPA / CPI / SPI (Out of 10)</label>
+                <input type="number" id="cgpaInput" placeholder="e.g. 8.5" step="0.01" max="10" min="0">
+            </div>
+
+            <button class="action-btn" onclick="calculateUniversityCGPA()">Calculate Percentage 🎓</button>
+
+            <div class="res-box" id="uniResultBox">
+                <div class="res-row"><span>University:</span> <strong id="resUniName" style="color:#818cf8;">-</strong></div>
+                <div class="res-row"><span>Formula Used:</span> <strong id="resUniFormula" style="color:#94a3b8; font-size:0.78rem;">-</strong></div>
+                <div class="res-row"><span>Your CGPA:</span> <strong id="resCgpaValue" style="color:#cbd5e1;">-</strong></div>
+                <div class="res-row" style="border-top: 1px solid #1e293b; padding-top: 8px; font-size: 1.1rem;">
+                    <span style="color:#fff;">Equivalent Percentage:</span> <strong id="resPercentage" style="color:#4ade80; font-size: 1.3rem;">0%</strong>
+                </div>
             </div>
         </div>
     </div>
@@ -388,6 +411,69 @@
                 officialLink: "https://www.mudra.org.in"
             }
         ];
+
+        // University CGPA Conversion Formulas Database
+        const uniFormulas = {
+            'AKTU': { formulaText: '(CGPA - 0.75) × 10', calc: (c) => (c - 0.75) * 10 },
+            'DU': { formulaText: 'CGPA × 9.5', calc: (c) => c * 9.5 },
+            'SPPU': { formulaText: 'CGPA × 9.5', calc: (c) => c * 9.5 },
+            'VTU': { formulaText: '(CGPA - 0.75) × 10', calc: (c) => (c - 0.75) * 10 },
+            'GTU': { formulaText: '(CGPA - 0.5) × 10', calc: (c) => (c - 0.5) * 10 },
+            'RGPV': { formulaText: 'CGPA × 10', calc: (c) => c * 10 },
+            'Anna University': { formulaText: 'CGPA × 10', calc: (c) => c * 10 },
+            'Mumbai University': { formulaText: 'CGPA × 9.5', calc: (c) => c * 9.5 },
+            'Calcutta University': { formulaText: '(CGPA × 10) - 5', calc: (c) => (c * 10) - 5 },
+            'JNTU': { formulaText: '(CGPA - 0.5) × 10', calc: (c) => (c - 0.5) * 10 },
+            'MG Kashi Vidyapith': { formulaText: 'CGPA × 9.5', calc: (c) => c * 9.5 },
+            'CCS University': { formulaText: 'CGPA × 9.5', calc: (c) => c * 9.5 },
+            'Bangalore University': { formulaText: '(CGPA - 0.75) × 10', calc: (c) => (c - 0.75) * 10 },
+            'Madras University': { formulaText: 'CGPA × 10', calc: (c) => c * 10 },
+            'Panjab University': { formulaText: 'CGPA × 9.5', calc: (c) => c * 9.5 },
+            'Patna University': { formulaText: 'CGPA × 9.5', calc: (c) => c * 9.5 },
+            'BGU': { formulaText: 'CGPA × 10', calc: (c) => c * 10 },
+            'GGSIPU': { formulaText: 'CGPA × 9.5', calc: (c) => c * 9.5 },
+            'LNCT': { formulaText: 'CGPA × 10', calc: (c) => c * 10 },
+            'SRM': { formulaText: 'CGPA × 10', calc: (c) => c * 10 },
+            'AMITY': { formulaText: 'CGPA × 10', calc: (c) => c * 10 },
+            'VIT': { formulaText: 'CGPA × 10', calc: (c) => c * 10 }
+        };
+
+        let currentSelectedUni = '';
+
+        function openUniModal(uniName) {
+            currentSelectedUni = uniName;
+            document.getElementById('uniModalTitle').innerText = `${uniName} CGPA Calculator`;
+            document.getElementById('cgpaInput').value = '';
+            document.getElementById('uniResultBox').style.display = 'none';
+            document.getElementById('uniModal').style.display = 'flex';
+        }
+
+        function closeUniModal() {
+            document.getElementById('uniModal').style.display = 'none';
+        }
+
+        function calculateUniversityCGPA() {
+            const cgpa = parseFloat(document.getElementById('cgpaInput').value);
+            const resBox = document.getElementById('uniResultBox');
+
+            if (isNaN(cgpa) || cgpa < 0 || cgpa > 10) {
+                alert("Please enter a valid CGPA between 0 and 10!");
+                return;
+            }
+
+            const uniData = uniFormulas[currentSelectedUni];
+            if (!uniData) return;
+
+            let percentage = uniData.calc(cgpa);
+            if (percentage < 0) percentage = 0;
+
+            document.getElementById('resUniName').innerText = currentSelectedUni;
+            document.getElementById('resUniFormula').innerText = uniData.formulaText;
+            document.getElementById('resCgpaValue').innerText = cgpa.toFixed(2);
+            document.getElementById('resPercentage').innerText = `${percentage.toFixed(2)}%`;
+
+            resBox.style.display = 'block';
+        }
 
         // Age Calculator setup
         const today = new Date();
