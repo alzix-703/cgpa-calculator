@@ -44,6 +44,17 @@
         .res-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.88rem; color: #cbd5e1; }
         .res-row strong { color: #4ade80; }
         
+        /* Category Linking Bar */
+        .category-links { margin-top: 18px; padding-top: 12px; border-top: 1px solid #1e293b; font-size: 0.8rem; }
+        .category-links-title { color: #94a3b8; margin-bottom: 8px; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; }
+        .cat-link-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+        .cat-link-btn { background: #0b1120; border: 1px solid #2a3a5c; color: #38bdf8; padding: 6px 10px; border-radius: 6px; text-decoration: none; font-size: 0.78rem; cursor: pointer; transition: background 0.2s; }
+        .cat-link-btn:hover { background: #1e293b; color: #fff; }
+
+        /* Policy & Terms Modal Text */
+        .legal-text { font-size: 0.85rem; color: #cbd5e1; line-height: 1.5; margin-bottom: 12px; }
+        .legal-text h3 { color: #38bdf8; font-size: 1rem; margin: 12px 0 6px 0; }
+
         /* Scheme Cards Styling */
         .scheme-card { background: #182238; border: 1px solid #2a3a5c; border-radius: 10px; padding: 14px; margin-top: 12px; }
         .scheme-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
@@ -62,8 +73,8 @@
         .uni-btn:hover { background: #1e293b; border-color: #818cf8; color: #fff; transform: translateY(-2px); }
 
         .footer { margin-top: 40px; text-align: center; border-top: 1px solid #1e293b; padding-top: 20px; }
-        .footer a { color: #64748b; text-decoration: none; font-size: 0.8rem; margin: 0 10px; }
-        .footer .bottom-link { color: #fbbf24; font-size: 0.85rem; margin-top: 10px; font-weight: 600; display: block; }
+        .footer-link { color: #94a3b8; text-decoration: none; font-size: 0.85rem; margin: 0 12px; cursor: pointer; }
+        .footer-link:hover { color: #38bdf8; text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -73,7 +84,7 @@
         <p>Fast, free, and privacy-focused online calculation tools.</p>
     </div>
 
-    <!-- Financial & Tax Tools -->
+    <!-- Category 1: Financial & Tax Tools -->
     <div class="section-title sec-green">💰 Financial & Tax Tools</div>
     
     <div class="card" onclick="openAgeModal()">
@@ -91,7 +102,7 @@
         <p>Calculate 5%, 12%, 18%, and 28% GST amounts instantly for invoices.</p>
     </div>
 
-    <!-- Sarkari Yojana Utilities -->
+    <!-- Category 2: Sarkari Yojana Utilities -->
     <div class="section-title sec-yellow">🏛️ Sarkari Yojana Utilities</div>
 
     <div class="card" onclick="openYojanaModal()">
@@ -104,7 +115,7 @@
         <p>Check live installment status, registration status, and e-KYC steps.</p>
     </div>
 
-    <!-- University Converters Grid -->
+    <!-- Category 3: University Converters Grid -->
     <div class="section-title sec-purple">🎓 22 Official University CGPA Converters</div>
 
     <div class="uni-grid">
@@ -146,6 +157,14 @@
             </div>
             <button class="action-btn" onclick="calculateExactAge()">Calculate Age</button>
             <div class="res-box" id="ageResult"></div>
+
+            <div class="category-links">
+                <div class="category-links-title">🔗 Other Financial & Tax Tools</div>
+                <div class="cat-link-btns">
+                    <span class="cat-link-btn" onclick="switchModal('ageModal', openSalaryModal)">Salary & Tax Calculator</span>
+                    <span class="cat-link-btn" onclick="switchModal('ageModal', openGstModal)">GST Calculator</span>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -181,6 +200,14 @@
                     </div>
                 </div>
                 <div style="margin-top: 12px; font-size: 0.8rem; color: #fbbf24; text-align: center;" id="recommendation"></div>
+            </div>
+
+            <div class="category-links">
+                <div class="category-links-title">🔗 Other Financial & Tax Tools</div>
+                <div class="cat-link-btns">
+                    <span class="cat-link-btn" onclick="switchModal('salaryModal', openAgeModal)">Exact Age Calculator</span>
+                    <span class="cat-link-btn" onclick="switchModal('salaryModal', openGstModal)">GST Calculator</span>
+                </div>
             </div>
         </div>
     </div>
@@ -219,6 +246,14 @@
                 <div class="res-row"><span>Total GST Amount:</span> <strong id="gstTotalGst">₹0</strong></div>
                 <div class="res-row" style="border-top: 1px solid #1e293b; padding-top: 8px; font-size: 1rem;">
                     <span style="color:#fff;">Final Total Amount:</span> <strong id="gstFinalAmt" style="color:#38bdf8; font-size: 1.1rem;">₹0</strong>
+                </div>
+            </div>
+
+            <div class="category-links">
+                <div class="category-links-title">🔗 Other Financial & Tax Tools</div>
+                <div class="cat-link-btns">
+                    <span class="cat-link-btn" onclick="switchModal('gstModal', openAgeModal)">Exact Age Calculator</span>
+                    <span class="cat-link-btn" onclick="switchModal('gstModal', openSalaryModal)">Salary & Tax Calculator</span>
                 </div>
             </div>
         </div>
@@ -261,6 +296,13 @@
             <button class="action-btn" onclick="findEligibleYojanas()">Find My Eligible Schemes 🚀</button>
 
             <div id="yojanaResultsList"></div>
+
+            <div class="category-links">
+                <div class="category-links-title">🔗 Other Sarkari Yojana Utilities</div>
+                <div class="cat-link-btns">
+                    <span class="cat-link-btn" onclick="switchModal('yojanaModal', openKisanModal)">PM Kisan Status Portal</span>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -278,6 +320,13 @@
 
             <div class="res-box" id="kisanResultBox">
                 <div id="kisanMessage"></div>
+            </div>
+
+            <div class="category-links">
+                <div class="category-links-title">🔗 Other Sarkari Yojana Utilities</div>
+                <div class="cat-link-btns">
+                    <span class="cat-link-btn" onclick="switchModal('kisanModal', openYojanaModal)">Smart Yojana Finder 🚀</span>
+                </div>
             </div>
         </div>
     </div>
@@ -302,117 +351,91 @@
                     <span style="color:#fff;">Equivalent Percentage:</span> <strong id="resPercentage" style="color:#4ade80; font-size: 1.3rem;">0%</strong>
                 </div>
             </div>
+
+            <div class="category-links">
+                <div class="category-links-title">🔗 Popular University Converters</div>
+                <div class="cat-link-btns">
+                    <span class="cat-link-btn" onclick="openUniModal('AKTU')">AKTU</span>
+                    <span class="cat-link-btn" onclick="openUniModal('DU')">DU</span>
+                    <span class="cat-link-btn" onclick="openUniModal('RGPV')">RGPV</span>
+                    <span class="cat-link-btn" onclick="openUniModal('VTU')">VTU</span>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- Privacy Policy Modal -->
+    <div class="modal" id="privacyModal">
+        <div class="modal-content">
+            <h2>Privacy Policy <span class="close-btn" onclick="closePrivacyModal()">&times;</span></h2>
+            <div class="legal-text">
+                <p>Welcome to <strong>All-in-One Utility Portal</strong>. Your privacy is critically important to us.</p>
+                
+                <h3>1. Information We Do Not Collect</h3>
+                <p>We do not collect, store, or share any personal financial data, date of birth, income details, or academic marks entered into our calculators. All calculations are performed directly in your web browser.</p>
+                
+                <h3>2. Third-Party Links</h3>
+                <p>Our portal contains links to official government websites (e.g., pmkisan.gov.in) and university portals. We are not responsible for the privacy practices or content of external websites.</p>
+
+                <h3>3. Cookies</h3>
+                <p>We do not use tracking cookies. Standard server logs may record basic visitor analytics to ensure site functionality and performance.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms & Conditions Modal -->
+    <div class="modal" id="termsModal">
+        <div class="modal-content">
+            <h2>Terms & Conditions <span class="close-btn" onclick="closeTermsModal()">&times;</span></h2>
+            <div class="legal-text">
+                <p>By accessing and using <strong>All-in-One Utility Portal</strong>, you agree to comply with the following terms:</p>
+                
+                <h3>1. Disclaimer & Accuracy</h3>
+                <p>All calculators and government scheme information provided on this portal are for educational and informational purposes only. While we strive to maintain accurate conversion formulas and portal links, users are advised to verify details with official university guidelines and government notifications.</p>
+
+                <h3>2. No Financial or Legal Advice</h3>
+                <p>The output of Tax and Salary calculators should not be treated as formal financial or legal advice. Consult a certified Chartered Accountant (CA) or financial expert for official tax filing.</p>
+
+                <h3>3. Limitation of Liability</h3>
+                <p>The website owner shall not be liable for any discrepancies, losses, or errors resulting from the use of tools on this website.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
     <div class="footer">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms & Conditions</a>
-        <span class="bottom-link">Smart Yojana Finder</span>
+        <span class="footer-link" onclick="openPrivacyModal()">Privacy Policy</span>
+        <span class="footer-link" onclick="openTermsModal()">Terms & Conditions</span>
     </div>
 
     <script>
-        // Real Government Schemes Master Database with State Mapping
+        // Inter-Modal Switcher Function
+        function switchModal(currentModalId, targetOpenFunction) {
+            document.getElementById(currentModalId).style.display = 'none';
+            targetOpenFunction();
+        }
+
+        // Privacy Policy Modal Controls
+        function openPrivacyModal() { document.getElementById('privacyModal').style.display = 'flex'; }
+        function closePrivacyModal() { document.getElementById('privacyModal').style.display = 'none'; }
+
+        // Terms Modal Controls
+        function openTermsModal() { document.getElementById('termsModal').style.display = 'flex'; }
+        function closeTermsModal() { document.getElementById('termsModal').style.display = 'none'; }
+
+        // Schemes Database
         const schemesDatabase = [
-            {
-                title: "PM-Kisan Samman Nidhi",
-                state: "all",
-                category: "farmer",
-                minAge: 18,
-                maxAge: 75,
-                status: "active",
-                statusText: "Active / Open",
-                dates: "Ongoing | Next Installment expected Oct 2026",
-                desc: "Get ₹6,000 per year directly in bank account in 3 equal installments of ₹2,000.",
-                officialLink: "https://pmkisan.gov.in"
-            },
-            {
-                title: "Ladli Behna Yojana",
-                state: "MP",
-                category: "women",
-                minAge: 21,
-                maxAge: 60,
-                status: "active",
-                statusText: "Active / Open",
-                dates: "Monthly disbursement active",
-                desc: "Financial assistance of ₹1,250 per month directly transferred to women's accounts in MP.",
-                officialLink: "https://cmladlibehna.mp.gov.in"
-            },
-            {
-                title: "MP Free Scooty & Laptop Yojana",
-                state: "MP",
-                category: "student",
-                minAge: 16,
-                maxAge: 22,
-                status: "active",
-                statusText: "Active / Open",
-                dates: "Start: 01 Aug 2026 | Last Date: 30 Oct 2026",
-                desc: "Free scooty for class 12th toppers and laptop distribution money for meritorious students.",
-                officialLink: "https://educationportal.mp.gov.in"
-            },
-            {
-                title: "UP Mukhyamantri Kanya Sumangala Yojana",
-                state: "UP",
-                category: "women",
-                minAge: 0,
-                maxAge: 20,
-                status: "active",
-                statusText: "Active / Open",
-                dates: "Ongoing annual applications",
-                desc: "Conditional cash transfer of up to ₹25,000 in phases from birth to graduation for girls in UP.",
-                officialLink: "https://mksy.up.gov.in"
-            },
-            {
-                title: "UP Free Tablet / Smartphone Yojana",
-                state: "UP",
-                category: "student",
-                minAge: 18,
-                maxAge: 26,
-                status: "upcoming",
-                statusText: "Upcoming",
-                dates: "Expected Window: Nov 2026",
-                desc: "Free devices distributed to university and college studying youth in Uttar Pradesh.",
-                officialLink: "https://upcmo.up.nic.in"
-            },
-            {
-                title: "PM YASASVI Post-Matric Scholarship",
-                state: "all",
-                category: "student",
-                minAge: 13,
-                maxAge: 30,
-                status: "active",
-                statusText: "Active / Open",
-                dates: "Start: 01 Aug 2026 | Last Date: 31 Oct 2026",
-                desc: "Financial scholarship for OBC, EBC, and DNT students studying in Class 9th to College.",
-                officialLink: "https://yet.nta.ac.in"
-            },
-            {
-                title: "Lakhpati Didi Yojana",
-                state: "all",
-                category: "women",
-                minAge: 18,
-                maxAge: 55,
-                status: "active",
-                statusText: "Active / Open",
-                dates: "Ongoing Registration via SHG Group",
-                desc: "Interest-free skill training and business financial assistance up to ₹5 Lakhs for women.",
-                officialLink: "https://daynulm.gov.in"
-            },
-            {
-                title: "PM Mudra Loan Scheme",
-                state: "all",
-                category: "business",
-                minAge: 18,
-                maxAge: 65,
-                status: "active",
-                statusText: "Active / Open",
-                dates: "Always Active through Public Sector Banks",
-                desc: "Collateral-free loans up to ₹20 Lakhs for small businesses and shopkeepers.",
-                officialLink: "https://www.mudra.org.in"
-            }
+            { title: "PM-Kisan Samman Nidhi", state: "all", category: "farmer", minAge: 18, maxAge: 75, status: "active", statusText: "Active / Open", dates: "Ongoing | Next Installment expected Oct 2026", desc: "Get ₹6,000 per year directly in bank account in 3 equal installments of ₹2,000.", officialLink: "https://pmkisan.gov.in" },
+            { title: "Ladli Behna Yojana", state: "MP", category: "women", minAge: 21, maxAge: 60, status: "active", statusText: "Active / Open", dates: "Monthly disbursement active", desc: "Financial assistance of ₹1,250 per month directly transferred to women's accounts in MP.", officialLink: "https://cmladlibehna.mp.gov.in" },
+            { title: "MP Free Scooty & Laptop Yojana", state: "MP", category: "student", minAge: 16, maxAge: 22, status: "active", statusText: "Active / Open", dates: "Start: 01 Aug 2026 | Last Date: 30 Oct 2026", desc: "Free scooty for class 12th toppers and laptop distribution money for meritorious students.", officialLink: "https://educationportal.mp.gov.in" },
+            { title: "UP Mukhyamantri Kanya Sumangala Yojana", state: "UP", category: "women", minAge: 0, maxAge: 20, status: "active", statusText: "Active / Open", dates: "Ongoing annual applications", desc: "Conditional cash transfer of up to ₹25,000 in phases from birth to graduation for girls in UP.", officialLink: "https://mksy.up.gov.in" },
+            { title: "UP Free Tablet / Smartphone Yojana", state: "UP", category: "student", minAge: 18, maxAge: 26, status: "upcoming", statusText: "Upcoming", dates: "Expected Window: Nov 2026", desc: "Free devices distributed to university and college studying youth in Uttar Pradesh.", officialLink: "https://upcmo.up.nic.in" },
+            { title: "PM YASASVI Post-Matric Scholarship", state: "all", category: "student", minAge: 13, maxAge: 30, status: "active", statusText: "Active / Open", dates: "Start: 01 Aug 2026 | Last Date: 31 Oct 2026", desc: "Financial scholarship for OBC, EBC, and DNT students studying in Class 9th to College.", officialLink: "https://yet.nta.ac.in" },
+            { title: "Lakhpati Didi Yojana", state: "all", category: "women", minAge: 18, maxAge: 55, status: "active", statusText: "Active / Open", dates: "Ongoing Registration via SHG Group", desc: "Interest-free skill training and business financial assistance up to ₹5 Lakhs for women.", officialLink: "https://daynulm.gov.in" },
+            { title: "PM Mudra Loan Scheme", state: "all", category: "business", minAge: 18, maxAge: 65, status: "active", statusText: "Active / Open", dates: "Always Active through Public Sector Banks", desc: "Collateral-free loans up to ₹20 Lakhs for small businesses and shopkeepers.", officialLink: "https://www.mudra.org.in" }
         ];
 
-        // University CGPA Conversion Formulas Database
+        // CGPA Conversion Formulas Database
         const uniFormulas = {
             'AKTU': { formulaText: '(CGPA - 0.75) × 10', calc: (c) => (c - 0.75) * 10 },
             'DU': { formulaText: 'CGPA × 9.5', calc: (c) => c * 9.5 },
@@ -448,9 +471,7 @@
             document.getElementById('uniModal').style.display = 'flex';
         }
 
-        function closeUniModal() {
-            document.getElementById('uniModal').style.display = 'none';
-        }
+        function closeUniModal() { document.getElementById('uniModal').style.display = 'none'; }
 
         function calculateUniversityCGPA() {
             const cgpa = parseFloat(document.getElementById('cgpaInput').value);
