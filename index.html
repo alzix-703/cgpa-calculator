@@ -30,9 +30,13 @@
 
         .input-group { margin-bottom: 12px; }
         .input-group label { display: block; color: #cbd5e1; font-size: 0.82rem; margin-bottom: 4px; }
-        .input-group input { width: 100%; padding: 10px; background: #0b1120; border: 1px solid #1e293b; border-radius: 8px; color: #fff; font-size: 0.95rem; outline: none; }
-        .input-group input:focus { border-color: #38bdf8; }
+        .input-group input, .input-group select { width: 100%; padding: 10px; background: #0b1120; border: 1px solid #1e293b; border-radius: 8px; color: #fff; font-size: 0.95rem; outline: none; }
+        .input-group input:focus, .input-group select:focus { border-color: #38bdf8; }
         
+        .radio-group { display: flex; gap: 10px; margin-bottom: 15px; }
+        .radio-btn { flex: 1; padding: 10px; background: #0b1120; border: 1px solid #1e293b; border-radius: 8px; text-align: center; color: #94a3b8; cursor: pointer; font-size: 0.85rem; font-weight: 600; }
+        .radio-btn.active { background: #38bdf8; color: #0f172a; border-color: #38bdf8; }
+
         .action-btn { width: 100%; padding: 12px; background: #38bdf8; color: #0f172a; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; margin-top: 10px; }
         .action-btn:hover { background: #0284c7; color: #fff; }
 
@@ -74,7 +78,7 @@
         <p>Calculate monthly take-home salary and income tax under New vs Old regime.</p>
     </div>
 
-    <div class="card">
+    <div class="card" onclick="openGstModal()">
         <h3>GST Calculator (Add/Remove GST)</h3>
         <p>Calculate 5%, 12%, 18%, and 28% GST amounts instantly for invoices.</p>
     </div>
@@ -173,6 +177,45 @@
         </div>
     </div>
 
+    <!-- GST Calculator Modal -->
+    <div class="modal" id="gstModal">
+        <div class="modal-content">
+            <h2>GST Calculator <span class="close-btn" onclick="closeGstModal()">&times;</span></h2>
+            
+            <div class="radio-group">
+                <div class="radio-btn active" id="addGstBtn" onclick="setGstType('add')">Add GST</div>
+                <div class="radio-btn" id="removeGstBtn" onclick="setGstType('remove')">Remove GST</div>
+            </div>
+
+            <div class="input-group">
+                <label>Amount (₹)</label>
+                <input type="number" id="gstAmountInput" placeholder="e.g. 1000">
+            </div>
+
+            <div class="input-group">
+                <label>GST Rate (%)</label>
+                <select id="gstRateSelect">
+                    <option value="5">5% GST</option>
+                    <option value="12">12% GST</option>
+                    <option value="18" selected>18% GST</option>
+                    <option value="28">28% GST</option>
+                </select>
+            </div>
+
+            <button class="action-btn" onclick="calculateGST()">Calculate GST</button>
+
+            <div class="res-box" id="gstResult">
+                <div class="res-row"><span>Base Amount:</span> <strong id="gstBaseAmt">₹0</strong></div>
+                <div class="res-row"><span>CGST:</span> <strong id="gstCgst">₹0</strong></div>
+                <div class="res-row"><span>SGST:</span> <strong id="gstSgst">₹0</strong></div>
+                <div class="res-row"><span>Total GST Amount:</span> <strong id="gstTotalGst">₹0</strong></div>
+                <div class="res-row" style="border-top: 1px solid #1e293b; padding-top: 8px; font-size: 1rem;">
+                    <span style="color:#fff;">Final Total Amount:</span> <strong id="gstFinalAmt" style="color:#38bdf8; font-size: 1.1rem;">₹0</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="footer">
         <a href="#">Privacy Policy</a>
         <a href="#">Terms & Conditions</a>
@@ -261,23 +304,23 @@
         function closeSalaryModal() { document.getElementById('salaryModal').style.display = 'none'; }
 
         function calculateTaxNewRegime(taxableIncome) {
-            if (taxableIncome <= 700000) return 0; // Tax rebate u/s 87A up to 7 Lakhs
+            if (taxableIncome <= 700000) return 0;
             let tax = 0;
             if (taxableIncome > 300000) tax += Math.min(taxableIncome - 300000, 300000) * 0.05;
             if (taxableIncome > 600000) tax += Math.min(taxableIncome - 600000, 300000) * 0.10;
             if (taxableIncome > 900000) tax += Math.min(taxableIncome - 900000, 300000) * 0.15;
             if (taxableIncome > 1200000) tax += Math.min(taxableIncome - 1200000, 300000) * 0.20;
             if (taxableIncome > 1500000) tax += (taxableIncome - 1500000) * 0.30;
-            return tax * 1.04; // 4% Cess
+            return tax * 1.04;
         }
 
         function calculateTaxOldRegime(taxableIncome) {
-            if (taxableIncome <= 500000) return 0; // Tax rebate u/s 87A up to 5 Lakhs
+            if (taxableIncome <= 500000) return 0;
             let tax = 0;
             if (taxableIncome > 250000) tax += Math.min(taxableIncome - 250000, 250000) * 0.05;
             if (taxableIncome > 500000) tax += Math.min(taxableIncome - 500000, 500000) * 0.20;
             if (taxableIncome > 1000000) tax += (taxableIncome - 1000000) * 0.30;
-            return tax * 1.04; // 4% Cess
+            return tax * 1.04;
         }
 
         function calculateSalaryAndTax() {
@@ -291,19 +334,15 @@
                 return;
             }
 
-            // Standard Deductions
             const stdDeductionNew = 75000;
             const stdDeductionOld = 50000;
 
-            // Taxable Incomes
             const taxableNew = Math.max(0, ctc - stdDeductionNew);
             const taxableOld = Math.max(0, ctc - stdDeductionOld - extraDeductions);
 
-            // Taxes
             const taxNew = calculateTaxNewRegime(taxableNew);
             const taxOld = calculateTaxOldRegime(taxableOld);
 
-            // Monthly In-Hand
             const inHandNew = Math.round((ctc - pf - taxNew) / 12);
             const inHandOld = Math.round((ctc - pf - taxOld) / 12);
 
@@ -321,6 +360,57 @@
             } else {
                 recBox.innerText = `💡 Both tax regimes result in the exact same tax for you!`;
             }
+
+            resBox.style.display = 'block';
+        }
+
+        // GST Calculator Functions
+        let selectedGstType = 'add';
+
+        function openGstModal() { document.getElementById('gstModal').style.display = 'flex'; }
+        function closeGstModal() { document.getElementById('gstModal').style.display = 'none'; }
+
+        function setGstType(type) {
+            selectedGstType = type;
+            if (type === 'add') {
+                document.getElementById('addGstBtn').classList.add('active');
+                document.getElementById('removeGstBtn').classList.remove('active');
+            } else {
+                document.getElementById('removeGstBtn').classList.add('active');
+                document.getElementById('addGstBtn').classList.remove('active');
+            }
+        }
+
+        function calculateGST() {
+            const amount = parseFloat(document.getElementById('gstAmountInput').value) || 0;
+            const rate = parseFloat(document.getElementById('gstRateSelect').value) || 0;
+            const resBox = document.getElementById('gstResult');
+
+            if (amount <= 0) {
+                alert("Please enter a valid amount!");
+                return;
+            }
+
+            let baseAmount, gstAmount, finalAmount;
+
+            if (selectedGstType === 'add') {
+                baseAmount = amount;
+                gstAmount = (baseAmount * rate) / 100;
+                finalAmount = baseAmount + gstAmount;
+            } else {
+                finalAmount = amount;
+                baseAmount = finalAmount / (1 + (rate / 100));
+                gstAmount = finalAmount - baseAmount;
+            }
+
+            const cgst = gstAmount / 2;
+            const sgst = gstAmount / 2;
+
+            document.getElementById('gstBaseAmt').innerText = `₹${baseAmount.toFixed(2)}`;
+            document.getElementById('gstCgst').innerText = `₹${cgst.toFixed(2)}`;
+            document.getElementById('gstSgst').innerText = `₹${sgst.toFixed(2)}`;
+            document.getElementById('gstTotalGst').innerText = `₹${gstAmount.toFixed(2)}`;
+            document.getElementById('gstFinalAmt').innerText = `₹${finalAmount.toFixed(2)}`;
 
             resBox.style.display = 'block';
         }
