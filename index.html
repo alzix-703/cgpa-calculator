@@ -270,11 +270,11 @@
             <h2>PM Kisan Status Checker <span class="close-btn" onclick="closeKisanModal()">&times;</span></h2>
             
             <div class="input-group">
-                <label>Aadhaar Number / Registration Number</label>
-                <input type="text" id="kisanIdInput" placeholder="12-Digit Aadhaar ya Reg No. Dalein" maxlength="12" inputmode="numeric">
+                <label>12-Digit Aadhaar Number</label>
+                <input type="text" id="kisanIdInput" placeholder="Poora 12-Digit Aadhaar No. Dalein" maxlength="12" inputmode="numeric">
             </div>
 
-            <button class="action-btn" onclick="checkKisanStatus()">Check Live Status / Apply 🌾</button>
+            <button class="action-btn" onclick="checkKisanStatus()">Verify & Check Live Status 🌾</button>
 
             <div class="res-box" id="kisanResultBox">
                 <div id="kisanMessage"></div>
@@ -639,10 +639,11 @@
             const resBox = document.getElementById('kisanResultBox');
             const msgBox = document.getElementById('kisanMessage');
 
-            if (inputVal.length < 10) {
+            // Strict 12-Digit Validation
+            if (inputVal.length !== 12 || isNaN(inputVal)) {
                 resBox.style.display = 'block';
                 msgBox.innerHTML = `
-                    <div style="color:#ef4444; font-weight:600; font-size:0.9rem;">❌ Kripya sahi 12-Digit Aadhaar ya Registration Number dalein!</div>
+                    <div style="color:#ef4444; font-weight:600; font-size:0.9rem;">❌ Galat Input! Aadhaar Number me poore 12 digits hone chahiye.</div>
                 `;
                 return;
             }
@@ -650,15 +651,15 @@
             resBox.style.display = 'block';
             msgBox.innerHTML = `
                 <div style="font-size:0.88rem; color:#cbd5e1; line-height:1.4;">
-                    <div style="color:#4ade80; font-weight:700; margin-bottom:8px; font-size:1rem;">🔍 Live Verification Instructions:</div>
-                    PM Kisan Govt Portal par OTP Security ke kaaran live status check karne ke liye niche buttons ka upyog karein:
+                    <div style="color:#4ade80; font-weight:700; margin-bottom:8px; font-size:1rem;">✅ Valid 12-Digit Format Recorded</div>
+                    Government rules ke according real details check karne ke liye official OTP verification zaroori hota hai:
                     
                     <div style="margin-top:12px; display:flex; flex-direction:column; gap:8px;">
                         <a href="https://pmkisan.gov.in/BeneficiaryStatus_New.aspx" target="_blank" class="scheme-apply-btn" style="background:#38bdf8;">
-                            1. Check Live Status on PM Kisan Govt Portal 🔗
+                            1. Check Live Status on Official Govt Portal 🔗
                         </a>
                         <a href="https://pmkisan.gov.in/RegistrationFormNew.aspx" target="_blank" class="scheme-apply-btn" style="background:#fbbf24;">
-                            2. Naya Kisan Registration Karein (New Apply) 📝
+                            2. Agar Apply Nahi Kiya Toh Naya Registration Karein 📝
                         </a>
                         <a href="https://pmkisan.gov.in/aadharekyc.aspx" target="_blank" class="scheme-apply-btn" style="background:#4ade80;">
                             3. Complete eKYC / Aadhaar Link 🔐
