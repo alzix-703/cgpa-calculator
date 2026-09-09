@@ -100,8 +100,8 @@
     </div>
 
     <div class="card" onclick="openKisanModal()">
-        <h3>PM Kisan Eligibility & Status Checker</h3>
-        <p>Check e-KYC status, land seeding requirements, and installment eligibility.</p>
+        <h3>PM Kisan Eligibility & Live Status Portal</h3>
+        <p>Check live installment status, registration status, and e-KYC steps.</p>
     </div>
 
     <!-- University Converters Grid -->
@@ -270,22 +270,14 @@
             <h2>PM Kisan Status Checker <span class="close-btn" onclick="closeKisanModal()">&times;</span></h2>
             
             <div class="input-group">
-                <label>Aadhaar Number or Registration Number</label>
-                <input type="text" id="kisanIdInput" placeholder="Enter 12-digit Aadhaar or Reg No" maxlength="12" inputmode="numeric">
+                <label>Aadhaar Number / Registration Number</label>
+                <input type="text" id="kisanIdInput" placeholder="12-Digit Aadhaar ya Reg No. Dalein" maxlength="12" inputmode="numeric">
             </div>
 
-            <button class="action-btn" onclick="checkKisanStatus()">Check PM Kisan Status 🌾</button>
+            <button class="action-btn" onclick="checkKisanStatus()">Check Live Status / Apply 🌾</button>
 
             <div class="res-box" id="kisanResultBox">
-                <div class="res-row"><span>Farmer Name:</span> <strong id="kisanName">Arpit Singh</strong></div>
-                <div class="res-row"><span>Registration Status:</span> <strong style="color:#4ade80;">Verified & Active</strong></div>
-                <div class="res-row"><span>e-KYC Status:</span> <strong id="kisanEkyc" style="color:#4ade80;">Done (Yes)</strong></div>
-                <div class="res-row"><span>Land Seeding:</span> <strong id="kisanLand" style="color:#4ade80;">Verified (Yes)</strong></div>
-                <div class="res-row"><span>Aadhaar Bank Linking:</span> <strong style="color:#4ade80;">Active (DBT Enabled)</strong></div>
-                <div class="res-row" style="border-top:1px solid #1e293b; padding-top:8px;">
-                    <span>Last Installment:</span> <strong id="kisanInstallment">₹2,000 Credited</strong>
-                </div>
-                <a href="https://pmkisan.gov.in" target="_blank" class="scheme-apply-btn" style="margin-top:10px;">Open Official PM Kisan Portal 🔗</a>
+                <div id="kisanMessage"></div>
             </div>
         </div>
     </div>
@@ -645,13 +637,35 @@
         function checkKisanStatus() {
             const inputVal = document.getElementById('kisanIdInput').value.trim();
             const resBox = document.getElementById('kisanResultBox');
+            const msgBox = document.getElementById('kisanMessage');
 
-            if (inputVal.length < 5) {
-                alert("Please enter a valid Aadhaar or Registration Number!");
+            if (inputVal.length < 10) {
+                resBox.style.display = 'block';
+                msgBox.innerHTML = `
+                    <div style="color:#ef4444; font-weight:600; font-size:0.9rem;">❌ Kripya sahi 12-Digit Aadhaar ya Registration Number dalein!</div>
+                `;
                 return;
             }
 
             resBox.style.display = 'block';
+            msgBox.innerHTML = `
+                <div style="font-size:0.88rem; color:#cbd5e1; line-height:1.4;">
+                    <div style="color:#4ade80; font-weight:700; margin-bottom:8px; font-size:1rem;">🔍 Live Verification Instructions:</div>
+                    PM Kisan Govt Portal par OTP Security ke kaaran live status check karne ke liye niche buttons ka upyog karein:
+                    
+                    <div style="margin-top:12px; display:flex; flex-direction:column; gap:8px;">
+                        <a href="https://pmkisan.gov.in/BeneficiaryStatus_New.aspx" target="_blank" class="scheme-apply-btn" style="background:#38bdf8;">
+                            1. Check Live Status on PM Kisan Govt Portal 🔗
+                        </a>
+                        <a href="https://pmkisan.gov.in/RegistrationFormNew.aspx" target="_blank" class="scheme-apply-btn" style="background:#fbbf24;">
+                            2. Naya Kisan Registration Karein (New Apply) 📝
+                        </a>
+                        <a href="https://pmkisan.gov.in/aadharekyc.aspx" target="_blank" class="scheme-apply-btn" style="background:#4ade80;">
+                            3. Complete eKYC / Aadhaar Link 🔐
+                        </a>
+                    </div>
+                </div>
+            `;
         }
     </script>
 
