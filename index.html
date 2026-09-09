@@ -3,60 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CGPA & Attendance Calculator</title>
+    <title>All-in-One Utility Portal</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: #0f172a; color: #fff; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
-        .card { background: #1e293b; border: 1px solid #334155; border-radius: 16px; padding: 25px; max-width: 450px; width: 100%; box-shadow: 0 10px 25px rgba(0,0,0,0.3); text-align: center; }
-        h1 { color: #38bdf8; font-size: 1.8rem; margin-bottom: 10px; }
-        p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 20px; }
-        .input-group { margin-bottom: 15px; text-align: left; }
-        label { display: block; color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px; }
-        input { width: 100%; padding: 12px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: #fff; font-size: 1rem; outline: none; }
-        input:focus { border-color: #38bdf8; }
-        button { width: 100%; padding: 12px; background: #38bdf8; color: #0f172a; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; margin-top: 10px; }
-        button:hover { background: #0284c7; color: #fff; }
-        .result { margin-top: 20px; padding: 12px; background: #0f172a; border-radius: 8px; color: #38bdf8; font-weight: bold; display: none; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        body { background: #0b1120; color: #f8fafc; padding: 25px 15px; max-width: 600px; margin: 0 auto; }
+        
+        /* Header */
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { font-size: 2.2rem; font-weight: 800; color: #818cf8; margin-bottom: 10px; line-height: 1.2; }
+        .header p { color: #94a3b8; font-size: 0.95rem; line-height: 1.4; }
+
+        /* Section Titles */
+        .section-title { font-size: 1.3rem; font-weight: 700; margin: 25px 0 15px 0; display: flex; align-items: center; gap: 8px; }
+        .sec-green { color: #4ade80; }
+        .sec-yellow { color: #fbbf24; }
+        .sec-purple { color: #818cf8; }
+
+        /* Cards */
+        .card { background: #131c31; border: 1px solid #1e293b; border-radius: 12px; padding: 18px; margin-bottom: 12px; cursor: pointer; transition: background 0.2s; }
+        .card:hover { background: #1c2744; }
+        .card h3 { font-size: 1.1rem; color: #c7d2fe; margin-bottom: 6px; font-weight: 600; }
+        .card p { color: #64748b; font-size: 0.85rem; line-height: 1.3; }
+
+        /* University Grid */
+        .uni-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 15px; }
+        .uni-btn { background: #131c31; border: 1px solid #1e293b; color: #cbd5e1; padding: 12px 8px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; text-align: center; cursor: pointer; text-transform: uppercase; }
+        .uni-btn:hover { background: #1e293b; border-color: #818cf8; color: #fff; }
+
+        /* Footer */
+        .footer { margin-top: 40px; text-align: center; border-top: 1px solid #1e293b; padding-top: 20px; }
+        .footer a { color: #64748b; text-decoration: none; font-size: 0.8rem; margin: 0 10px; }
+        .footer .bottom-link { color: #fbbf24; font-size: 0.85rem; margin-top: 10px; font-weight: 600; display: block; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>Attendance Calculator</h1>
-        <p>Calculate required classes for 75% target</p>
-        <div class="input-group">
-            <label>Total Classes Conducted</label>
-            <input type="number" id="totalClasses" placeholder="e.g. 50">
-        </div>
-        <div class="input-group">
-            <label>Classes Attended</label>
-            <input type="number" id="attendedClasses" placeholder="e.g. 35">
-        </div>
-        <button onclick="calculateAttendance()">Calculate</button>
-        <div class="result" id="resultBox"></div>
+
+    <div class="header">
+        <h1>All-in-One Utility Portal</h1>
+        <p>Fast, free, and privacy-focused online calculation tools.</p>
     </div>
-    <script>
-        function calculateAttendance() {
-            let total = parseFloat(document.getElementById('totalClasses').value);
-            let attended = parseFloat(document.getElementById('attendedClasses').value);
-            let resultBox = document.getElementById('resultBox');
-            if (!total || isNaN(attended) || attended > total) {
-                resultBox.style.display = "block";
-                resultBox.style.color = "#ef4444";
-                resultBox.innerHTML = "Please enter valid numbers!";
-                return;
-            }
-            let percentage = ((attended / total) * 100).toFixed(2);
-            let message = `Current Attendance: ${percentage}%<br>`;
-            if (percentage >= 75) {
-                message += `<span style="color: #4ade80;">You are safe! Keep it up.</span>`;
-            } else {
-                let required = Math.ceil((0.75 * total - attended) / 0.25);
-                message += `<span style="color: #f87171;">You need to attend ${required} more classes for 75%.</span>`;
-            }
-            resultBox.style.display = "block";
-            resultBox.style.color = "#38bdf8";
-            resultBox.innerHTML = message;
-        }
-    </script>
+
+    <!-- Financial & Tax Tools -->
+    <div class="section-title sec-green">💰 Financial & Tax Tools</div>
+    
+    <div class="card">
+        <h3>Exact Age Calculator</h3>
+        <p>Calculate exact age in years, months, and days for Sarkari job forms.</p>
+    </div>
+
+    <div class="card">
+        <h3>In-Hand Salary & Tax Calculator</h3>
+        <p>Calculate monthly take-home salary and income tax under New vs Old regime.</p>
+    </div>
+
+    <div class="card">
+        <h3>GST Calculator (Add/Remove GST)</h3>
+        <p>Calculate 5%, 12%, 18%, and 28% GST amounts instantly for invoices.</p>
+    </div>
+
+    <!-- Sarkari Yojana Utilities -->
+    <div class="section-title sec-yellow">🏛️ Sarkari Yojana Utilities</div>
+
+    <div class="card">
+        <h3>Smart Sarkari Yojana Finder 🚀</h3>
+        <p>Enter age, income, board/profession & get exact eligible schemes with live official form links.</p>
+    </div>
+
+    <div class="card">
+        <h3>PM Kisan Eligibility & Status Checker</h3>
+        <p>Check e-KYC status, land seeding requirements, and installment eligibility.</p>
+    </div>
+
+    <!-- University Converters Grid -->
+    <div class="section-title sec-purple">🎓 20+ University CGPA Converters</div>
+
+    <div class="uni-grid">
+        <div class="uni-btn">AKTU</div>
+        <div class="uni-btn">DU</div>
+        <div class="uni-btn">SPPU</div>
+        <div class="uni-btn">VTU</div>
+        <div class="uni-btn">GTU</div>
+        <div class="uni-btn">RGPV</div>
+        <div class="uni-btn">Anna University</div>
+        <div class="uni-btn">Mumbai University</div>
+        <div class="uni-btn">Calcutta University</div>
+        <div class="uni-btn">JNTU</div>
+        <div class="uni-btn">MG Kashi Vidyapith</div>
+        <div class="uni-btn">CCS University</div>
+        <div class="uni-btn">Bangalore University</div>
+        <div class="uni-btn">Madras University</div>
+        <div class="uni-btn">Panjab University</div>
+        <div class="uni-btn">Patna University</div>
+        <div class="uni-btn">BGU</div>
+        <div class="uni-btn">GGSIPU</div>
+        <div class="uni-btn">LNCT</div>
+        <div class="uni-btn">SRM</div>
+        <div class="uni-btn">AMITY</div>
+        <div class="uni-btn">VIT</div>
+    </div>
+
+    <div class="footer">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms & Conditions</a>
+        <span class="bottom-link">Smart Yojana Finder</span>
+    </div>
+
 </body>
 </html>
