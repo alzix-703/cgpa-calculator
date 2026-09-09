@@ -20,10 +20,26 @@
         .sec-purple { color: #818cf8; }
 
         /* Cards */
-        .card { background: #131c31; border: 1px solid #1e293b; border-radius: 12px; padding: 18px; margin-bottom: 12px; cursor: pointer; transition: background 0.2s; }
-        .card:hover { background: #1c2744; }
+        .card { background: #131c31; border: 1px solid #1e293b; border-radius: 12px; padding: 18px; margin-bottom: 12px; cursor: pointer; transition: background 0.2s, border-color 0.2s; }
+        .card:hover { background: #1c2744; border-color: #38bdf8; }
         .card h3 { font-size: 1.1rem; color: #c7d2fe; margin-bottom: 6px; font-weight: 600; }
         .card p { color: #64748b; font-size: 0.85rem; line-height: 1.3; }
+
+        /* Tool Modal / Drawer */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); z-index: 1000; justify-content: center; align-items: center; padding: 15px; }
+        .modal-content { background: #131c31; border: 1px solid #38bdf8; border-radius: 16px; padding: 20px; width: 100%; max-width: 450px; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .modal-content h2 { color: #38bdf8; margin-bottom: 15px; font-size: 1.4rem; display: flex; justify-content: space-between; align-items: center; }
+        .close-btn { cursor: pointer; color: #94a3b8; font-size: 1.5rem; }
+        .close-btn:hover { color: #ef4444; }
+
+        /* Inputs & Buttons */
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; color: #cbd5e1; font-size: 0.85rem; margin-bottom: 5px; }
+        .input-group input { width: 100%; padding: 10px; background: #0b1120; border: 1px solid #1e293b; border-radius: 8px; color: #fff; font-size: 1rem; outline: none; }
+        .input-group input:focus { border-color: #38bdf8; }
+        .action-btn { width: 100%; padding: 12px; background: #38bdf8; color: #0f172a; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; margin-top: 10px; }
+        .action-btn:hover { background: #0284c7; color: #fff; }
+        .res-box { margin-top: 15px; padding: 12px; background: #0b1120; border-radius: 8px; border: 1px solid #1e293b; color: #4ade80; font-weight: 600; text-align: center; display: none; line-height: 1.5; }
 
         /* University Grid */
         .uni-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 15px; }
@@ -46,8 +62,8 @@
     <!-- Financial & Tax Tools -->
     <div class="section-title sec-green">💰 Financial & Tax Tools</div>
     
-    <div class="card">
-        <h3>Exact Age Calculator</h3>
+    <div class="card" onclick="openAgeModal()">
+        <h3>Exact Age Calculator ⚡</h3>
         <p>Calculate exact age in years, months, and days for Sarkari job forms.</p>
     </div>
 
@@ -102,11 +118,83 @@
         <div class="uni-btn">VIT</div>
     </div>
 
+    <!-- Age Calculator Modal -->
+    <div class="modal" id="ageModal">
+        <div class="modal-content">
+            <h2>Exact Age Calculator <span class="close-btn" onclick="closeAgeModal()">&times;</span></h2>
+            <div class="input-group">
+                <label>Date of Birth (DOB)</label>
+                <input type="date" id="dobInput">
+            </div>
+            <div class="input-group">
+                <label>Calculate Age As Of (Target Date)</label>
+                <input type="date" id="targetDateInput">
+            </div>
+            <button class="action-btn" onclick="calculateExactAge()">Calculate Age</button>
+            <div class="res-box" id="ageResult"></div>
+        </div>
+    </div>
+
     <div class="footer">
         <a href="#">Privacy Policy</a>
         <a href="#">Terms & Conditions</a>
         <span class="bottom-link">Smart Yojana Finder</span>
     </div>
+
+    <script>
+        // Set today date as default target date
+        document.getElementById('targetDateInput').valueAsDate = new Date();
+
+        function openAgeModal() {
+            document.getElementById('ageModal').style.display = 'flex';
+        }
+
+        function closeAgeModal() {
+            document.getElementById('ageModal').style.display = 'none';
+        }
+
+        function calculateExactAge() {
+            const dobVal = document.getElementById('dobInput').value;
+            const targetVal = document.getElementById('targetDateInput').value;
+            const resBox = document.getElementById('ageResult');
+
+            if (!dobVal || !targetVal) {
+                resBox.style.display = 'block';
+                resBox.style.color = '#ef4444';
+                resBox.innerHTML = 'Kripya dono dates select karein!';
+                return;
+            }
+
+            const dob = new Date(dobVal);
+            const target = new Date(targetVal);
+
+            if (dob > target) {
+                resBox.style.display = 'block';
+                resBox.style.color = '#ef4444';
+                resBox.innerHTML = 'DOB target date se badi nahi ho sakti!';
+                return;
+            }
+
+            let y = target.getFullYear() - dob.getFullYear();
+            let m = target.getMonth() - dob.getMonth();
+            let d = target.getDate() - dob.getDate();
+
+            if (d < 0) {
+                m--;
+                let prevMonth = new Date(target.getFullYear(), target.getMonth(), 0);
+                d += prevMonth.getDate();
+            }
+
+            if (m < 0) {
+                y--;
+                m += 12;
+            }
+
+            resBox.style.display = 'block';
+            resBox.style.color = '#4ade80';
+            resBox.innerHTML = `Your Exact Age:<br><span style="font-size:1.2rem; color:#38bdf8;">${y} Years, ${m} Months, ${d} Days</span>`;
+        }
+    </script>
 
 </body>
 </html>
