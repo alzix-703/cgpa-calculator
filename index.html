@@ -1,781 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All-in-One Utility Portal</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-        body { background: #0b1120; color: #f8fafc; padding: 25px 15px; max-width: 600px; margin: 0 auto; }
-        
-        .header { text-align: center; margin-bottom: 30px; }
-        .header h1 { font-size: 2.2rem; font-weight: 800; color: #818cf8; margin-bottom: 10px; line-height: 1.2; }
-        .header p { color: #94a3b8; font-size: 0.95rem; line-height: 1.4; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All-in-One Utility Portal 2026</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
 
-        .section-title { font-size: 1.3rem; font-weight: 700; margin: 25px 0 15px 0; display: flex; align-items: center; gap: 8px; }
-        .sec-green { color: #4ade80; }
-        .sec-yellow { color: #fbbf24; }
-        .sec-purple { color: #818cf8; }
+    body {
+      background-color: #0b1120;
+      color: #f8fafc;
+      padding: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
 
-        .card { background: #131c31; border: 1px solid #1e293b; border-radius: 12px; padding: 18px; margin-bottom: 12px; cursor: pointer; transition: background 0.2s, border-color 0.2s; }
-        .card:hover { background: #1c2744; border-color: #38bdf8; }
-        .card h3 { font-size: 1.1rem; color: #c7d2fe; margin-bottom: 6px; font-weight: 600; }
-        .card p { color: #64748b; font-size: 0.85rem; line-height: 1.3; }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
 
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); z-index: 1000; justify-content: center; align-items: center; padding: 15px; overflow-y: auto; }
-        .modal-content { background: #131c31; border: 1px solid #38bdf8; border-radius: 16px; padding: 20px; width: 100%; max-width: 500px; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.5); max-height: 90vh; overflow-y: auto; }
-        .modal-content h2 { color: #38bdf8; margin-bottom: 15px; font-size: 1.3rem; display: flex; justify-content: space-between; align-items: center; }
-        .close-btn { cursor: pointer; color: #94a3b8; font-size: 1.5rem; }
-        .close-btn:hover { color: #ef4444; }
+    .header h1 {
+      color: #818cf8;
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+    }
 
-        .input-group { margin-bottom: 12px; }
-        .input-group label { display: block; color: #cbd5e1; font-size: 0.82rem; margin-bottom: 4px; }
-        .input-group input, .input-group select { width: 100%; padding: 10px; background: #0b1120; border: 1px solid #1e293b; border-radius: 8px; color: #fff; font-size: 0.95rem; outline: none; }
-        .input-group input:focus, .input-group select:focus { border-color: #38bdf8; }
-        
-        .radio-group { display: flex; gap: 10px; margin-bottom: 15px; }
-        .radio-btn { flex: 1; padding: 10px; background: #0b1120; border: 1px solid #1e293b; border-radius: 8px; text-align: center; color: #94a3b8; cursor: pointer; font-size: 0.85rem; font-weight: 600; }
-        .radio-btn.active { background: #38bdf8; color: #0f172a; border-color: #38bdf8; }
+    .header p {
+      color: #94a3b8;
+      font-size: 1rem;
+    }
 
-        .action-btn { width: 100%; padding: 12px; background: #38bdf8; color: #0f172a; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; margin-top: 10px; }
-        .action-btn:hover { background: #0284c7; color: #fff; }
+    .bento-container {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 16px;
+    }
 
-        .res-box { margin-top: 15px; padding: 14px; background: #0b1120; border-radius: 8px; border: 1px solid #1e293b; display: none; }
-        .res-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.88rem; color: #cbd5e1; }
-        .res-row strong { color: #4ade80; }
-        
-        /* Category Linking Bar */
-        .category-links { margin-top: 18px; padding-top: 12px; border-top: 1px solid #1e293b; font-size: 0.8rem; }
-        .category-links-title { color: #94a3b8; margin-bottom: 8px; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; }
-        .cat-link-btns { display: flex; gap: 8px; flex-wrap: wrap; }
-        .cat-link-btn { background: #0b1120; border: 1px solid #2a3a5c; color: #38bdf8; padding: 6px 10px; border-radius: 6px; text-decoration: none; font-size: 0.78rem; cursor: pointer; transition: background 0.2s; }
-        .cat-link-btn:hover { background: #1e293b; color: #fff; }
+    @media (min-width: 768px) {
+      .bento-container {
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: minmax(160px, auto);
+      }
 
-        /* Policy & Terms Modal Text */
-        .legal-text { font-size: 0.85rem; color: #cbd5e1; line-height: 1.5; margin-bottom: 12px; }
-        .legal-text h3 { color: #38bdf8; font-size: 1rem; margin: 12px 0 6px 0; }
+      .card-large {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
 
-        /* Scheme Cards Styling */
-        .scheme-card { background: #182238; border: 1px solid #2a3a5c; border-radius: 10px; padding: 14px; margin-top: 12px; }
-        .scheme-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
-        .scheme-title { font-size: 1rem; font-weight: 700; color: #38bdf8; }
-        .badge { font-size: 0.72rem; font-weight: 700; padding: 3px 8px; border-radius: 20px; text-transform: uppercase; }
-        .badge-active { background: rgba(74, 222, 128, 0.15); color: #4ade80; border: 1px solid #4ade80; }
-        .badge-closed { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid #ef4444; }
-        .badge-upcoming { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid #fbbf24; }
-        .scheme-desc { font-size: 0.82rem; color: #94a3b8; line-height: 1.3; margin-bottom: 10px; }
-        .scheme-date { font-size: 0.78rem; color: #cbd5e1; margin-bottom: 8px; background: #0b1120; padding: 6px 10px; border-radius: 6px; }
-        .scheme-apply-btn { display: inline-block; width: 100%; text-align: center; background: #4ade80; color: #0f172a; font-weight: bold; padding: 8px; border-radius: 6px; text-decoration: none; font-size: 0.85rem; margin-top: 6px; }
-        .scheme-apply-btn:hover { background: #22c55e; color: #fff; }
+      .card-tall {
+        grid-row: span 2;
+      }
 
-        .uni-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 15px; }
-        .uni-btn { background: #131c31; border: 1px solid #1e293b; color: #cbd5e1; padding: 12px 8px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; text-align: center; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
-        .uni-btn:hover { background: #1e293b; border-color: #818cf8; color: #fff; transform: translateY(-2px); }
+      .card-wide {
+        grid-column: span 2;
+      }
+    }
 
-        .footer { margin-top: 40px; text-align: center; border-top: 1px solid #1e293b; padding-top: 20px; }
-        .footer-link { color: #94a3b8; text-decoration: none; font-size: 0.85rem; margin: 0 12px; cursor: pointer; }
-        .footer-link:hover { color: #38bdf8; text-decoration: underline; }
-    </style>
+    .bento-card {
+      background-color: #131c31;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .bento-card:hover {
+      transform: translateY(-4px);
+      border-color: #818cf8;
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .bento-card h2, .bento-card h3 {
+      color: #818cf8;
+      margin-bottom: 8px;
+    }
+
+    .bento-card p {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      flex-grow: 1;
+    }
+
+    .action-btn {
+      display: inline-block;
+      margin-top: 15px;
+      color: #38bdf8;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>All-in-One Utility Portal</h1>
-        <p>Fast, free, and privacy-focused online calculation tools.</p>
-    </div>
+  <div class="header">
+    <h1>All-in-One Utility Portal</h1>
+    <p>Fast, free & accurate tools for students, professionals, and job seekers.</p>
+  </div>
 
-    <!-- Category 1: Financial & Tax Tools -->
-    <div class="section-title sec-green">💰 Financial & Tax Tools</div>
+  <div class="bento-container">
     
-    <div class="card" onclick="openAgeModal()">
+    <a href="/aktu-cgpa-calculator.html" class="bento-card card-large">
+      <div>
+        <div class="card-icon">🎓</div>
+        <h2>University CGPA Converters</h2>
+        <p>Convert semester CGPA to percentage using official formulas for AKTU, DU, VTU, RGPV, SPPU, Anna University & 50+ Indian Universities.</p>
+      </div>
+      <span class="action-btn">Calculate CGPA Now →</span>
+    </a>
+
+    <a href="/age-calculator.html" class="bento-card card-tall">
+      <div>
+        <div class="card-icon">📅</div>
         <h3>Exact Age Calculator</h3>
-        <p>Calculate exact age in years, months, and days for Sarkari job forms.</p>
-    </div>
+        <p>Calculate exact age in years, months, and days for Sarkari job applications and exam eligibility criteria.</p>
+      </div>
+      <span class="action-btn">Check Eligibility →</span>
+    </a>
 
-    <div class="card" onclick="openSalaryModal()">
+    <a href="/gst-calculator.html" class="bento-card">
+      <div>
+        <div class="card-icon">🧮</div>
+        <h3>GST Calculator</h3>
+        <p>Instantly add or remove 5%, 12%, 18%, and 28% GST for business and personal billing.</p>
+      </div>
+      <span class="action-btn">Calculate GST →</span>
+    </a>
+
+    <a href="/salary-tax-calculator.html" class="bento-card card-wide">
+      <div>
+        <div class="card-icon">💰</div>
         <h3>In-Hand Salary & Tax Calculator</h3>
-        <p>Calculate monthly take-home salary and income tax under New vs Old regime.</p>
-    </div>
-
-    <div class="card" onclick="openGstModal()">
-        <h3>GST Calculator (Add/Remove GST)</h3>
-        <p>Calculate 5%, 12%, 18%, and 28% GST amounts instantly for invoices.</p>
-    </div>
-
-    <!-- Category 2: Sarkari Yojana Utilities -->
-    <div class="section-title sec-yellow">🏛️ Sarkari Yojana Utilities</div>
-
-    <div class="card" onclick="openYojanaModal()">
-        <h3>Smart Sarkari Yojana Finder 🚀</h3>
-        <p>Enter state, age, income & profession to get exact eligible Central & State schemes.</p>
-    </div>
-
-    <div class="card" onclick="openKisanModal()">
-        <h3>PM Kisan Eligibility & Live Status Portal</h3>
-        <p>Check live installment status, registration status, and e-KYC steps.</p>
-    </div>
-
-    <!-- Category 3: University Converters Grid -->
-    <div class="section-title sec-purple">🎓 22 Official University CGPA Converters</div>
-
-    <div class="uni-grid">
-        <div class="uni-btn" onclick="openUniModal('AKTU')">AKTU</div>
-        <div class="uni-btn" onclick="openUniModal('DU')">DU</div>
-        <div class="uni-btn" onclick="openUniModal('SPPU')">SPPU</div>
-        <div class="uni-btn" onclick="openUniModal('VTU')">VTU</div>
-        <div class="uni-btn" onclick="openUniModal('GTU')">GTU</div>
-        <div class="uni-btn" onclick="openUniModal('RGPV')">RGPV</div>
-        <div class="uni-btn" onclick="openUniModal('Anna University')">Anna University</div>
-        <div class="uni-btn" onclick="openUniModal('Mumbai University')">Mumbai University</div>
-        <div class="uni-btn" onclick="openUniModal('Calcutta University')">Calcutta University</div>
-        <div class="uni-btn" onclick="openUniModal('JNTU')">JNTU</div>
-        <div class="uni-btn" onclick="openUniModal('MG Kashi Vidyapith')">MG Kashi Vidyapith</div>
-        <div class="uni-btn" onclick="openUniModal('CCS University')">CCS University</div>
-        <div class="uni-btn" onclick="openUniModal('Bangalore University')">Bangalore University</div>
-        <div class="uni-btn" onclick="openUniModal('Madras University')">Madras University</div>
-        <div class="uni-btn" onclick="openUniModal('Panjab University')">Panjab University</div>
-        <div class="uni-btn" onclick="openUniModal('Patna University')">Patna University</div>
-        <div class="uni-btn" onclick="openUniModal('BGU')">BGU</div>
-        <div class="uni-btn" onclick="openUniModal('GGSIPU')">GGSIPU</div>
-        <div class="uni-btn" onclick="openUniModal('LNCT')">LNCT</div>
-        <div class="uni-btn" onclick="openUniModal('SRM')">SRM</div>
-        <div class="uni-btn" onclick="openUniModal('AMITY')">AMITY</div>
-        <div class="uni-btn" onclick="openUniModal('VIT')">VIT</div>
-    </div>
-
-    <!-- Age Calculator Modal -->
-    <div class="modal" id="ageModal">
-        <div class="modal-content">
-            <h2>Exact Age Calculator <span class="close-btn" onclick="closeAgeModal()">&times;</span></h2>
-            <div class="input-group">
-                <label>Date of Birth (DD/MM/YYYY)</label>
-                <input type="text" id="dobInput" placeholder="DD/MM/YYYY" maxlength="10" inputmode="numeric" oninput="formatDateOnlyNumbers(this)">
-            </div>
-            <div class="input-group">
-                <label>Calculate Age As Of (DD/MM/YYYY)</label>
-                <input type="text" id="targetDateInput" placeholder="DD/MM/YYYY" maxlength="10" inputmode="numeric" oninput="formatDateOnlyNumbers(this)">
-            </div>
-            <button class="action-btn" onclick="calculateExactAge()">Calculate Age</button>
-            <div class="res-box" id="ageResult"></div>
-
-            <div class="category-links">
-                <div class="category-links-title">🔗 Other Financial & Tax Tools</div>
-                <div class="cat-link-btns">
-                    <span class="cat-link-btn" onclick="switchModal('ageModal', openSalaryModal)">Salary & Tax Calculator</span>
-                    <span class="cat-link-btn" onclick="switchModal('ageModal', openGstModal)">GST Calculator</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Salary & Tax Calculator Modal -->
-    <div class="modal" id="salaryModal">
-        <div class="modal-content">
-            <h2>Salary & Tax Calculator <span class="close-btn" onclick="closeSalaryModal()">&times;</span></h2>
-            <div class="input-group">
-                <label>Annual CTC (₹)</label>
-                <input type="number" id="ctcInput" placeholder="e.g. 800000">
-            </div>
-            <div class="input-group">
-                <label>Employee PF Deduction / Year (₹) (Optional)</label>
-                <input type="number" id="pfInput" placeholder="e.g. 21600">
-            </div>
-            <div class="input-group">
-                <label>Deductions under 80C, 80D, HRA etc. (For Old Regime) (₹)</label>
-                <input type="number" id="deductionsInput" placeholder="e.g. 150000">
-            </div>
-            <button class="action-btn" onclick="calculateSalaryAndTax()">Calculate Take-Home</button>
-            
-            <div class="res-box" id="salaryResult">
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-                    <div style="background:#182238; padding:10px; border-radius:8px;">
-                        <h4 style="color:#38bdf8;">New Regime</h4>
-                        <div style="font-size:1.1rem; font-weight:bold; color:#4ade80; margin-top:4px;" id="newInHand">₹0 /mo</div>
-                        <div style="font-size:0.75rem; color:#94a3b8;" id="newTax">Tax: ₹0/yr</div>
-                    </div>
-                    <div style="background:#182238; padding:10px; border-radius:8px;">
-                        <h4 style="color:#38bdf8;">Old Regime</h4>
-                        <div style="font-size:1.1rem; font-weight:bold; color:#4ade80; margin-top:4px;" id="oldInHand">₹0 /mo</div>
-                        <div style="font-size:0.75rem; color:#94a3b8;" id="oldTax">Tax: ₹0/yr</div>
-                    </div>
-                </div>
-                <div style="margin-top: 12px; font-size: 0.8rem; color: #fbbf24; text-align: center;" id="recommendation"></div>
-            </div>
-
-            <div class="category-links">
-                <div class="category-links-title">🔗 Other Financial & Tax Tools</div>
-                <div class="cat-link-btns">
-                    <span class="cat-link-btn" onclick="switchModal('salaryModal', openAgeModal)">Exact Age Calculator</span>
-                    <span class="cat-link-btn" onclick="switchModal('salaryModal', openGstModal)">GST Calculator</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- GST Calculator Modal -->
-    <div class="modal" id="gstModal">
-        <div class="modal-content">
-            <h2>GST Calculator <span class="close-btn" onclick="closeGstModal()">&times;</span></h2>
-            
-            <div class="radio-group">
-                <div class="radio-btn active" id="addGstBtn" onclick="setGstType('add')">Add GST</div>
-                <div class="radio-btn" id="removeGstBtn" onclick="setGstType('remove')">Remove GST</div>
-            </div>
-
-            <div class="input-group">
-                <label>Amount (₹)</label>
-                <input type="number" id="gstAmountInput" placeholder="e.g. 1000">
-            </div>
-
-            <div class="input-group">
-                <label>GST Rate (%)</label>
-                <select id="gstRateSelect">
-                    <option value="5">5% GST</option>
-                    <option value="12">12% GST</option>
-                    <option value="18" selected>18% GST</option>
-                    <option value="28">28% GST</option>
-                </select>
-            </div>
-
-            <button class="action-btn" onclick="calculateGST()">Calculate GST</button>
-
-            <div class="res-box" id="gstResult">
-                <div class="res-row"><span>Base Amount:</span> <strong id="gstBaseAmt">₹0</strong></div>
-                <div class="res-row"><span>CGST:</span> <strong id="gstCgst">₹0</strong></div>
-                <div class="res-row"><span>SGST:</span> <strong id="gstSgst">₹0</strong></div>
-                <div class="res-row"><span>Total GST Amount:</span> <strong id="gstTotalGst">₹0</strong></div>
-                <div class="res-row" style="border-top: 1px solid #1e293b; padding-top: 8px; font-size: 1rem;">
-                    <span style="color:#fff;">Final Total Amount:</span> <strong id="gstFinalAmt" style="color:#38bdf8; font-size: 1.1rem;">₹0</strong>
-                </div>
-            </div>
-
-            <div class="category-links">
-                <div class="category-links-title">🔗 Other Financial & Tax Tools</div>
-                <div class="cat-link-btns">
-                    <span class="cat-link-btn" onclick="switchModal('gstModal', openAgeModal)">Exact Age Calculator</span>
-                    <span class="cat-link-btn" onclick="switchModal('gstModal', openSalaryModal)">Salary & Tax Calculator</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Smart Yojana Finder Modal -->
-    <div class="modal" id="yojanaModal">
-        <div class="modal-content">
-            <h2>Smart Yojana Finder <span class="close-btn" onclick="closeYojanaModal()">&times;</span></h2>
-            
-            <div class="input-group">
-                <label>Select State</label>
-                <select id="yojanaState">
-                    <option value="all">All India (Central Schemes)</option>
-                    <option value="MP">Madhya Pradesh (MP)</option>
-                    <option value="UP">Uttar Pradesh (UP)</option>
-                    <option value="Bihar">Bihar</option>
-                    <option value="Rajasthan">Rajasthan</option>
-                    <option value="Maharashtra">Maharashtra</option>
-                </select>
-            </div>
-
-            <div class="input-group">
-                <label>Age (Years)</label>
-                <input type="number" id="yojanaAge" placeholder="e.g. 22">
-            </div>
-
-            <div class="input-group">
-                <label>Category / Profession</label>
-                <select id="yojanaCategory">
-                    <option value="all">All Categories</option>
-                    <option value="student">Student</option>
-                    <option value="farmer">Farmer (Kisan)</option>
-                    <option value="women">Women / Girl Child</option>
-                    <option value="unemployed">Unemployed Youth</option>
-                    <option value="business">Small Business / Trader</option>
-                </select>
-            </div>
-
-            <button class="action-btn" onclick="findEligibleYojanas()">Find My Eligible Schemes 🚀</button>
-
-            <div id="yojanaResultsList"></div>
-
-            <div class="category-links">
-                <div class="category-links-title">🔗 Other Sarkari Yojana Utilities</div>
-                <div class="cat-link-btns">
-                    <span class="cat-link-btn" onclick="switchModal('yojanaModal', openKisanModal)">PM Kisan Status Portal</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- PM Kisan Status Checker Modal -->
-    <div class="modal" id="kisanModal">
-        <div class="modal-content">
-            <h2>PM Kisan Status Checker <span class="close-btn" onclick="closeKisanModal()">&times;</span></h2>
-            
-            <div class="input-group">
-                <label>12-Digit Aadhaar Number</label>
-                <input type="text" id="kisanIdInput" placeholder="Poora 12-Digit Aadhaar No. Dalein" maxlength="12" inputmode="numeric">
-            </div>
-
-            <button class="action-btn" onclick="checkKisanStatus()">Verify & Check Live Status 🌾</button>
-
-            <div class="res-box" id="kisanResultBox">
-                <div id="kisanMessage"></div>
-            </div>
-
-            <div class="category-links">
-                <div class="category-links-title">🔗 Other Sarkari Yojana Utilities</div>
-                <div class="cat-link-btns">
-                    <span class="cat-link-btn" onclick="switchModal('kisanModal', openYojanaModal)">Smart Yojana Finder 🚀</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Universal CGPA Converter Modal -->
-    <div class="modal" id="uniModal">
-        <div class="modal-content">
-            <h2><span id="uniModalTitle">CGPA Converter</span> <span class="close-btn" onclick="closeUniModal()">&times;</span></h2>
-            
-            <div class="input-group">
-                <label>Enter CGPA / CPI / SPI (Out of 10)</label>
-                <input type="number" id="cgpaInput" placeholder="e.g. 8.5" step="0.01" max="10" min="0">
-            </div>
-
-            <button class="action-btn" onclick="calculateUniversityCGPA()">Calculate Percentage 🎓</button>
-
-            <div class="res-box" id="uniResultBox">
-                <div class="res-row"><span>University:</span> <strong id="resUniName" style="color:#818cf8;">-</strong></div>
-                <div class="res-row"><span>Formula Used:</span> <strong id="resUniFormula" style="color:#94a3b8; font-size:0.78rem;">-</strong></div>
-                <div class="res-row"><span>Your CGPA:</span> <strong id="resCgpaValue" style="color:#cbd5e1;">-</strong></div>
-                <div class="res-row" style="border-top: 1px solid #1e293b; padding-top: 8px; font-size: 1.1rem;">
-                    <span style="color:#fff;">Equivalent Percentage:</span> <strong id="resPercentage" style="color:#4ade80; font-size: 1.3rem;">0%</strong>
-                </div>
-            </div>
-
-            <div class="category-links">
-                <div class="category-links-title">🔗 Popular University Converters</div>
-                <div class="cat-link-btns">
-                    <span class="cat-link-btn" onclick="openUniModal('AKTU')">AKTU</span>
-                    <span class="cat-link-btn" onclick="openUniModal('DU')">DU</span>
-                    <span class="cat-link-btn" onclick="openUniModal('RGPV')">RGPV</span>
-                    <span class="cat-link-btn" onclick="openUniModal('VTU')">VTU</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Privacy Policy Modal -->
-    <div class="modal" id="privacyModal">
-        <div class="modal-content">
-            <h2>Privacy Policy <span class="close-btn" onclick="closePrivacyModal()">&times;</span></h2>
-            <div class="legal-text">
-                <p>Welcome to <strong>All-in-One Utility Portal</strong>. Your privacy is critically important to us.</p>
-                
-                <h3>1. Information We Do Not Collect</h3>
-                <p>We do not collect, store, or share any personal financial data, date of birth, income details, or academic marks entered into our calculators. All calculations are performed directly in your web browser.</p>
-                
-                <h3>2. Third-Party Links</h3>
-                <p>Our portal contains links to official government websites (e.g., pmkisan.gov.in) and university portals. We are not responsible for the privacy practices or content of external websites.</p>
-
-                <h3>3. Cookies</h3>
-                <p>We do not use tracking cookies. Standard server logs may record basic visitor analytics to ensure site functionality and performance.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Terms & Conditions Modal -->
-    <div class="modal" id="termsModal">
-        <div class="modal-content">
-            <h2>Terms & Conditions <span class="close-btn" onclick="closeTermsModal()">&times;</span></h2>
-            <div class="legal-text">
-                <p>By accessing and using <strong>All-in-One Utility Portal</strong>, you agree to comply with the following terms:</p>
-                
-                <h3>1. Disclaimer & Accuracy</h3>
-                <p>All calculators and government scheme information provided on this portal are for educational and informational purposes only. While we strive to maintain accurate conversion formulas and portal links, users are advised to verify details with official university guidelines and government notifications.</p>
-
-                <h3>2. No Financial or Legal Advice</h3>
-                <p>The output of Tax and Salary calculators should not be treated as formal financial or legal advice. Consult a certified Chartered Accountant (CA) or financial expert for official tax filing.</p>
-
-                <h3>3. Limitation of Liability</h3>
-                <p>The website owner shall not be liable for any discrepancies, losses, or errors resulting from the use of tools on this website.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer">
-        <span class="footer-link" onclick="openPrivacyModal()">Privacy Policy</span>
-        <span class="footer-link" onclick="openTermsModal()">Terms & Conditions</span>
-    </div>
-
-    <script>
-        // Inter-Modal Switcher Function
-        function switchModal(currentModalId, targetOpenFunction) {
-            document.getElementById(currentModalId).style.display = 'none';
-            targetOpenFunction();
-        }
-
-        // Privacy Policy Modal Controls
-        function openPrivacyModal() { document.getElementById('privacyModal').style.display = 'flex'; }
-        function closePrivacyModal() { document.getElementById('privacyModal').style.display = 'none'; }
-
-        // Terms Modal Controls
-        function openTermsModal() { document.getElementById('termsModal').style.display = 'flex'; }
-        function closeTermsModal() { document.getElementById('termsModal').style.display = 'none'; }
-
-        // Schemes Database
-        const schemesDatabase = [
-            { title: "PM-Kisan Samman Nidhi", state: "all", category: "farmer", minAge: 18, maxAge: 75, status: "active", statusText: "Active / Open", dates: "Ongoing | Next Installment expected Oct 2026", desc: "Get ₹6,000 per year directly in bank account in 3 equal installments of ₹2,000.", officialLink: "https://pmkisan.gov.in" },
-            { title: "Ladli Behna Yojana", state: "MP", category: "women", minAge: 21, maxAge: 60, status: "active", statusText: "Active / Open", dates: "Monthly disbursement active", desc: "Financial assistance of ₹1,250 per month directly transferred to women's accounts in MP.", officialLink: "https://cmladlibehna.mp.gov.in" },
-            { title: "MP Free Scooty & Laptop Yojana", state: "MP", category: "student", minAge: 16, maxAge: 22, status: "active", statusText: "Active / Open", dates: "Start: 01 Aug 2026 | Last Date: 30 Oct 2026", desc: "Free scooty for class 12th toppers and laptop distribution money for meritorious students.", officialLink: "https://educationportal.mp.gov.in" },
-            { title: "UP Mukhyamantri Kanya Sumangala Yojana", state: "UP", category: "women", minAge: 0, maxAge: 20, status: "active", statusText: "Active / Open", dates: "Ongoing annual applications", desc: "Conditional cash transfer of up to ₹25,000 in phases from birth to graduation for girls in UP.", officialLink: "https://mksy.up.gov.in" },
-            { title: "UP Free Tablet / Smartphone Yojana", state: "UP", category: "student", minAge: 18, maxAge: 26, status: "upcoming", statusText: "Upcoming", dates: "Expected Window: Nov 2026", desc: "Free devices distributed to university and college studying youth in Uttar Pradesh.", officialLink: "https://upcmo.up.nic.in" },
-            { title: "PM YASASVI Post-Matric Scholarship", state: "all", category: "student", minAge: 13, maxAge: 30, status: "active", statusText: "Active / Open", dates: "Start: 01 Aug 2026 | Last Date: 31 Oct 2026", desc: "Financial scholarship for OBC, EBC, and DNT students studying in Class 9th to College.", officialLink: "https://yet.nta.ac.in" },
-            { title: "Lakhpati Didi Yojana", state: "all", category: "women", minAge: 18, maxAge: 55, status: "active", statusText: "Active / Open", dates: "Ongoing Registration via SHG Group", desc: "Interest-free skill training and business financial assistance up to ₹5 Lakhs for women.", officialLink: "https://daynulm.gov.in" },
-            { title: "PM Mudra Loan Scheme", state: "all", category: "business", minAge: 18, maxAge: 65, status: "active", statusText: "Active / Open", dates: "Always Active through Public Sector Banks", desc: "Collateral-free loans up to ₹20 Lakhs for small businesses and shopkeepers.", officialLink: "https://www.mudra.org.in" }
-        ];
-
-        // CGPA Conversion Formulas Database
-        const uniFormulas = {
-            'AKTU': { formulaText: '(CGPA - 0.75) × 10', calc: (c) => (c - 0.75) * 10 },
-            'DU': { formulaText: 'CGPA × 9.5', calc: (c) => c * 9.5 },
-            'SPPU': { formulaText: 'CGPA × 9.5', calc: (c) => c * 9.5 },
-            'VTU': { formulaText: '(CGPA - 0.75) × 10', calc: (c) => (c - 0.75) * 10 },
-            'GTU': { formulaText: '(CGPA - 0.5) × 10', calc: (c) => (c - 0.5) * 10 },
-            'RGPV': { formulaText: 'CGPA × 10', calc: (c) => c * 10 },
-            'Anna University': { formulaText: 'CGPA × 10', calc: (c) => c * 10 },
-            'Mumbai University': { formulaText: 'CGPA × 9.5', calc: (c) => c * 9.5 },
-            'Calcutta University': { formulaText: '(CGPA × 10) - 5', calc: (c) => (c * 10) - 5 },
-            'JNTU': { formulaText: '(CGPA - 0.5) × 10', calc: (c) => (c - 0.5) * 10 },
-            'MG Kashi Vidyapith': { formulaText: 'CGPA × 9.5', calc: (c) => c * 9.5 },
-            'CCS University': { formulaText: 'CGPA × 9.5', calc: (c) => c * 9.5 },
-            'Bangalore University': { formulaText: '(CGPA - 0.75) × 10', calc: (c) => (c - 0.75) * 10 },
-            'Madras University': { formulaText: 'CGPA × 10', calc: (c) => c * 10 },
-            'Panjab University': { formulaText: 'CGPA × 9.5', calc: (c) => c * 9.5 },
-            'Patna University': { formulaText: 'CGPA × 9.5', calc: (c) => c * 9.5 },
-            'BGU': { formulaText: 'CGPA × 10', calc: (c) => c * 10 },
-            'GGSIPU': { formulaText: 'CGPA × 9.5', calc: (c) => c * 9.5 },
-            'LNCT': { formulaText: 'CGPA × 10', calc: (c) => c * 10 },
-            'SRM': { formulaText: 'CGPA × 10', calc: (c) => c * 10 },
-            'AMITY': { formulaText: 'CGPA × 10', calc: (c) => c * 10 },
-            'VIT': { formulaText: 'CGPA × 10', calc: (c) => c * 10 }
-        };
-
-        let currentSelectedUni = '';
-
-        function openUniModal(uniName) {
-            currentSelectedUni = uniName;
-            document.getElementById('uniModalTitle').innerText = `${uniName} CGPA Calculator`;
-            document.getElementById('cgpaInput').value = '';
-            document.getElementById('uniResultBox').style.display = 'none';
-            document.getElementById('uniModal').style.display = 'flex';
-        }
-
-        function closeUniModal() { document.getElementById('uniModal').style.display = 'none'; }
-
-        function calculateUniversityCGPA() {
-            const cgpa = parseFloat(document.getElementById('cgpaInput').value);
-            const resBox = document.getElementById('uniResultBox');
-
-            if (isNaN(cgpa) || cgpa < 0 || cgpa > 10) {
-                alert("Please enter a valid CGPA between 0 and 10!");
-                return;
-            }
-
-            const uniData = uniFormulas[currentSelectedUni];
-            if (!uniData) return;
-
-            let percentage = uniData.calc(cgpa);
-            if (percentage < 0) percentage = 0;
-
-            document.getElementById('resUniName').innerText = currentSelectedUni;
-            document.getElementById('resUniFormula').innerText = uniData.formulaText;
-            document.getElementById('resCgpaValue').innerText = cgpa.toFixed(2);
-            document.getElementById('resPercentage').innerText = `${percentage.toFixed(2)}%`;
-
-            resBox.style.display = 'block';
-        }
-
-        // Age Calculator setup
-        const today = new Date();
-        const dd = String(today.getDate()).padStart(2, '0');
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const yyyy = today.getFullYear();
-        document.getElementById('targetDateInput').value = `${dd}/${mm}/${yyyy}`;
-
-        function formatDateOnlyNumbers(input) {
-            let digits = input.value.replace(/\D/g, '');
-            if (digits.length > 8) digits = digits.substring(0, 8);
-
-            let formatted = '';
-            if (digits.length > 0) formatted += digits.substring(0, 2);
-            if (digits.length >= 3) formatted += '/' + digits.substring(2, 4);
-            if (digits.length >= 5) formatted += '/' + digits.substring(4, 8);
-
-            input.value = formatted;
-        }
-
-        function openAgeModal() { document.getElementById('ageModal').style.display = 'flex'; }
-        function closeAgeModal() { document.getElementById('ageModal').style.display = 'none'; }
-
-        function parseDDMMYYYY(dateStr) {
-            const parts = dateStr.split('/');
-            if (parts.length !== 3) return null;
-            const day = parseInt(parts[0], 10);
-            const month = parseInt(parts[1], 10) - 1;
-            const year = parseInt(parts[2], 10);
-            if (isNaN(day) || isNaN(month) || isNaN(year)) return null;
-            const d = new Date(year, month, day);
-            if (d.getFullYear() === year && d.getMonth() === month && d.getDate() === day) return d;
-            return null;
-        }
-
-        function calculateExactAge() {
-            const dobStr = document.getElementById('dobInput').value.trim();
-            const targetStr = document.getElementById('targetDateInput').value.trim();
-            const resBox = document.getElementById('ageResult');
-
-            const dob = parseDDMMYYYY(dobStr);
-            const target = parseDDMMYYYY(targetStr);
-
-            if (!dob || !target) {
-                resBox.style.display = 'block';
-                resBox.style.color = '#ef4444';
-                resBox.innerHTML = 'Kripya sahi DD/MM/YYYY format me date dalein!';
-                return;
-            }
-
-            if (dob > target) {
-                resBox.style.display = 'block';
-                resBox.style.color = '#ef4444';
-                resBox.innerHTML = 'DOB target date se badi nahi ho sakti!';
-                return;
-            }
-
-            let y = target.getFullYear() - dob.getFullYear();
-            let m = target.getMonth() - dob.getMonth();
-            let d = target.getDate() - dob.getDate();
-
-            if (d < 0) {
-                m--;
-                let prevMonth = new Date(target.getFullYear(), target.getMonth(), 0);
-                d += prevMonth.getDate();
-            }
-
-            if (m < 0) {
-                y--;
-                m += 12;
-            }
-
-            resBox.style.display = 'block';
-            resBox.style.color = '#4ade80';
-            resBox.innerHTML = `Your Exact Age:<br><span style="font-size:1.2rem; color:#38bdf8;">${y} Years, ${m} Months, ${d} Days</span>`;
-        }
-
-        // Salary Calculator Functions
-        function openSalaryModal() { document.getElementById('salaryModal').style.display = 'flex'; }
-        function closeSalaryModal() { document.getElementById('salaryModal').style.display = 'none'; }
-
-        function calculateTaxNewRegime(taxableIncome) {
-            if (taxableIncome <= 700000) return 0;
-            let tax = 0;
-            if (taxableIncome > 300000) tax += Math.min(taxableIncome - 300000, 300000) * 0.05;
-            if (taxableIncome > 600000) tax += Math.min(taxableIncome - 600000, 300000) * 0.10;
-            if (taxableIncome > 900000) tax += Math.min(taxableIncome - 900000, 300000) * 0.15;
-            if (taxableIncome > 1200000) tax += Math.min(taxableIncome - 1200000, 300000) * 0.20;
-            if (taxableIncome > 1500000) tax += (taxableIncome - 1500000) * 0.30;
-            return tax * 1.04;
-        }
-
-        function calculateTaxOldRegime(taxableIncome) {
-            if (taxableIncome <= 500000) return 0;
-            let tax = 0;
-            if (taxableIncome > 250000) tax += Math.min(taxableIncome - 250000, 250000) * 0.05;
-            if (taxableIncome > 500000) tax += Math.min(taxableIncome - 500000, 500000) * 0.20;
-            if (taxableIncome > 1000000) tax += (taxableIncome - 1000000) * 0.30;
-            return tax * 1.04;
-        }
-
-        function calculateSalaryAndTax() {
-            const ctc = parseFloat(document.getElementById('ctcInput').value) || 0;
-            const pf = parseFloat(document.getElementById('pfInput').value) || 0;
-            const extraDeductions = parseFloat(document.getElementById('deductionsInput').value) || 0;
-            const resBox = document.getElementById('salaryResult');
-
-            if (ctc <= 0) {
-                alert("Please enter a valid Annual CTC!");
-                return;
-            }
-
-            const stdDeductionNew = 75000;
-            const stdDeductionOld = 50000;
-
-            const taxableNew = Math.max(0, ctc - stdDeductionNew);
-            const taxableOld = Math.max(0, ctc - stdDeductionOld - extraDeductions);
-
-            const taxNew = calculateTaxNewRegime(taxableNew);
-            const taxOld = calculateTaxOldRegime(taxableOld);
-
-            const inHandNew = Math.round((ctc - pf - taxNew) / 12);
-            const inHandOld = Math.round((ctc - pf - taxOld) / 12);
-
-            document.getElementById('newInHand').innerText = `₹${inHandNew.toLocaleString('en-IN')}/mo`;
-            document.getElementById('newTax').innerText = `Tax: ₹${Math.round(taxNew).toLocaleString('en-IN')}/yr`;
-
-            document.getElementById('oldInHand').innerText = `₹${inHandOld.toLocaleString('en-IN')}/mo`;
-            document.getElementById('oldTax').innerText = `Tax: ₹${Math.round(taxOld).toLocaleString('en-IN')}/yr`;
-
-            const recBox = document.getElementById('recommendation');
-            if (taxNew < taxOld) {
-                recBox.innerText = `💡 New Tax Regime saves you ₹${Math.round(taxOld - taxNew).toLocaleString('en-IN')} more tax every year!`;
-            } else if (taxOld < taxNew) {
-                recBox.innerText = `💡 Old Tax Regime saves you ₹${Math.round(taxNew - taxOld).toLocaleString('en-IN')} more tax every year!`;
-            } else {
-                recBox.innerText = `💡 Both tax regimes result in the exact same tax for you!`;
-            }
-
-            resBox.style.display = 'block';
-        }
-
-        // GST Calculator Functions
-        let selectedGstType = 'add';
-
-        function openGstModal() { document.getElementById('gstModal').style.display = 'flex'; }
-        function closeGstModal() { document.getElementById('gstModal').style.display = 'none'; }
-
-        function setGstType(type) {
-            selectedGstType = type;
-            if (type === 'add') {
-                document.getElementById('addGstBtn').classList.add('active');
-                document.getElementById('removeGstBtn').classList.remove('active');
-            } else {
-                document.getElementById('removeGstBtn').classList.add('active');
-                document.getElementById('addGstBtn').classList.remove('active');
-            }
-        }
-
-        function calculateGST() {
-            const amount = parseFloat(document.getElementById('gstAmountInput').value) || 0;
-            const rate = parseFloat(document.getElementById('gstRateSelect').value) || 0;
-            const resBox = document.getElementById('gstResult');
-
-            if (amount <= 0) {
-                alert("Please enter a valid amount!");
-                return;
-            }
-
-            let baseAmount, gstAmount, finalAmount;
-
-            if (selectedGstType === 'add') {
-                baseAmount = amount;
-                gstAmount = (baseAmount * rate) / 100;
-                finalAmount = baseAmount + gstAmount;
-            } else {
-                finalAmount = amount;
-                baseAmount = finalAmount / (1 + (rate / 100));
-                gstAmount = finalAmount - baseAmount;
-            }
-
-            const cgst = gstAmount / 2;
-            const sgst = gstAmount / 2;
-
-            document.getElementById('gstBaseAmt').innerText = `₹${baseAmount.toFixed(2)}`;
-            document.getElementById('gstCgst').innerText = `₹${cgst.toFixed(2)}`;
-            document.getElementById('gstSgst').innerText = `₹${sgst.toFixed(2)}`;
-            document.getElementById('gstTotalGst').innerText = `₹${gstAmount.toFixed(2)}`;
-            document.getElementById('gstFinalAmt').innerText = `₹${finalAmount.toFixed(2)}`;
-
-            resBox.style.display = 'block';
-        }
-
-        // Smart Yojana Finder Functions
-        function openYojanaModal() { document.getElementById('yojanaModal').style.display = 'flex'; }
-        function closeYojanaModal() { document.getElementById('yojanaModal').style.display = 'none'; }
-
-        function findEligibleYojanas() {
-            const selectedState = document.getElementById('yojanaState').value;
-            const age = parseInt(document.getElementById('yojanaAge').value) || 0;
-            const category = document.getElementById('yojanaCategory').value;
-            const listContainer = document.getElementById('yojanaResultsList');
-
-            if (age <= 0) {
-                alert("Please enter a valid age!");
-                return;
-            }
-
-            const matchedSchemes = schemesDatabase.filter(s => {
-                const matchState = (s.state === 'all' || s.state === selectedState);
-                const matchCategory = (category === 'all' || s.category === category);
-                const matchAge = (age >= s.minAge && age <= s.maxAge);
-                return matchState && matchCategory && matchAge;
-            });
-
-            if (matchedSchemes.length === 0) {
-                listContainer.innerHTML = `<div style="text-align:center; color:#ef4444; margin-top:15px; font-size:0.9rem;">Koi matching yojana nahi mili. State ya Age badal kar try karein.</div>`;
-                return;
-            }
-
-            let html = '';
-            matchedSchemes.forEach(s => {
-                let badgeClass = 'badge-active';
-                if (s.status === 'closed') badgeClass = 'badge-closed';
-                if (s.status === 'upcoming') badgeClass = 'badge-upcoming';
-
-                html += `
-                    <div class="scheme-card">
-                        <div class="scheme-header">
-                            <div class="scheme-title">${s.title}</div>
-                            <span class="badge ${badgeClass}">${s.statusText}</span>
-                        </div>
-                        <div class="scheme-desc">${s.desc}</div>
-                        <div class="scheme-date">📅 <strong>Timeline:</strong> ${s.dates}</div>
-                        <a href="${s.officialLink}" target="_blank" class="scheme-apply-btn">Apply via Official Govt Portal 🔗</a>
-                    </div>
-                `;
-            });
-
-            listContainer.innerHTML = html;
-        }
-
-        // PM Kisan Checker Functions
-        function openKisanModal() { document.getElementById('kisanModal').style.display = 'flex'; }
-        function closeKisanModal() { document.getElementById('kisanModal').style.display = 'none'; }
-
-        function checkKisanStatus() {
-            const inputVal = document.getElementById('kisanIdInput').value.trim();
-            const resBox = document.getElementById('kisanResultBox');
-            const msgBox = document.getElementById('kisanMessage');
-
-            // Strict 12-Digit Validation
-            if (inputVal.length !== 12 || isNaN(inputVal)) {
-                resBox.style.display = 'block';
-                msgBox.innerHTML = `
-                    <div style="color:#ef4444; font-weight:600; font-size:0.9rem;">❌ Galat Input! Aadhaar Number me poore 12 digits hone chahiye.</div>
-                `;
-                return;
-            }
-
-            resBox.style.display = 'block';
-            msgBox.innerHTML = `
-                <div style="font-size:0.88rem; color:#cbd5e1; line-height:1.4;">
-                    <div style="color:#4ade80; font-weight:700; margin-bottom:8px; font-size:1rem;">✅ Valid 12-Digit Format Recorded</div>
-                    Government rules ke according real details check karne ke liye official OTP verification zaroori hota hai:
-                    
-                    <div style="margin-top:12px; display:flex; flex-direction:column; gap:8px;">
-                        <a href="https://pmkisan.gov.in/BeneficiaryStatus_New.aspx" target="_blank" class="scheme-apply-btn" style="background:#38bdf8;">
-                            1. Check Live Status on Official Govt Portal 🔗
-                        </a>
-                        <a href="https://pmkisan.gov.in/RegistrationFormNew.aspx" target="_blank" class="scheme-apply-btn" style="background:#fbbf24;">
-                            2. Agar Apply Nahi Kiya Toh Naya Registration Karein 📝
-                        </a>
-                        <a href="https://pmkisan.gov.in/aadharekyc.aspx" target="_blank" class="scheme-apply-btn" style="background:#4ade80;">
-                            3. Complete eKYC / Aadhaar Link 🔐
-                        </a>
-                    </div>
-                </div>
-            `;
-        }
-    </script>
+        <p>Calculate take-home salary after PF deductions and compare New vs. Old Tax Regime easily.</p>
+      </div>
+      <span class="action-btn">Calculate In-Hand Salary →</span>
+    </a>
+
+    <a href="/pm-kisan-yojana.html" class="bento-card">
+      <div>
+        <div class="card-icon">🏛️</div>
+        <h3>Sarkari Yojana Finder</h3>
+        <p>Check eligibility & required documents for central and state government schemes.</p>
+      </div>
+      <span class="action-btn">Explore Schemes →</span>
+    </a>
+
+  </div>
 
 </body>
 </html>
