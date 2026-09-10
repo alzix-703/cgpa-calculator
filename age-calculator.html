@@ -28,11 +28,11 @@
     <h1>Exact Age Calculator</h1>
     <p>Calculate exact age in years, months, and days for exam forms & job applications.</p>
 
-    <label for="dob">Date of Birth:</label>
-    <input type="date" id="dob">
+    <label for="dob">Date of Birth (DD/MM/YYYY):</label>
+    <input type="text" id="dob" placeholder="DD/MM/YYYY" maxlength="10">
 
-    <label for="targetDate">Calculate Age As Of Date:</label>
-    <input type="date" id="targetDate">
+    <label for="targetDate">Calculate Age As Of Date (DD/MM/YYYY):</label>
+    <input type="text" id="targetDate" placeholder="DD/MM/YYYY" maxlength="10">
 
     <button onclick="calculateAge()">Calculate Age</button>
 
@@ -42,64 +42,82 @@
     </div>
   </div>
 
-  
-<footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #1e293b; text-align: center; color: #94a3b8; font-size: 0.85rem;">
-  <div style="margin-bottom: 12px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-    <button onclick="shareApp()" style="background: #1e293b; color: #38bdf8; border: 1px solid #334155; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">🔗 Share Page</button>
-  </div>
-  <div style="margin-bottom: 10px;">
-    <a href="/privacy-policy.html" style="color: #94a3b8; text-decoration: none; margin: 0 8px;">Privacy Policy</a> |
-    <a href="/terms.html" style="color: #94a3b8; text-decoration: none; margin: 0 8px;">Terms of Service</a> |
-    <a href="/disclaimer.html" style="color: #94a3b8; text-decoration: none; margin: 0 8px;">Disclaimer</a>
-  </div>
-  <p>© 2026 All-in-One Utility Portal. All Rights Reserved.</p>
-</footer>
-
-<script>
-function shareApp() {
-  if (navigator.share) {
-    navigator.share({
-      title: document.title,
-      url: window.location.href
-    }).catch(() => {});
-  } else {
-    navigator.clipboard.writeText(window.location.href);
-    alert('Page link copied to clipboard!');
-  }
-}
-</script>
-
+  <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #1e293b; text-align: center; color: #94a3b8; font-size: 0.85rem;">
+    <div style="margin-bottom: 12px;">
+      <button onclick="shareApp()" style="background: #1e293b; color: #38bdf8; border: 1px solid #334155; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">🔗 Share Page</button>
+    </div>
+    <div style="margin-bottom: 10px;">
+      <a href="/privacy-policy.html" style="color: #94a3b8; text-decoration: none; margin: 0 8px;">Privacy Policy</a> |
+      <a href="/terms.html" style="color: #94a3b8; text-decoration: none; margin: 0 8px;">Terms of Service</a> |
+      <a href="/disclaimer.html" style="color: #94a3b8; text-decoration: none; margin: 0 8px;">Disclaimer</a>
+    </div>
+    <p>© 2026 All-in-One Utility Portal. All Rights Reserved.</p>
+  </footer>
 
   <script>
-    // Set max allowed date (Current Date + 6 Months)
-    let now = new Date();
-    let maxAllowed = new Date(now.getFullYear(), now.getMonth() + 6, now.getDate());
-    let maxStr = maxAllowed.toISOString().split('T')[0];
-    let todayStr = now.toISOString().split('T')[0];
+    // Auto-format input DD/MM/YYYY while typing
+    function formatDateField(input) {
+      input.addEventListener('input', function(e) {
+        let v = this.value.replace(/\D/g, '');
+        if (v.length > 8) v = v.substring(0, 8);
+        if (v.length > 4) {
+          this.value = v.substring(0, 2) + '/' + v.substring(2, 4) + '/' + v.substring(4);
+        } else if (v.length > 2) {
+          this.value = v.substring(0, 2) + '/' + v.substring(2);
+        } else {
+          this.value = v;
+        }
+      });
+    }
 
-    document.getElementById('dob').setAttribute('max', maxStr);
-    document.getElementById('targetDate').setAttribute('max', maxStr);
-    document.getElementById('targetDate').value = todayStr;
+    const dobInput = document.getElementById('dob');
+    const targetInput = document.getElementById('targetDate');
+    formatDateField(dobInput);
+    formatDateField(targetInput);
+
+    // Set default target date to Today
+    let now = new Date();
+    let d = String(now.getDate()).padStart(2, '0');
+    let m = String(now.getMonth() + 1).padStart(2, '0');
+    let y = now.getFullYear();
+    targetInput.value = `${d}/${m}/${y}`;
+
+    function parseFormattedDate(str) {
+      let parts = str.split('/');
+      if (parts.length !== 3) return null;
+      let day = parseInt(parts[0], 10);
+      let month = parseInt(parts[1], 10) - 1;
+      let year = parseInt(parts[2], 10);
+      if (isNaN(day) || isNaN(month) || isNaN(year) || parts[2].length !== 4) return null;
+      let dt = new Date(year, month, day);
+      if (dt.getFullYear() === year && dt.getMonth() === month && dt.getDate() === day) {
+        return dt;
+      }
+      return null;
+    }
 
     function calculateAge() {
-      let dobVal = document.getElementById('dob').value;
-      let targetVal = document.getElementById('targetDate').value;
+      let dob = parseFormattedDate(dobInput.value);
+      let target = parseFormattedDate(targetInput.value);
 
-      if (!dobVal || !targetVal) {
-        alert('Please select both Date of Birth and Target Date');
+      if (!dob) {
+        alert('Please enter a valid Date of Birth in DD/MM/YYYY format');
+        return;
+      }
+      if (!target) {
+        alert('Please enter a valid Target Date in DD/MM/YYYY format');
         return;
       }
 
-      let dob = new Date(dobVal);
-      let target = new Date(targetVal);
+      let maxAllowed = new Date(now.getFullYear(), now.getMonth() + 6, now.getDate());
 
       if (dob > maxAllowed || target > maxAllowed) {
-        alert('Dates beyond 6 months from today are not allowed.');
+        alert('Dates beyond 6 months from current date are not allowed.');
         return;
       }
 
       if (dob > target) {
-        alert('Date of Birth cannot be in the future of the Target Date!');
+        alert('Date of Birth cannot be greater than Target Date!');
         return;
       }
 
@@ -120,6 +138,15 @@ function shareApp() {
 
       document.getElementById('ageOutput').innerText = `${years} Years, ${months} Months, ${days} Days`;
       document.getElementById('resultBox').style.display = 'block';
+    }
+
+    function shareApp() {
+      if (navigator.share) {
+        navigator.share({ title: document.title, url: window.location.href }).catch(() => {});
+      } else {
+        navigator.clipboard.writeText(window.location.href);
+        alert('Page link copied to clipboard!');
+      }
     }
   </script>
 
