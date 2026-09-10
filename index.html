@@ -162,5 +162,32 @@
 
   </div>
 
+
+<footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #1e293b; text-align: center; color: #94a3b8; font-size: 0.85rem;">
+  <div style="margin-bottom: 12px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+    <button onclick="shareApp()" style="background: #1e293b; color: #38bdf8; border: 1px solid #334155; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">🔗 Share Page</button>
+  </div>
+  <div style="margin-bottom: 10px;">
+    <a href="/privacy-policy.html" style="color: #94a3b8; text-decoration: none; margin: 0 8px;">Privacy Policy</a> |
+    <a href="/terms.html" style="color: #94a3b8; text-decoration: none; margin: 0 8px;">Terms of Service</a> |
+    <a href="/disclaimer.html" style="color: #94a3b8; text-decoration: none; margin: 0 8px;">Disclaimer</a>
+  </div>
+  <p>© 2026 All-in-One Utility Portal. All Rights Reserved.</p>
+</footer>
+
+<script>
+function shareApp() {
+  if (navigator.share) {
+    navigator.share({
+      title: document.title,
+      url: window.location.href
+    }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(window.location.href);
+    alert('Page link copied to clipboard!');
+  }
+}
+</script>
+
 </body>
 </html>
