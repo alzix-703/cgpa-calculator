@@ -1,89 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AKTU CGPA to Percentage Calculator 2026</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-TPS02BQ6B4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag("js", new Date());
-  gtag("config", "G-TPS02BQ6B4");
-</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AKTU CGPA Calculator - Official Formula</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background-color: #0b1120; color: #f8fafc; padding: 20px; max-width: 600px; margin: 0 auto; }
+    .back-btn { display: inline-block; margin-bottom: 20px; color: #38bdf8; text-decoration: none; font-weight: 600; }
+    .card { background-color: #131c31; border: 1px solid #1e293b; border-radius: 16px; padding: 24px; margin-top: 10px; }
+    h1 { color: #818cf8; font-size: 1.8rem; margin-bottom: 8px; }
+    p { color: #94a3b8; font-size: 0.95rem; margin-bottom: 20px; }
+    label { display: block; color: #f8fafc; margin-bottom: 8px; font-weight: 600; }
+    input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155; background-color: #0b1120; color: #fff; font-size: 1rem; margin-bottom: 20px; outline: none; }
+    input:focus { border-color: #818cf8; }
+    button { width: 100%; padding: 12px; border-radius: 8px; border: none; background-color: #818cf8; color: #fff; font-size: 1rem; font-weight: 600; cursor: pointer; }
+    button:hover { background-color: #6366f1; }
+    .result { margin-top: 20px; padding: 16px; background-color: #0b1120; border-radius: 8px; border: 1px solid #334155; display: none; text-align: center; }
+    .result h2 { color: #38bdf8; font-size: 1.5rem; }
+    .formula-tag { font-size: 0.85rem; color: #94a3b8; margin-top: 15px; border-top: 1px solid #334155; padding-top: 10px; }
+  </style>
 </head>
-<body class="bg-slate-900 text-white min-h-screen p-6 max-w-2xl mx-auto space-y-6">
-    <a href="/" class="text-indigo-400 hover:underline">&larr; Back to Home</a>
-    <h1 class="text-3xl font-bold text-indigo-400">AKTU CGPA Converter</h1>
-    <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 space-y-4">
-        <label class="block text-sm">Enter Your AKTU CGPA</label>
-        <input type="number" step="0.01" id="cgpa" placeholder="e.g. 8.5" class="w-full bg-slate-700 border border-slate-600 rounded p-2 text-white">
-        <button onclick="calc()" class="w-full bg-indigo-600 hover:bg-indigo-500 py-2 rounded font-semibold">Convert to Percentage</button>
-        <div id="res" class="hidden p-4 bg-slate-700 rounded-lg text-emerald-400 font-bold text-xl"></div>
+<body>
+
+  <a href="/cgpa-converters.html" class="back-btn">← All Universities</a>
+
+  <div class="card">
+    <h1>AKTU CGPA Calculator</h1>
+    <p>Dr. A.P.J. Abdul Kalam Technical University</p>
+
+    <label for="cgpa">Enter CGPA (Out of 10):</label>
+    <input type="number" id="cgpa" step="0.01" min="0" max="10" placeholder="e.g. 8.5">
+
+    <button onclick="calculate()">Convert to Percentage</button>
+
+    <div class="result" id="resultBox">
+      <p>Equivalent Percentage:</p>
+      <h2 id="percResult">0%</h2>
     </div>
-    <script>
-        function calc() {
-            const val = parseFloat(document.getElementById('cgpa').value);
-            if(!val) return;
-            const pct = (val * 10.0).toFixed(2);
-            const r = document.getElementById('res');
-            r.classList.remove('hidden');
-            r.innerText = 'Percentage: ' + pct + '% (Formula: CGPA × 10.0)';
-        }
-    </script>
 
-<!-- GLOBAL INTERNAL LINKING & CATEGORY MATRIX -->
-<section class="mt-12 pt-8 border-t border-slate-700 text-sm max-w-4xl mx-auto space-y-6">
-    <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
-        <h2 class="text-xl font-bold text-amber-400 mb-4">Explore Popular Tools & Categories</h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Category 1: Sarkari Yojana Tools -->
-            <div>
-                <h3 class="font-bold text-indigo-300 mb-2 border-b border-slate-700 pb-1">🏛️ Sarkari Yojana</h3>
-                <ul class="space-y-1 text-slate-300">
-                    <li><a href="/scheme-calculator.html" class="hover:text-amber-400 underline">Age-Wise Scheme Finder</a></li>
-                    <li><a href="/pm-kisan-status.html" class="hover:text-amber-400 underline">PM Kisan Status Checker</a></li>
-                </ul>
-            </div>
-
-            <!-- Category 2: Utility & Tax Calculators -->
-            <div>
-                <h3 class="font-bold text-emerald-300 mb-2 border-b border-slate-700 pb-1">🧮 Utility & Finance</h3>
-                <ul class="space-y-1 text-slate-300">
-                    <li><a href="/salary-tax-calculator.html" class="hover:text-amber-400 underline">Salary & Income Tax Calc</a></li>
-                    <li><a href="/gst-calculator.html" class="hover:text-amber-400 underline">GST Calculator India</a></li>
-                    <li><a href="/age-calculator.html" class="hover:text-amber-400 underline">Exact Age Calculator</a></li>
-                </ul>
-            </div>
-
-            <!-- Category 3: Top University CGPA Converters -->
-            <div>
-                <h3 class="font-bold text-sky-300 mb-2 border-b border-slate-700 pb-1">🎓 Top Universities</h3>
-                <ul class="space-y-1 text-slate-300">
-                    <li><a href="/aktu-cgpa-calculator.html" class="hover:text-amber-400 underline">AKTU CGPA Converter</a></li>
-                    <li><a href="/du-cgpa-calculator.html" class="hover:text-amber-400 underline">DU Percentage Calc</a></li>
-                    <li><a href="/sppu-cgpa-calculator.html" class="hover:text-amber-400 underline">SPPU Pune CGPA</a></li>
-                    <li><a href="/vtu-cgpa-calculator.html" class="hover:text-amber-400 underline">VTU Percentage Calc</a></li>
-                    <li><a href="/gtu-cgpa-calculator.html" class="hover:text-amber-400 underline">GTU CGPA to % Calc</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="mt-6 pt-4 border-t border-slate-700 text-center">
-            <a href="/" class="text-amber-400 hover:underline font-semibold">&larr; Return to All Tools Homepage</a>
-        </div>
+    <div class="formula-tag">
+      <strong>Official Formula:</strong> Percentage = (cgpa - 0.75) * 10
     </div>
-</section>
+  </div>
 
-
-<footer class="mt-8 pt-4 border-t border-slate-800 text-center text-xs text-slate-500 space-x-4">
-    <a href="/about.html" class="hover:underline">About Us</a>
-    <a href="/privacy-policy.html" class="hover:underline">Privacy Policy</a>
-    <a href="/terms.html" class="hover:underline">Terms & Conditions</a>
-  <div class="text-center mt-2"><a href="/smart-scheme-finder.html" class="text-amber-400 font-bold hover:underline">Smart Yojana Finder</a></div>
-</footer>
+  <script>
+    function calculate() {
+      let cgpa = parseFloat(document.getElementById('cgpa').value);
+      if (isNaN(cgpa) || cgpa < 0 || cgpa > 10) {
+        alert('Please enter a valid CGPA between 0 and 10');
+        return;
+      }
+      let percentage = (cgpa - 0.75) * 10;
+      if(percentage > 100) percentage = 100;
+      if(percentage < 0) percentage = 0;
+      document.getElementById('percResult').innerText = percentage.toFixed(2) + '%';
+      document.getElementById('resultBox').style.display = 'block';
+    }
+  </script>
 
 </body>
 </html>

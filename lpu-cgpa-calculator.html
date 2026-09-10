@@ -1,27 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LPU CGPA to Percentage Calculator 2026 (Official Formula)</title>
-    <meta name="description" content="Convert LPU CGPA/CPI to percentage instantly using official LPU formula.">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, sans-serif; }
-        body { background: #0b1120; color: #f8fafc; padding: 25px 15px; max-width: 600px; margin: 0 auto; }
-        h1 { color: #818cf8; font-size: 1.8rem; margin-bottom: 12px; }
-        p { color: #94a3b8; font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; }
-        .card { background: #131c31; border: 1px solid #1e293b; border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 20px; }
-        a { color: #38bdf8; text-decoration: none; font-weight: bold; font-size: 1rem; display: inline-block; margin-top: 10px; }
-        a:hover { text-decoration: underline; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LPU CGPA Calculator - Official Formula</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background-color: #0b1120; color: #f8fafc; padding: 20px; max-width: 600px; margin: 0 auto; }
+    .back-btn { display: inline-block; margin-bottom: 20px; color: #38bdf8; text-decoration: none; font-weight: 600; }
+    .card { background-color: #131c31; border: 1px solid #1e293b; border-radius: 16px; padding: 24px; margin-top: 10px; }
+    h1 { color: #818cf8; font-size: 1.8rem; margin-bottom: 8px; }
+    p { color: #94a3b8; font-size: 0.95rem; margin-bottom: 20px; }
+    label { display: block; color: #f8fafc; margin-bottom: 8px; font-weight: 600; }
+    input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155; background-color: #0b1120; color: #fff; font-size: 1rem; margin-bottom: 20px; outline: none; }
+    input:focus { border-color: #818cf8; }
+    button { width: 100%; padding: 12px; border-radius: 8px; border: none; background-color: #818cf8; color: #fff; font-size: 1rem; font-weight: 600; cursor: pointer; }
+    button:hover { background-color: #6366f1; }
+    .result { margin-top: 20px; padding: 16px; background-color: #0b1120; border-radius: 8px; border: 1px solid #334155; display: none; text-align: center; }
+    .result h2 { color: #38bdf8; font-size: 1.5rem; }
+    .formula-tag { font-size: 0.85rem; color: #94a3b8; margin-top: 15px; border-top: 1px solid #334155; padding-top: 10px; }
+  </style>
 </head>
 <body>
-    <h1>LPU CGPA to Percentage Calculator</h1>
-    <p>Easily convert your LPU semester CGPA into equivalent percentage using official university guidelines.</p>
-    <div class="card">
-        <h3>Use Official Calculator Tool</h3>
-        <p>Calculate your percentage, age, or eligibility using our fast tool.</p>
-        <a href="/">Go to Main Portal Tool 🚀</a>
+
+  <a href="/cgpa-converters.html" class="back-btn">← All Universities</a>
+
+  <div class="card">
+    <h1>LPU CGPA Calculator</h1>
+    <p>Lovely Professional University</p>
+
+    <label for="cgpa">Enter CGPA (Out of 10):</label>
+    <input type="number" id="cgpa" step="0.01" min="0" max="10" placeholder="e.g. 8.5">
+
+    <button onclick="calculate()">Convert to Percentage</button>
+
+    <div class="result" id="resultBox">
+      <p>Equivalent Percentage:</p>
+      <h2 id="percResult">0%</h2>
     </div>
+
+    <div class="formula-tag">
+      <strong>Official Formula:</strong> Percentage = cgpa * 10
+    </div>
+  </div>
+
+  <script>
+    function calculate() {
+      let cgpa = parseFloat(document.getElementById('cgpa').value);
+      if (isNaN(cgpa) || cgpa < 0 || cgpa > 10) {
+        alert('Please enter a valid CGPA between 0 and 10');
+        return;
+      }
+      let percentage = cgpa * 10;
+      if(percentage > 100) percentage = 100;
+      if(percentage < 0) percentage = 0;
+      document.getElementById('percResult').innerText = percentage.toFixed(2) + '%';
+      document.getElementById('resultBox').style.display = 'block';
+    }
+  </script>
+
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calicut University Calculator - Official Formula</title>
+  <title>MDU CGPA Calculator - Official Formula</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { background-color: #0b1120; color: #f8fafc; padding: 20px; max-width: 600px; margin: 0 auto; }
@@ -26,8 +26,8 @@
   <a href="/cgpa-converters.html" class="back-btn">← All Universities</a>
 
   <div class="card">
-    <h1>Calicut University Calculator</h1>
-    <p>University of Calicut</p>
+    <h1>MDU CGPA Calculator</h1>
+    <p>Maharshi Dayanand University</p>
 
     <label for="cgpa">Enter CGPA (Out of 10):</label>
     <input type="number" id="cgpa" step="0.01" min="0" max="10" placeholder="e.g. 8.5">
@@ -40,7 +40,7 @@
     </div>
 
     <div class="formula-tag">
-      <strong>Official Formula:</strong> Percentage = cgpa * 10
+      <strong>Official Formula:</strong> Percentage = (cgpa - 0.5) * 10
     </div>
   </div>
 
@@ -51,7 +51,7 @@
         alert('Please enter a valid CGPA between 0 and 10');
         return;
       }
-      let percentage = cgpa * 10;
+      let percentage = (cgpa - 0.5) * 10;
       if(percentage > 100) percentage = 100;
       if(percentage < 0) percentage = 0;
       document.getElementById('percResult').innerText = percentage.toFixed(2) + '%';
