@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sarkari Yojana Finder 2026 - Central & State Schemes</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background-color: #0b1120; color: #f8fafc; padding: 20px; max-width: 800px; margin: 0 auto; }
+    .back-btn { display: inline-block; margin-bottom: 20px; color: #38bdf8; text-decoration: none; font-weight: 600; }
+    .card { background-color: #131c31; border: 1px solid #1e293b; border-radius: 16px; padding: 24px; margin-bottom: 20px; }
+    h1 { color: #818cf8; font-size: 1.8rem; margin-bottom: 8px; }
+    p { color: #94a3b8; font-size: 0.95rem; margin-bottom: 20px; }
+    .yojana-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 600px) { .yojana-grid { grid-template-columns: repeat(2, 1fr); } }
+    .yojana-card { background-color: #0b1120; border: 1px solid #334155; border-radius: 12px; padding: 18px; }
+    .yojana-card h3 { color: #38bdf8; font-size: 1.1rem; margin-bottom: 6px; }
+    .yojana-card p { font-size: 0.85rem; color: #94a3b8; margin-bottom: 12px; }
+    .btn { display: inline-block; padding: 8px 14px; background-color: #818cf8; color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 600; border-radius: 6px; }
+    .btn:hover { background-color: #6366f1; }
+  </style>
+</head>
+<body>
+
+  <a href="/index.html" class="back-btn">← Back to Home</a>
+
+  <div class="card">
+    <h1>Sarkari Yojana Finder</h1>
+    <p>Check eligibility, benefits, and required documents for major Government Schemes in 2026.</p>
+
+    <div class="yojana-grid">
+      
+      <div class="yojana-card">
+        <h3>🏛️ PM Kisan Samman Nidhi</h3>
+        <p>Get ₹6,000 per year directly into bank account in 3 equal installments for small & marginal farmers.</p>
+        <span class="btn">Documents: Aadhaar, Land Record, Bank Passbook</span>
+      </div>
+
+      <div class="yojana-card">
+        <h3>🏠 PM Awas Yojana (PMAY)</h3>
+        <p>Financial subsidy and assistance for constructing or buying permanent pucca houses.</p>
+        <span class="btn">Documents: Ration Card, Income Certificate, Aadhaar</span>
+      </div>
+
+      <div class="yojana-card">
+        <h3>🏥 Ayushman Bharat Card</h3>
+        <p>Free medical treatment up to ₹5 Lakhs per family per year at empaneled hospitals.</p>
+        <span class="btn">Documents: Ration Card / E-Shram Card, Aadhaar</span>
+      </div>
+
+      <div class="yojana-card">
+        <h3>🔨 PM Vishwakarma Yojana</h3>
+        <p>Collateral-free loans up to ₹3 Lakhs at 5% interest with skill training for traditional artisans.</p>
+        <span class="btn">Documents: Skill Certificate, Aadhaar, Bank Details</span>
+      </div>
+
+    </div>
+  </div>
+
+  <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #1e293b; text-align: center; color: #94a3b8; font-size: 0.85rem;">
+    <div style="margin-bottom: 12px;">
+      <button onclick="shareApp()" style="background: #1e293b; color: #38bdf8; border: 1px solid #334155; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">🔗 Share Page</button>
+    </div>
+    <div style="margin-bottom: 10px;">
+      <a href="/privacy-policy.html" style="color: #94a3b8; text-decoration: none; margin: 0 8px;">Privacy Policy</a> |
+      <a href="/terms.html" style="color: #94a3b8; text-decoration: none; margin: 0 8px;">Terms of Service</a> |
+      <a href="/disclaimer.html" style="color: #94a3b8; text-decoration: none; margin: 0 8px;">Disclaimer</a>
+    </div>
+    <p>© 2026 All-in-One Utility Portal. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    function shareApp() {
+      if (navigator.share) {
+        navigator.share({ title: document.title, url: window.location.href }).catch(() => {});
+      } else {
+        navigator.clipboard.writeText(window.location.href);
+        alert('Page link copied to clipboard!');
+      }
+    }
+  </script>
+
+</body>
+</html>
