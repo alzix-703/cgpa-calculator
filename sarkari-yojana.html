@@ -45,15 +45,17 @@
       font-size: 0.85rem;
     }
     .occ-option {
-      padding: 6px 8px;
+      padding: 8px;
       font-size: 0.85rem;
       cursor: pointer;
       border-radius: 4px;
       color: #cbd5e1;
+      margin-bottom: 2px;
     }
     .occ-option:hover, .occ-option.selected {
       background-color: #6366f1;
       color: #fff;
+      font-weight: 600;
     }
 
     .find-btn { width: 100%; padding: 12px; border-radius: 8px; border: none; background: #6366f1; color: #fff; font-weight: 700; cursor: pointer; font-size: 1rem; margin-top: 10px; }
@@ -86,7 +88,7 @@
     
     .see-details-btn { width: 100%; padding: 8px 12px; background-color: #1e293b; color: #38bdf8; border: 1px solid #334155; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; text-align: center; }
     .see-details-btn:hover { background-color: #334155; color: #fff; }
-    .no-results { color: #64748b; font-size: 0.9rem; font-style: italic; padding: 10px 0; }
+    .no-results { color: #64748b; font-size: 0.9rem; font-style: italic; padding: 12px 0; }
 
     /* Modal Styling */
     .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
@@ -145,10 +147,10 @@
         <!-- Age Filter -->
         <div class="form-group">
           <label for="age">Age (Years)</label>
-          <input type="number" id="age" placeholder="e.g. 25" min="1" max="100">
+          <input type="number" id="age" placeholder="e.g. 61" min="1" max="100">
         </div>
 
-        <!-- Detailed Income Range -->
+        <!-- Income Range -->
         <div class="form-group">
           <label for="income">Annual Family Income</label>
           <select id="income">
@@ -161,13 +163,14 @@
           </select>
         </div>
 
-        <!-- Searchable Occupation Box -->
+        <!-- Occupation Box -->
         <div class="form-group" style="grid-column: span 1;">
           <label>Occupation / Profession</label>
           <div class="occ-box">
             <input type="text" class="occ-search-input" id="occSearch" placeholder="🔍 Search occupation..." onkeyup="filterOccupations()">
             <div id="occList">
               <div class="occ-option selected" data-val="all" onclick="selectOcc(this)">All Occupations</div>
+              <div class="occ-option" data-val="senior" onclick="selectOcc(this)">Senior Citizen / Pensioner</div>
               <div class="occ-option" data-val="farmer" onclick="selectOcc(this)">Farmer / Kisan</div>
               <div class="occ-option" data-val="student" onclick="selectOcc(this)">Student / Scholar</div>
               <div class="occ-option" data-val="artisan" onclick="selectOcc(this)">Artisan / Craftsperson (Vishwakarma)</div>
@@ -177,7 +180,6 @@
               <div class="occ-option" data-val="homemaker" onclick="selectOcc(this)">Homemaker / Women Entrepreneur</div>
               <div class="occ-option" data-val="salaried" onclick="selectOcc(this)">Private Sector Employee / Salaried</div>
               <div class="occ-option" data-val="driver" onclick="selectOcc(this)">Driver / Transport Worker</div>
-              <div class="occ-option" data-val="senior" onclick="selectOcc(this)">Senior Citizen / Pensioner</div>
               <div class="occ-option" data-val="disability" onclick="selectOcc(this)">Person with Disability (Divyangjan)</div>
             </div>
           </div>
@@ -260,7 +262,34 @@
     }
 
     const allSchemes = [
-      // 1. ACTIVE SCHEMES
+      // --- ACTIVE SCHEMES ---
+      {
+        id: "ignoaps_pension", category: "active", stateCode: "Central", state: "Central & MP",
+        title: "Indira Gandhi National Old Age Pension Scheme (IGNOAPS)",
+        shortDesc: "Monthly pension support for senior citizens aged 60 and above.",
+        dates: "Active Now (Continuous Open)",
+        docs: ["Aadhaar Card", "Age Proof (60+)", "Income Certificate / BPL Card", "Bank Passbook"],
+        eligibility: "Senior Citizens aged 60+ belonging to BPL / Low Income families.",
+        links: [
+          { name: "NSAP Portal", url: "https://nsap.nic.in" },
+          { name: "MP Pension Portal", url: "https://pension.samagra.gov.in" }
+        ],
+        minAge: 60, maxAge: 100, occupations: ["senior", "all"], income: ["below1L", "1Lto2.5L"]
+      },
+      {
+        id: "ayushman_senior", category: "active", stateCode: "Central", state: "Central (All India)",
+        title: "Ayushman Bharat PM-JAY (Vaya Vandana 70+ & Standard)",
+        shortDesc: "Free medical cover up to ₹5 Lakh/family annually in empanelled hospitals.",
+        dates: "Active Now (Continuous Open)",
+        docs: ["Aadhaar Card", "Ration Card / E-Shram Card"],
+        eligibility: "Citizens & Senior Citizens with low to middle income.",
+        links: [
+          { name: "PMJAY Portal", url: "https://pmjay.gov.in" },
+          { name: "NHA Beneficiary", url: "https://beneficiary.nha.gov.in" }
+        ],
+        minAge: 1, maxAge: 100, occupations: ["senior", "farmer", "student", "artisan", "labor", "unemployed", "business", "homemaker", "driver", "disability", "salaried", "all"],
+        income: ["below1L", "1Lto2.5L", "2.5Lto5L"]
+      },
       {
         id: "pmkisan", category: "active", stateCode: "Central", state: "Central (All India)",
         title: "PM Kisan Samman Nidhi",
@@ -268,38 +297,21 @@
         dates: "Active Now (Phase 2026 Open)",
         docs: ["Aadhaar Card", "Land Khatauni", "Bank Passbook"],
         eligibility: "Farmers with registered land holdings.",
-        links: [
-          { name: "Official Portal", url: "https://pmkisan.gov.in" },
-          { name: "New Farmer Registration", url: "https://pmkisan.gov.in/RegistrationFormNew.aspx" }
-        ],
+        links: [{ name: "PM Kisan Portal", url: "https://pmkisan.gov.in" }],
         minAge: 18, maxAge: 100, occupations: ["farmer"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L"]
       },
-      {
-        id: "ayushman", category: "active", stateCode: "Central", state: "Central (All India)",
-        title: "Ayushman Bharat PM-JAY",
-        shortDesc: "Free medical insurance up to ₹5 Lakh/family annually.",
-        dates: "Active Now (Continuous Open)",
-        docs: ["Aadhaar Card", "Ration Card / E-Shram Card"],
-        eligibility: "Low income & vulnerable households.",
-        links: [
-          { name: "PMJAY Portal", url: "https://pmjay.gov.in" },
-          { name: "Check Eligibility", url: "https://beneficiary.nha.gov.in" }
-        ],
-        minAge: 1, maxAge: 100, occupations: ["farmer", "student", "artisan", "labor", "unemployed", "business", "homemaker", "driver", "senior", "disability"],
-        income: ["below1L", "1Lto2.5L", "2.5Lto5L"]
-      },
-      {
-        id: "ladlibhna", category: "active", stateCode: "MP", state: "MP (Madhya Pradesh)",
-        title: "Mukhyamantri Ladli Behna Yojana",
-        shortDesc: "₹1,250 monthly direct financial support to eligible women.",
-        dates: "Active Now",
-        docs: ["Aadhaar Card", "Samagra ID", "Bank Account"],
-        eligibility: "Resident women of MP aged 21-60.",
-        links: [{ name: "MP Govt Portal", url: "https://cmladlibehna.mp.gov.in" }],
-        minAge: 21, maxAge: 60, occupations: ["homemaker", "unemployed", "labor", "artisan"], income: ["below1L", "1Lto2.5L", "2.5Lto5L"]
-      },
 
-      // 2. COMING SOON (BRAND NEW)
+      // --- COMING SOON SCHEMES ---
+      {
+        id: "senior_digital_care_2026", category: "coming", stateCode: "Central", state: "Central (All India)",
+        title: "PM Senior Citizen Health & Digital Care Mission 2026",
+        shortDesc: "Free home healthcare checkups + smart health monitor devices for seniors.",
+        dates: "Expected Launch: November 2026",
+        docs: ["Aadhaar Card", "Senior Citizen ID Proof"],
+        eligibility: "Senior citizens aged 60+ across all states.",
+        links: [{ name: "Social Justice Dept", url: "https://socialjustice.gov.in" }],
+        minAge: 60, maxAge: 100, occupations: ["senior", "all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L"]
+      },
       {
         id: "ai_skill_2026", category: "coming", stateCode: "Central", state: "Central (All India)",
         title: "National AI & Tech Skill Mission 2026",
@@ -310,51 +322,41 @@
         links: [{ name: "Skill India Official", url: "https://www.skillindia.gov.in" }],
         minAge: 18, maxAge: 30, occupations: ["student", "unemployed"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L"]
       },
-      {
-        id: "solar_drone_agri", category: "coming", stateCode: "Central", state: "Central (All India)",
-        title: "PM Solar Drone Krishi Subsidy",
-        shortDesc: "First-time 80% subsidy scheme for purchasing agriculture drones.",
-        dates: "Expected Launch: November 2026",
-        docs: ["Farmer Passbook", "Aadhaar Card", "Land Record"],
-        eligibility: "Registered farmers and Agri-entrepreneurs.",
-        links: [{ name: "Agri Cooperation Portal", url: "https://agricoop.gov.in" }],
-        minAge: 18, maxAge: 70, occupations: ["farmer", "business"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L", "above10L"]
-      },
 
-      // 3. MISSED OUT / EXPECTED RETURN
+      // --- MISSED OUT / EXPECTED RETURN SCHEMES ---
+      {
+        id: "senior_travel_pass_2025", category: "missed", stateCode: "MP", state: "MP (Madhya Pradesh)",
+        alertHeading: "Form Closed - Expected Reopening Jan 2027",
+        title: "Mukhyamantri Teerth Darshan Yojana (Senior Travel Pass)",
+        shortDesc: "Free pilgrimage travel & stay for senior citizens aged 60+.",
+        dates: "Last Phase Closed: August 2026 | Reopening: Jan 2027",
+        docs: ["Aadhaar Card", "MP Domicile Certificate", "Medical Fitness Certificate"],
+        eligibility: "Senior Citizens (60+) non-income tax payers of MP.",
+        links: [{ name: "MP Religious Trust Portal", url: "https://mp.gov.in" }],
+        minAge: 60, maxAge: 95, occupations: ["senior", "all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L"]
+      },
       {
         id: "vishwakarma_kit", category: "missed", stateCode: "Central", state: "Central (All India)",
         alertHeading: "Form Closed - Reopening Soon",
         title: "PM Vishwakarma Toolkit Voucher",
         shortDesc: "₹15,000 e-voucher for toolkit purchase + low interest loan.",
-        dates: "Last Date: June 2026 | Next Expected Date: Jan 2027",
-        docs: ["Artisan Trade Proof", "Aadhaar", "Bank Details"],
-        eligibility: "18 Traditional Trade Artisans.",
+        dates: "Last Date: June 2026 | Next Expected: Jan 2027",
+        docs: ["Artisan Trade Proof", "Aadhaar"],
+        eligibility: "Traditional Trade Artisans.",
         links: [{ name: "PM Vishwakarma Portal", url: "https://pmvishwakarma.gov.in" }],
         minAge: 18, maxAge: 75, occupations: ["artisan"], income: ["below1L", "1Lto2.5L", "2.5Lto5L"]
       },
-      {
-        id: "youth_internship", category: "missed", stateCode: "Central", state: "Central (All India)",
-        alertHeading: "Form Closed - Reopening Soon",
-        title: "PM Youth Internship Scheme (Phase 1)",
-        shortDesc: "₹5,000 monthly internship in top 500 Indian companies.",
-        dates: "Last Date: Aug 2026 | Next Expected Date: No Coming Date Announced",
-        docs: ["Degree/Diploma Marksheet", "Aadhaar"],
-        eligibility: "Non-taxpayer unemployed youth aged 21-24.",
-        links: [{ name: "MCA Internship Portal", url: "https://pminternship.mca.gov.in" }],
-        minAge: 21, maxAge: 24, occupations: ["unemployed", "student"], income: ["below1L", "1Lto2.5L", "2.5Lto5L"]
-      },
 
-      // 4. DISCONTINUED SCHEMES
+      // --- DISCONTINUED SCHEMES ---
       {
-        id: "old_loan_sub", category: "discontinued", stateCode: "Central", state: "Central (All India)",
-        title: "Legacy Agriculture Interest Waiver 2015",
-        shortDesc: "Old interest subvention agricultural scheme replaced by modern PM-KCC.",
-        dates: "Discontinued Permanently",
-        docs: ["Not Applicable"],
-        eligibility: "Scheme merged and closed.",
-        links: [{ name: "Agri Portal", url: "https://agricoop.gov.in" }],
-        minAge: 18, maxAge: 100, occupations: ["farmer"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L", "above10L"]
+        id: "pmvvnl_legacy", category: "discontinued", stateCode: "Central", state: "Central (All India)",
+        title: "Pradhan Mantri Vaya Vandana Yojana (PMVVY - Pension Plan)",
+        shortDesc: "LIC Senior pension deposit scheme replaced by SCSS & SC-Banks schemes.",
+        dates: "Discontinued Permanently (Closed for new enrollment)",
+        docs: ["Historical Data Only"],
+        eligibility: "Scheme closed on 31st March 2023.",
+        links: [{ name: "LIC Portal Info", url: "https://licindia.in" }],
+        minAge: 60, maxAge: 100, occupations: ["senior", "all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L", "above10L"]
       }
     ];
 
@@ -367,7 +369,6 @@
       };
 
       Object.values(grids).forEach(g => g.innerHTML = '');
-
       const categoryCounts = { active: 0, coming: 0, missed: 0, discontinued: 0 };
 
       schemesToRender.forEach(s => {
@@ -435,17 +436,17 @@
       const incomeVal = document.getElementById('income').value;
 
       const filtered = allSchemes.filter(s => {
-        // State Filter Logic
+        // State Filter
         let matchState = (stateVal === 'all') || (s.stateCode === 'Central') || (s.stateCode === stateVal);
         
-        // Age Filter Logic
+        // Age Filter
         let matchAge = isNaN(ageVal) || (ageVal >= s.minAge && ageVal <= s.maxAge);
         
-        // Income Filter Logic
+        // Income Filter
         let matchIncome = (incomeVal === 'all') || s.income.includes(incomeVal);
         
-        // Occupation Filter Logic
-        let matchOcc = (selectedOccupation === 'all') || s.occupations.includes(selectedOccupation);
+        // Occupation Filter
+        let matchOcc = (selectedOccupation === 'all') || s.occupations.includes('all') || s.occupations.includes(selectedOccupation);
 
         return matchState && matchAge && matchIncome && matchOcc;
       });
