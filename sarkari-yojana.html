@@ -3,141 +3,356 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sarkari Yojana Eligibility Finder 2026</title>
+  <title>SYFT - Smart Yojana Finder Tool 2026</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: #0b1120; color: #f8fafc; padding: 20px; max-width: 700px; margin: 0 auto; }
+    body { background-color: #0b1120; color: #f8fafc; padding: 20px; max-width: 900px; margin: 0 auto; }
     .back-btn { display: inline-block; margin-bottom: 20px; color: #38bdf8; text-decoration: none; font-weight: 600; }
-    .card { background-color: #131c31; border: 1px solid #1e293b; border-radius: 16px; padding: 24px; margin-bottom: 20px; }
-    h1 { color: #818cf8; font-size: 1.8rem; margin-bottom: 8px; }
-    p { color: #94a3b8; font-size: 0.95rem; margin-bottom: 20px; }
-    .form-group { margin-bottom: 16px; }
-    label { display: block; color: #f8fafc; margin-bottom: 6px; font-weight: 600; font-size: 0.9rem; }
-    select, input { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #334155; background-color: #0b1120; color: #fff; font-size: 0.95rem; outline: none; }
-    select:focus, input:focus { border-color: #818cf8; }
-    button { width: 100%; padding: 12px; border-radius: 8px; border: none; background-color: #818cf8; color: #fff; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 10px; }
-    button:hover { background-color: #6366f1; }
     
-    .results-container { margin-top: 25px; display: none; }
-    .results-header { color: #38bdf8; font-size: 1.3rem; margin-bottom: 15px; border-bottom: 1px solid #1e293b; padding-bottom: 8px; }
-    .scheme-card { background-color: #0b1120; border: 1px solid #334155; border-radius: 12px; padding: 16px; margin-bottom: 14px; }
-    .scheme-card h3 { color: #818cf8; font-size: 1.1rem; margin-bottom: 6px; }
-    .scheme-card p { color: #94a3b8; font-size: 0.88rem; margin-bottom: 8px; line-height: 1.4; }
-    .badge { display: inline-block; background-color: #1e293b; color: #38bdf8; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+    /* Hero / Smart Finder Banner */
+    .smart-finder-banner {
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+      border: 2px solid #6366f1;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.3);
+    }
+    .smart-finder-banner h1 { font-size: 1.8rem; color: #ffffff; margin-bottom: 8px; }
+    .smart-finder-banner p { color: #c7d2fe; font-size: 0.95rem; margin-bottom: 20px; }
+    
+    /* Smart Finder Form */
+    .finder-form { background-color: rgba(15, 23, 42, 0.6); padding: 20px; border-radius: 12px; border: 1px solid #3730a3; }
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 16px; }
+    .form-group label { display: block; color: #e0e7ff; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
+    .form-group select, .form-group input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #4338ca; background-color: #0f172a; color: #fff; outline: none; }
+    .find-btn { width: 100%; padding: 12px; border-radius: 8px; border: none; background: #6366f1; color: #fff; font-weight: 700; cursor: pointer; font-size: 1rem; }
+    .find-btn:hover { background: #4f46e5; }
+    
+    /* Category Sections */
+    .category-section { margin-bottom: 35px; }
+    .category-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #1e293b; display: flex; align-items: center; gap: 8px; }
+    .cat-active { color: #22c55e; border-color: #22c55e; }
+    .cat-coming { color: #eab308; border-color: #eab308; }
+    .cat-missed { color: #f97316; border-color: #f97316; }
+    .cat-discontinued { color: #ef4444; border-color: #ef4444; }
+
+    /* Grid layout for scheme cards */
+    .scheme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+    .scheme-card {
+      background-color: #131c31;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 220px;
+      position: relative;
+    }
+    .scheme-card h3 { font-size: 1.05rem; color: #f8fafc; margin-bottom: 8px; line-height: 1.3; }
+    .scheme-card p { color: #94a3b8; font-size: 0.85rem; line-height: 1.4; margin-bottom: 12px; }
+    
+    .red-alert-heading {
+      color: #ef4444;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+    
+    .date-info {
+      font-size: 0.78rem;
+      color: #cbd5e1;
+      background: #0f172a;
+      padding: 6px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      border-left: 3px solid #64748b;
+    }
+    
+    .see-details-btn {
+      width: 100%;
+      padding: 8px 12px;
+      background-color: #1e293b;
+      color: #38bdf8;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+    }
+    .see-details-btn:hover { background-color: #334155; color: #fff; }
+
+    /* Modal Styling */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .modal-content {
+      background-color: #131c31;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 24px;
+      position: relative;
+    }
+    .close-modal {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: #1e293b;
+      color: #fff;
+      border: none;
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .modal-title { font-size: 1.4rem; color: #818cf8; margin-bottom: 12px; }
+    .modal-section { margin-bottom: 14px; }
+    .modal-section h4 { color: #38bdf8; font-size: 0.95rem; margin-bottom: 4px; }
+    .modal-section p, .modal-section ul { color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; }
+    .modal-section ul { padding-left: 20px; }
   </style>
 </head>
 <body>
 
   <a href="/index.html" class="back-btn">← Back to Home</a>
 
-  <div class="card">
-    <h1>Sarkari Yojana Finder</h1>
-    <p>Apni details enter karein aur jaanein aap kin-kin Government Schemes ke liye eligible hain.</p>
+  <!-- Big Hero Header Box: Use Smart Finder -->
+  <div class="smart-finder-banner">
+    <h1>🎯 Use Smart Finder</h1>
+    <p>Apni eligibility enter karke instantly sahi yojna dhundhein.</p>
 
-    <div class="form-group">
-      <label for="age">Aapki Age (Years):</label>
-      <input type="number" id="age" placeholder="e.g. 25" min="1" max="100">
+    <div class="finder-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="age">Age (Years)</label>
+          <input type="number" id="age" placeholder="e.g. 25" min="1" max="100">
+        </div>
+        <div class="form-group">
+          <label for="occupation">Occupation</label>
+          <select id="occupation">
+            <option value="farmer">Farmer (Kisan)</option>
+            <option value="student">Student</option>
+            <option value="artisan">Artisan / Small Worker</option>
+            <option value="unemployed">Unemployed / Job Seeker</option>
+            <option value="business">Small Business Owner</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="income">Annual Income</label>
+          <select id="income">
+            <option value="below2.5">Below ₹2.5 Lakhs</option>
+            <option value="2.5to5">₹2.5L to ₹5L</option>
+            <option value="above5">Above ₹5 Lakhs</option>
+          </select>
+        </div>
+      </div>
+      <button class="find-btn" onclick="filterSmartFinder()">Search Eligible Schemes</button>
     </div>
-
-    <div class="form-group">
-      <label for="occupation">Aapka Business / Occupation:</label>
-      <select id="occupation">
-        <option value="farmer">Farmer (Kisan)</option>
-        <option value="student">Student</option>
-        <option value="artisan">Artisan / Small Worker (Vishwakarma/Labor)</option>
-        <option value="unemployed">Unemployed / Job Seeker</option>
-        <option value="business">Small Business Owner / Self Employed</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="income">Annual Family Income (₹ per year):</label>
-      <select id="income">
-        <option value="below2.5">Below ₹2.5 Lakhs</option>
-        <option value="2.5to5">₹2.5 Lakhs to ₹5 Lakhs</option>
-        <option value="above5">Above ₹5 Lakhs</option>
-      </select>
-    </div>
-
-    <button onclick="findSchemes()">Find Eligible Schemes</button>
   </div>
 
-  <div class="results-container" id="resultsContainer">
-    <h2 class="results-header" id="resultsTitle">Matching Schemes for You</h2>
-    <div id="schemesList"></div>
+  <!-- Category 1: Active Schemes -->
+  <div class="category-section">
+    <h2 class="category-title cat-active">🟢 Active Schemes (Forms Currently Open)</h2>
+    <div class="scheme-grid" id="activeGrid"></div>
+  </div>
+
+  <!-- Category 2: Coming Soon (Brand New) -->
+  <div class="category-section">
+    <h2 class="category-title cat-coming">🟡 Coming Soon (Brand New First-Time Schemes)</h2>
+    <div class="scheme-grid" id="comingGrid"></div>
+  </div>
+
+  <!-- Category 3: Missed Out / Expected Return -->
+  <div class="category-section">
+    <h2 class="category-title cat-missed">🟠 Missed Out / Expected Return</h2>
+    <div class="scheme-grid" id="missedGrid"></div>
+  </div>
+
+  <!-- Category 4: Discontinued / Closed Permanently -->
+  <div class="category-section">
+    <h2 class="category-title cat-discontinued">🔴 Discontinued / Permanently Closed</h2>
+    <div class="scheme-grid" id="discontinuedGrid"></div>
+  </div>
+
+  <!-- Modal Pop-Up -->
+  <div class="modal-overlay" id="detailsModal">
+    <div class="modal-content">
+      <button class="close-modal" onclick="closeModal()">✕</button>
+      <h3 class="modal-title" id="mTitle"></h3>
+      <div class="modal-section">
+        <h4>Overview & Benefits</h4>
+        <p id="mDesc"></p>
+      </div>
+      <div class="modal-section">
+        <h4>Important Dates</h4>
+        <p id="mDates"></p>
+      </div>
+      <div class="modal-section">
+        <h4>Required Documents</h4>
+        <ul id="mDocs"></ul>
+      </div>
+      <div class="modal-section">
+        <h4>Eligibility & Criteria</h4>
+        <p id="mEligibility"></p>
+      </div>
+    </div>
   </div>
 
   <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #1e293b; text-align: center; color: #94a3b8; font-size: 0.85rem;">
-    <div style="margin-bottom: 12px;">
-      <button onclick="shareApp()" style="background: #1e293b; color: #38bdf8; border: 1px solid #334155; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">🔗 Share Page</button>
-    </div>
-    <div style="margin-bottom: 10px;">
-      <a href="/privacy-policy.html" style="color: #94a3b8; text-decoration: none; margin: 0 8px;">Privacy Policy</a> |
-      <a href="/terms.html" style="color: #94a3b8; text-decoration: none; margin: 0 8px;">Terms of Service</a> |
-      <a href="/disclaimer.html" style="color: #94a3b8; text-decoration: none; margin: 0 8px;">Disclaimer</a>
-    </div>
-    <p>© 2026 All-in-One Utility Portal. All Rights Reserved.</p>
+    <p>© 2026 SYFT - Smart Yojana Finder Tool. All Rights Reserved.</p>
   </footer>
 
   <script>
-    const schemesDB = [
+    const allSchemes = [
+      // 1. ACTIVE
       {
         id: "pmkisan",
-        title: "🏛️ PM Kisan Samman Nidhi",
-        desc: "Financial benefit of ₹6,000 per year in 3 equal installments directly into bank accounts of land-holding farmer families.",
-        occupations: ["farmer"],
-        minAge: 18,
-        incomeMax: ["below2.5", "2.5to5", "above5"],
-        docs: "Aadhaar Card, Land Ownership Papers, Bank Passbook"
-      },
-      {
-        id: "pmawas",
-        title: "🏠 PM Awas Yojana (PMAY)",
-        desc: "Financial assistance and interest subsidy for constructing or purchasing a permanent pucca house.",
-        occupations: ["farmer", "artisan", "unemployed", "business", "student"],
-        minAge: 18,
-        incomeMax: ["below2.5", "2.5to5"],
-        docs: "Aadhaar, Income Certificate, Ration Card, Bank Account"
+        category: "active",
+        title: "PM Kisan Samman Nidhi",
+        shortDesc: "₹6,000 per year direct financial benefit for farmer families.",
+        dates: "Active Now (Continuous Phase 2026)",
+        docs: ["Aadhaar Card", "Land Ownership Record (Khatauni)", "Bank Account Details"],
+        eligibility: "Farmers with cultivable land holdings.",
+        minAge: 18, occupations: ["farmer"], income: ["below2.5", "2.5to5", "above5"]
       },
       {
         id: "ayushman",
-        title: "🏥 Ayushman Bharat PM-JAY",
-        desc: "Health insurance cover up to ₹5 Lakh per family per year for secondary and tertiary hospitalization care.",
-        occupations: ["farmer", "artisan", "unemployed", "business", "student"],
-        minAge: 1,
-        incomeMax: ["below2.5", "2.5to5"],
-        docs: "Ration Card, E-Shram Card / Aadhaar"
+        category: "active",
+        title: "Ayushman Bharat PM-JAY",
+        shortDesc: "Free medical insurance cover up to ₹5 Lakh per family per year.",
+        dates: "Active Now (Open all year)",
+        docs: ["Aadhaar Card", "Ration Card", "Mobile Number"],
+        eligibility: "Low income families based on SECC census.",
+        minAge: 1, occupations: ["farmer", "artisan", "unemployed", "business", "student"], income: ["below2.5", "2.5to5"]
+      },
+      // 2. COMING SOON (BRAND NEW)
+      {
+        id: "ai_skill_yojana",
+        category: "coming",
+        title: "National AI & Tech Skill Mission 2026",
+        shortDesc: "Brand new free AI training & ₹5,000 stipend scheme for youth.",
+        dates: "Expected Launch: October 2026",
+        docs: ["10th/12th Marksheet", "Aadhaar Card", "Bank Account"],
+        eligibility: "Students and Job seekers aged 18-30.",
+        minAge: 18, occupations: ["student", "unemployed"], income: ["below2.5", "2.5to5", "above5"]
       },
       {
-        id: "vishwakarma",
-        title: "🔨 PM Vishwakarma Yojana",
-        desc: "Collateral-free enterprise development loans up to ₹3 Lakhs at 5% interest + ₹15,000 toolkit digital incentive for traditional artisans.",
-        occupations: ["artisan"],
-        minAge: 18,
-        incomeMax: ["below2.5", "2.5to5", "above5"],
-        docs: "Trade Skill proof, Aadhaar Card, Bank Details"
+        id: "green_agri_subsidy",
+        category: "coming",
+        title: "PM Solar Drone Krishi Subsidy",
+        shortDesc: "First-time 80% subsidy scheme for purchasing agriculture drones.",
+        dates: "Expected Launch: November 2026",
+        docs: ["Farmer Passbook", "Aadhaar Card", "Land Record"],
+        eligibility: "Registered farmers and Agri-entrepreneurs.",
+        minAge: 18, occupations: ["farmer", "business"], income: ["below2.5", "2.5to5", "above5"]
+      },
+      // 3. MISSED OUT / EXPECTED RETURN
+      {
+        id: "vishwakarma_cycle2",
+        category: "missed",
+        alertHeading: "Form Closed - Reopening Soon",
+        title: "PM Vishwakarma Toolkit Scheme",
+        shortDesc: "₹15,000 toolkit voucher & ₹3 Lakh low-interest loan for traditional artisans.",
+        dates: "Last Date: June 2026 | Next Expected Date: Jan 2027",
+        docs: ["Skill Trade Certificate", "Aadhaar Card", "Bank Passbook"],
+        eligibility: "Traditional artisans and craftsmen.",
+        minAge: 18, occupations: ["artisan"], income: ["below2.5", "2.5to5", "above5"]
       },
       {
-        id: "mudra",
-        title: "💼 PM Mudra Yojana Loan",
-        desc: "Loans up to ₹10 Lakhs for non-corporate, non-farm small/micro enterprises without collateral.",
-        occupations: ["business", "artisan", "unemployed"],
-        minAge: 18,
-        incomeMax: ["below2.5", "2.5to5", "above5"],
-        docs: "Business Plan, Identity Proof, Bank Statement"
+        id: "internship_scheme_v1",
+        category: "missed",
+        alertHeading: "Form Closed - Reopening Soon",
+        title: "PM Youth Internship Scheme (Phase 1)",
+        shortDesc: "₹5,000 monthly internship in top 500 companies.",
+        dates: "Last Date: August 2026 | Next Expected Date: No Coming Date Announced",
+        docs: ["Graduation Degree / Diploma", "Aadhaar Card", "Income Certificate"],
+        eligibility: "Unemployed youth aged 21-24.",
+        minAge: 21, occupations: ["unemployed", "student"], income: ["below2.5", "2.5to5"]
       },
+      // 4. DISCONTINUED
       {
-        id: "pmvidya",
-        title: "🎓 PM Vidya Lakshmi Education Loan",
-        desc: "Single window portal for students to apply for educational loans and government scholarships.",
-        occupations: ["student"],
-        minAge: 15,
-        incomeMax: ["below2.5", "2.5to5", "above5"],
-        docs: "10th/12th Marksheet, Admission Letter, Parent Income Certificate"
+        id: "old_kisan_credit_v1",
+        category: "discontinued",
+        title: "Legacy Agri Loan Interest Scheme 2015",
+        shortDesc: "Old interest subvention agricultural scheme replaced by modern PM-KCC.",
+        dates: "Discontinued Permanently",
+        docs: ["No longer applicable"],
+        eligibility: "Scheme officially closed by Union Cabinet.",
+        minAge: 18, occupations: ["farmer"], income: ["below2.5", "2.5to5", "above5"]
       }
     ];
 
-    function findSchemes() {
+    function renderGrids(schemesToRender = allSchemes) {
+      const grids = {
+        active: document.getElementById('activeGrid'),
+        coming: document.getElementById('comingGrid'),
+        missed: document.getElementById('missedGrid'),
+        discontinued: document.getElementById('discontinuedGrid')
+      };
+
+      Object.values(grids).forEach(g => g.innerHTML = '');
+
+      schemesToRender.forEach(s => {
+        const card = document.createElement('div');
+        card.className = 'scheme-card';
+
+        let redHeadingHtml = s.alertHeading ? `<span class="red-alert-heading">${s.alertHeading}</span>` : '';
+
+        card.innerHTML = `
+          <div>
+            ${redHeadingHtml}
+            <h3>${s.title}</h3>
+            <p>${s.shortDesc}</p>
+          </div>
+          <div>
+            <div class="date-info">📅 ${s.dates}</div>
+            <button class="see-details-btn" onclick="openModal('${s.id}')">See Details</button>
+          </div>
+        `;
+
+        if (grids[s.category]) {
+          grids[s.category].appendChild(card);
+        }
+      });
+    }
+
+    function openModal(id) {
+      const s = allSchemes.find(item => item.id === id);
+      if (!s) return;
+
+      document.getElementById('mTitle').innerText = s.title;
+      document.getElementById('mDesc').innerText = s.shortDesc;
+      document.getElementById('mDates').innerText = s.dates;
+      document.getElementById('mEligibility').innerText = s.eligibility;
+
+      const docsList = document.getElementById('mDocs');
+      docsList.innerHTML = '';
+      s.docs.forEach(d => {
+        docsList.innerHTML += `<li>${d}</li>`;
+      });
+
+      document.getElementById('detailsModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('detailsModal').style.display = 'none';
+    }
+
+    function filterSmartFinder() {
       const ageVal = parseInt(document.getElementById('age').value);
       const occupation = document.getElementById('occupation').value;
       const income = document.getElementById('income').value;
@@ -147,43 +362,15 @@
         return;
       }
 
-      const eligible = schemesDB.filter(s => {
-        const matchesAge = ageVal >= s.minAge;
-        const matchesOcc = s.occupations.includes(occupation);
-        const matchesInc = s.incomeMax.includes(income);
-        return matchesAge && matchesOcc && matchesInc;
+      const filtered = allSchemes.filter(s => {
+        return ageVal >= s.minAge && s.occupations.includes(occupation) && s.income.includes(income);
       });
 
-      const listDiv = document.getElementById('schemesList');
-      listDiv.innerHTML = '';
-
-      if (eligible.length === 0) {
-        listDiv.innerHTML = '<p style="color: #94a3b8;">No specific matching schemes found for the selected criteria. Try adjusting income or occupation.</p>';
-      } else {
-        eligible.forEach(s => {
-          listDiv.innerHTML += `
-            <div class="scheme-card">
-              <h3>${s.title}</h3>
-              <p>${s.desc}</p>
-              <span class="badge">Required Docs: ${s.docs}</span>
-            </div>
-          `;
-        });
-      }
-
-      document.getElementById('resultsContainer').style.display = 'block';
-      document.getElementById('resultsContainer').scrollIntoView({ behavior: 'smooth' });
+      renderGrids(filtered);
     }
 
-    function shareApp() {
-      if (navigator.share) {
-        navigator.share({ title: document.title, url: window.location.href }).catch(() => {});
-      } else {
-        navigator.clipboard.writeText(window.location.href);
-        alert('Page link copied to clipboard!');
-      }
-    }
+    // Initial Render
+    renderGrids();
   </script>
-
 </body>
 </html>
