@@ -75,8 +75,8 @@
           <label for="state">State / UT</label>
           <select id="state">
             <option value="all">All India (Central & Any State)</option>
-            <option value="UP">Uttar Pradesh</option>
             <option value="MP">Madhya Pradesh</option>
+            <option value="UP">Uttar Pradesh</option>
             <option value="BR">Bihar</option>
             <option value="MH">Maharashtra</option>
             <option value="RJ">Rajasthan</option>
@@ -214,6 +214,16 @@
         minAge: 18, maxAge: 100, occupations: ["all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L"]
       },
       {
+        id: "pmay_g", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH",
+        title: "Pradhan Mantri Awas Yojana - Gramin",
+        shortDesc: "Financial assistance for construction of basic pucca house with hygienic cooking space in rural areas.",
+        dates: "Active",
+        docs: ["Aadhaar Card", "Job Card", "Bank Account Details"],
+        eligibility: "Houseless or living in kutcha/dilapidated houses in rural areas.",
+        links: [{ name: "PMAY Gramin Portal", url: "https://pmayg.nic.in" }],
+        minAge: 18, maxAge: 100, occupations: ["farmer", "labor", "artisan", "all"], income: ["below1L", "1Lto2.5L"]
+      },
+      {
         id: "pm_surya_ghar", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH",
         title: "PM Surya Ghar: Muft Bijli Yojana",
         shortDesc: "Rooftop solar subsidy providing up to 300 units of free electricity per month.",
@@ -242,6 +252,136 @@
         eligibility: "Street vendors operating in urban and semi-urban areas.",
         links: [{ name: "PM SVANidhi Portal", url: "https://pmsvanidhi.mohua.gov.in" }],
         minAge: 18, maxAge: 70, occupations: ["business", "labor", "all"], income: ["below1L", "1Lto2.5L"]
+      },
+      {
+        id: "pmuy", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH",
+        title: "Pradhan Mantri Ujjwala Yojana (PMUY)",
+        shortDesc: "Deposit-free LPG connection and subsidy support to adult women from poor households.",
+        dates: "Active",
+        docs: ["Ration Card", "Aadhaar Card", "Bank Account"],
+        eligibility: "Adult women from BPL / Poor households.",
+        links: [{ name: "PM Ujjwala Portal", url: "https://pmuy.gov.in" }],
+        minAge: 18, maxAge: 100, occupations: ["homemaker", "labor", "farmer", "all"], income: ["below1L", "1Lto2.5L"]
+      },
+      {
+        id: "pmmy", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH",
+        title: "Pradhan Mantri MUDRA Yojana (PMMY)",
+        shortDesc: "Collateral-free business loans up to ₹10 Lakhs (Shishu, Kishor, Tarun) for micro/small enterprises.",
+        dates: "Active",
+        docs: ["Business Plan", "KYC Documents", "Bank Statement"],
+        eligibility: "Micro/small entrepreneurs, shopkeepers, artisans, small traders.",
+        links: [{ name: "MUDRA Official", url: "https://www.mudra.org.in" }],
+        minAge: 18, maxAge: 70, occupations: ["business", "artisan", "driver", "unemployed", "all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L"]
+      },
+      {
+        id: "pmfby", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH",
+        title: "Pradhan Mantri Fasal Bima Yojana (PMFBY)",
+        shortDesc: "Comprehensive crop insurance against natural risks from pre-sowing to post-harvest.",
+        dates: "Active",
+        docs: ["Land Records", "Sowing Certificate", "Aadhaar", "Bank Account"],
+        eligibility: "Farmers growing notified crops in notified areas.",
+        links: [{ name: "PMFBY Portal", url: "https://pmfby.gov.in" }],
+        minAge: 18, maxAge: 100, occupations: ["farmer"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L"]
+      },
+      {
+        id: "apy", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH",
+        title: "Atal Pension Yojana (APY)",
+        shortDesc: "Guaranteed monthly pension ranging from ₹1,000 to ₹5,000 per month after 60 years of age.",
+        dates: "Active",
+        docs: ["Bank Account", "Aadhaar", "Mobile Number"],
+        eligibility: "Unorganised sector workers aged 18 to 40 years.",
+        links: [{ name: "NPS Trust APY", url: "https://www.npstrust.org.in" }],
+        minAge: 18, maxAge: 40, occupations: ["labor", "artisan", "business", "farmer", "driver", "unemployed", "homemaker", "all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L"]
+      },
+      {
+        id: "pmjjby", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH",
+        title: "PM Jeevan Jyoti Bima Yojana (PMJJBY)",
+        shortDesc: "Life insurance cover of ₹2 Lakh for any cause of death at just ₹436/year.",
+        dates: "Active",
+        docs: ["Savings Bank Account", "Aadhaar"],
+        eligibility: "Bank account holders aged 18 to 50 years.",
+        links: [{ name: "DFS Portal", url: "https://financialservices.gov.in" }],
+        minAge: 18, maxAge: 50, occupations: ["all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L", "above10L"]
+      },
+      {
+        id: "pmsby", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH",
+        title: "PM Suraksha Bima Yojana (PMSBY)",
+        shortDesc: "Accident insurance cover of ₹2 Lakh for accidental death/disability at just ₹20/year.",
+        dates: "Active",
+        docs: ["Savings Bank Account", "Aadhaar"],
+        eligibility: "Bank account holders aged 18 to 70 years.",
+        links: [{ name: "DFS Portal", url: "https://financialservices.gov.in" }],
+        minAge: 18, maxAge: 70, occupations: ["all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L", "above10L"]
+      },
+      {
+        id: "eshram", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH",
+        title: "e-SHRAM Portal (Unorganised Worker Card)",
+        shortDesc: "National Database Card for Unorganised Workers providing ₹2 Lakh accidental insurance & social security benefits.",
+        dates: "Active",
+        docs: ["Aadhaar linked Mobile", "Bank Account"],
+        eligibility: "Unorganised workers (construction, maid, street vendor, driver) aged 16-59.",
+        links: [{ name: "e-SHRAM Portal", url: "https://eshram.gov.in" }],
+        minAge: 16, maxAge: 59, occupations: ["labor", "artisan", "driver", "business", "homemaker", "unemployed", "all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L"]
+      },
+      {
+        id: "nsap_ignoaps", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH",
+        title: "Indira Gandhi Old Age Pension Scheme",
+        shortDesc: "Monthly pension assistance to senior citizens belonging to BPL households.",
+        dates: "Active",
+        docs: ["BPL Card", "Age Proof (60+)", "Aadhaar Card"],
+        eligibility: "Senior citizens aged 60 and above belonging to BPL families.",
+        links: [{ name: "NSAP Portal", url: "https://nsap.nic.in" }],
+        minAge: 60, maxAge: 100, occupations: ["senior", "all"], income: ["below1L", "1Lto2.5L"]
+      },
+      {
+        id: "nsap_ignwps", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH",
+        title: "Indira Gandhi Widow Pension Scheme",
+        shortDesc: "Monthly pension support for eligible widows living below the poverty line.",
+        dates: "Active",
+        docs: ["Death Certificate", "BPL Certificate", "Aadhaar"],
+        eligibility: "Widows aged 40 to 79 years belonging to BPL families.",
+        links: [{ name: "NSAP Portal", url: "https://nsap.nic.in" }],
+        minAge: 40, maxAge: 79, occupations: ["homemaker", "labor", "all"], income: ["below1L", "1Lto2.5L"]
+      },
+      {
+        id: "nsap_igndps", stateCode: "Central", state: "Central (All India)", popularity: "HIGH",
+        title: "Indira Gandhi Disability Pension Scheme",
+        shortDesc: "Monthly financial pension for persons with 80%+ severe or multiple disabilities.",
+        dates: "Active",
+        docs: ["Disability Certificate (80%+)", "BPL Proof", "Aadhaar"],
+        eligibility: "Persons aged 18+ with severe disability belonging to BPL households.",
+        links: [{ name: "NSAP Portal", url: "https://nsap.nic.in" }],
+        minAge: 18, maxAge: 100, occupations: ["disability", "all"], income: ["below1L", "1Lto2.5L"]
+      },
+      {
+        id: "pm_egp", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH",
+        title: "PMEGP (Employment Generation Programme)",
+        shortDesc: "Credit-linked subsidy scheme up to 35% for setting up new micro-enterprises.",
+        dates: "Active",
+        docs: ["Project Report", "Aadhaar", "Education Certificate"],
+        eligibility: "Individuals above 18 years for setting up new business units.",
+        links: [{ name: "KVIC PMEGP Portal", url: "https://www.kviconline.gov.in" }],
+        minAge: 18, maxAge: 65, occupations: ["unemployed", "business", "artisan", "all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L"]
+      },
+      {
+        id: "pm_kusum", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH",
+        title: "PM-KUSUM Solar Pump Scheme",
+        shortDesc: "Up to 90% subsidy for installing solar agricultural pumps and solarizing existing grid pumps.",
+        dates: "Active",
+        docs: ["Land Proof", "Aadhaar", "Bank Account"],
+        eligibility: "Farmers, group of farmers, Panchayats & FPOs.",
+        links: [{ name: "PM KUSUM Portal", url: "https://pmkusum.mnre.gov.in" }],
+        minAge: 18, maxAge: 100, occupations: ["farmer"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L"]
+      },
+      {
+        id: "mgnregs", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH",
+        title: "MGNREGA (Rural Employment Guarantee)",
+        shortDesc: "Guarantees 100 days of wage employment in a financial year to rural households.",
+        dates: "Active",
+        docs: ["Job Card", "Aadhaar Card", "Bank Account"],
+        eligibility: "Adult members of rural households willing to do manual work.",
+        links: [{ name: "MGNREGA Portal", url: "https://nrega.nic.in" }],
+        minAge: 18, maxAge: 70, occupations: ["labor", "farmer", "artisan", "all"], income: ["below1L", "1Lto2.5L"]
       }
     ];
 
