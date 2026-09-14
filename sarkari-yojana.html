@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SYFT - All India Smart Yojana Finder Tool 2026</title>
+  <title>SYFT - Smart Yojana Finder Tool 2026</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: #0b1120; color: #f8fafc; padding: 20px; max-width: 1000px; margin: 0 auto; }
+    body { background-color: #0b1120; color: #f8fafc; padding: 20px; max-width: 1100px; margin: 0 auto; }
     .back-btn { display: inline-block; margin-bottom: 20px; color: #38bdf8; text-decoration: none; font-weight: 600; }
     
     .smart-finder-banner {
@@ -25,72 +25,31 @@
     .form-group label { display: block; color: #e0e7ff; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
     .form-group select, .form-group input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #4338ca; background-color: #0f172a; color: #fff; outline: none; }
     
-    /* Searchable Occupation Box */
-    .occ-box {
-      border: 1px solid #4338ca;
-      background-color: #0f172a;
-      border-radius: 8px;
-      padding: 8px;
-      max-height: 140px;
-      overflow-y: auto;
-    }
-    .occ-search-input {
-      width: 100%;
-      padding: 6px 10px;
-      margin-bottom: 8px;
-      border-radius: 6px;
-      border: 1px solid #334155;
-      background: #1e293b;
-      color: #fff;
-      font-size: 0.85rem;
-    }
-    .occ-option {
-      padding: 8px;
-      font-size: 0.85rem;
-      cursor: pointer;
-      border-radius: 4px;
-      color: #cbd5e1;
-      margin-bottom: 2px;
-    }
-    .occ-option:hover, .occ-option.selected {
-      background-color: #6366f1;
-      color: #fff;
-      font-weight: 600;
-    }
+    .occ-box { border: 1px solid #4338ca; background-color: #0f172a; border-radius: 8px; padding: 8px; max-height: 140px; overflow-y: auto; }
+    .occ-search-input { width: 100%; padding: 6px 10px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #334155; background: #1e293b; color: #fff; font-size: 0.85rem; }
+    .occ-option { padding: 8px; font-size: 0.85rem; cursor: pointer; border-radius: 4px; color: #cbd5e1; margin-bottom: 2px; }
+    .occ-option:hover, .occ-option.selected { background-color: #6366f1; color: #fff; font-weight: 600; }
 
     .find-btn { width: 100%; padding: 12px; border-radius: 8px; border: none; background: #6366f1; color: #fff; font-weight: 700; cursor: pointer; font-size: 1rem; margin-top: 10px; }
     .find-btn:hover { background: #4f46e5; }
     
     .category-section { margin-bottom: 35px; }
-    .category-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #1e293b; }
-    .cat-active { color: #22c55e; border-color: #22c55e; }
-    .cat-coming { color: #eab308; border-color: #eab308; }
-    .cat-missed { color: #f97316; border-color: #f97316; }
-    .cat-discontinued { color: #ef4444; border-color: #ef4444; }
+    .category-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #1e293b; color: #22c55e; border-color: #22c55e; }
 
-    .scheme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 16px; }
-    .scheme-card {
-      background-color: #131c31;
-      border: 1px solid #1e293b;
-      border-radius: 12px;
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 230px;
-    }
+    .scheme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .scheme-card { background-color: #131c31; border: 1px solid #1e293b; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; min-height: 220px; }
     .scheme-card h3 { font-size: 1.05rem; color: #f8fafc; margin-bottom: 8px; line-height: 1.3; }
     .scheme-card p { color: #94a3b8; font-size: 0.85rem; line-height: 1.4; margin-bottom: 12px; }
     
-    .red-alert-heading { color: #ef4444; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 6px; display: block; }
     .state-tag { font-size: 0.75rem; background: #1e293b; color: #38bdf8; padding: 2px 8px; border-radius: 12px; font-weight: 600; margin-bottom: 6px; display: inline-block; }
+    .pop-tag { font-size: 0.7rem; background: #312e81; color: #a5b4fc; padding: 2px 6px; border-radius: 8px; margin-left: 4px; font-weight: 600; }
     .date-info { font-size: 0.78rem; color: #cbd5e1; background: #0f172a; padding: 6px 10px; border-radius: 6px; margin-bottom: 12px; border-left: 3px solid #64748b; }
     
     .see-details-btn { width: 100%; padding: 8px 12px; background-color: #1e293b; color: #38bdf8; border: 1px solid #334155; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; text-align: center; }
     .see-details-btn:hover { background-color: #334155; color: #fff; }
     .no-results { color: #64748b; font-size: 0.9rem; font-style: italic; padding: 12px 0; }
 
-    /* Modal Styling */
+    /* Modal */
     .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
     .modal-content { background-color: #131c31; border: 1px solid #334155; border-radius: 16px; max-width: 650px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 24px; position: relative; }
     .close-modal { position: absolute; top: 16px; right: 16px; background: #1e293b; color: #fff; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-weight: bold; }
@@ -100,22 +59,18 @@
     .modal-section p, .modal-section ul { color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; }
     .modal-section ul { padding-left: 20px; }
     .govt-link-btn { display: inline-block; margin-top: 6px; margin-right: 8px; padding: 6px 12px; background-color: #2563eb; color: #fff; text-decoration: none; border-radius: 6px; font-size: 0.85rem; font-weight: 600; }
-    .govt-link-btn:hover { background-color: #1d4ed8; }
   </style>
 </head>
 <body>
 
   <a href="/index.html" class="back-btn">← Back to Home</a>
 
-  <!-- Use Smart Finder Box -->
   <div class="smart-finder-banner">
-    <h1>🎯 Use Smart Finder</h1>
-    <p>Select State, Occupation, Age & Income to filter schemes across all categories.</p>
+    <h1>🎯 Smart Scheme Finder</h1>
+    <p>Apni details enter karein aur dekhein kaun-kaun si Active Sarkari Yojnaayein aapke liye hain.</p>
 
     <div class="finder-form">
       <div class="form-grid">
-        
-        <!-- State Selection -->
         <div class="form-group">
           <label for="state">State / UT</label>
           <select id="state">
@@ -132,25 +87,14 @@
             <option value="GJ">Gujarat</option>
             <option value="PB">Punjab</option>
             <option value="HR">Haryana</option>
-            <option value="JH">Jharkhand</option>
-            <option value="CG">Chhattisgarh</option>
-            <option value="UK">Uttarakhand</option>
-            <option value="HP">Himachal Pradesh</option>
-            <option value="OD">Odisha</option>
-            <option value="AP">Andhra Pradesh</option>
-            <option value="TS">Telangana</option>
-            <option value="KL">Kerala</option>
-            <option value="AS">Assam</option>
           </select>
         </div>
 
-        <!-- Age Filter -->
         <div class="form-group">
           <label for="age">Age (Years)</label>
-          <input type="number" id="age" placeholder="e.g. 61" min="1" max="100">
+          <input type="number" id="age" placeholder="e.g. 25" min="1" max="100">
         </div>
 
-        <!-- Income Range -->
         <div class="form-group">
           <label for="income">Annual Family Income</label>
           <select id="income">
@@ -163,9 +107,8 @@
           </select>
         </div>
 
-        <!-- Occupation Box -->
-        <div class="form-group" style="grid-column: span 1;">
-          <label>Occupation / Profession</label>
+        <div class="form-group">
+          <label>Occupation / Category</label>
           <div class="occ-box">
             <input type="text" class="occ-search-input" id="occSearch" placeholder="🔍 Search occupation..." onkeyup="filterOccupations()">
             <div id="occList">
@@ -176,42 +119,23 @@
               <div class="occ-option" data-val="artisan" onclick="selectOcc(this)">Artisan / Craftsperson (Vishwakarma)</div>
               <div class="occ-option" data-val="labor" onclick="selectOcc(this)">Daily Wager / Construction Laborer</div>
               <div class="occ-option" data-val="unemployed" onclick="selectOcc(this)">Unemployed Youth / Job Seeker</div>
-              <div class="occ-option" data-val="business" onclick="selectOcc(this)">Small Business / Shopkeeper / Vendor</div>
-              <div class="occ-option" data-val="homemaker" onclick="selectOcc(this)">Homemaker / Women Entrepreneur</div>
-              <div class="occ-option" data-val="salaried" onclick="selectOcc(this)">Private Sector Employee / Salaried</div>
+              <div class="occ-option" data-val="business" onclick="selectOcc(this)">Small Business / Vendor</div>
+              <div class="occ-option" data-val="homemaker" onclick="selectOcc(this)">Homemaker / Women</div>
               <div class="occ-option" data-val="driver" onclick="selectOcc(this)">Driver / Transport Worker</div>
               <div class="occ-option" data-val="disability" onclick="selectOcc(this)">Person with Disability (Divyangjan)</div>
             </div>
           </div>
         </div>
-
       </div>
-      <button class="find-btn" onclick="filterSmartFinder()">Search Eligible Schemes</button>
+      <button class="find-btn" onclick="filterSmartFinder()">Filter Active Schemes</button>
     </div>
   </div>
 
-  <!-- Categories Grid -->
   <div class="category-section">
-    <h2 class="category-title cat-active">🟢 Active Schemes (Forms Currently Open)</h2>
+    <h2 class="category-title">🟢 Active & Eligible Schemes</h2>
     <div class="scheme-grid" id="activeGrid"></div>
   </div>
 
-  <div class="category-section">
-    <h2 class="category-title cat-coming">🟡 Coming Soon (Brand New First-Time Schemes)</h2>
-    <div class="scheme-grid" id="comingGrid"></div>
-  </div>
-
-  <div class="category-section">
-    <h2 class="category-title cat-missed">🟠 Missed Out / Expected Return</h2>
-    <div class="scheme-grid" id="missedGrid"></div>
-  </div>
-
-  <div class="category-section">
-    <h2 class="category-title cat-discontinued">🔴 Discontinued / Permanently Closed</h2>
-    <div class="scheme-grid" id="discontinuedGrid"></div>
-  </div>
-
-  <!-- Details Modal -->
   <div class="modal-overlay" id="detailsModal">
     <div class="modal-content">
       <button class="close-modal" onclick="closeModal()">✕</button>
@@ -221,7 +145,7 @@
         <p id="mDesc"></p>
       </div>
       <div class="modal-section">
-        <h4>Important Dates</h4>
+        <h4>Status</h4>
         <p id="mDates"></p>
       </div>
       <div class="modal-section">
@@ -238,10 +162,6 @@
       </div>
     </div>
   </div>
-
-  <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #1e293b; text-align: center; color: #94a3b8; font-size: 0.85rem;">
-    <p>© 2026 SYFT - All India Smart Yojana Finder Tool. All Rights Reserved.</p>
-  </footer>
 
   <script>
     let selectedOccupation = "all";
@@ -261,126 +181,86 @@
       });
     }
 
-    const allSchemes = [
-      // --- ACTIVE SCHEMES ---
+    const activeSchemes = [
       {
-        id: "ignoaps_pension", category: "active", stateCode: "Central", state: "Central & MP",
-        title: "Indira Gandhi National Old Age Pension Scheme (IGNOAPS)",
-        shortDesc: "Monthly pension support for senior citizens aged 60 and above.",
-        dates: "Active Now (Continuous Open)",
-        docs: ["Aadhaar Card", "Age Proof (60+)", "Income Certificate / BPL Card", "Bank Passbook"],
-        eligibility: "Senior Citizens aged 60+ belonging to BPL / Low Income families.",
-        links: [
-          { name: "NSAP Portal", url: "https://nsap.nic.in" },
-          { name: "MP Pension Portal", url: "https://pension.samagra.gov.in" }
-        ],
-        minAge: 60, maxAge: 100, occupations: ["senior", "all"], income: ["below1L", "1Lto2.5L"]
+        id: "pm_kisan", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH",
+        title: "PM-KISAN Samman Nidhi",
+        shortDesc: "₹6,000 yearly financial assistance in 3 installments for eligible landholding farmer families.",
+        dates: "Active (Operational)",
+        docs: ["Aadhaar Card", "Land Khatauni / Proof", "Bank Passbook"],
+        eligibility: "Landholding farmers across India.",
+        links: [{ name: "PM Kisan Portal", url: "https://pmkisan.gov.in" }],
+        minAge: 18, maxAge: 100, occupations: ["farmer", "all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L"]
       },
       {
-        id: "ayushman_senior", category: "active", stateCode: "Central", state: "Central (All India)",
-        title: "Ayushman Bharat PM-JAY (Vaya Vandana 70+ & Standard)",
-        shortDesc: "Free medical cover up to ₹5 Lakh/family annually in empanelled hospitals.",
-        dates: "Active Now (Continuous Open)",
-        docs: ["Aadhaar Card", "Ration Card / E-Shram Card"],
-        eligibility: "Citizens & Senior Citizens with low to middle income.",
-        links: [
-          { name: "PMJAY Portal", url: "https://pmjay.gov.in" },
-          { name: "NHA Beneficiary", url: "https://beneficiary.nha.gov.in" }
-        ],
-        minAge: 1, maxAge: 100, occupations: ["senior", "farmer", "student", "artisan", "labor", "unemployed", "business", "homemaker", "driver", "disability", "salaried", "all"],
+        id: "ayushman_bharat", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH",
+        title: "Ayushman Bharat - PM-JAY",
+        shortDesc: "₹5 Lakh free health insurance cover per family per year for secondary/tertiary hospital care.",
+        dates: "Active (Continuous Registration)",
+        docs: ["Aadhaar Card", "Ration Card / SECC Data"],
+        eligibility: "Low-income families and senior citizens aged 70+.",
+        links: [{ name: "PMJAY Portal", url: "https://pmjay.gov.in" }],
+        minAge: 1, maxAge: 100, occupations: ["senior", "farmer", "student", "artisan", "labor", "unemployed", "business", "homemaker", "driver", "disability", "all"],
         income: ["below1L", "1Lto2.5L", "2.5Lto5L"]
       },
       {
-        id: "pmkisan", category: "active", stateCode: "Central", state: "Central (All India)",
-        title: "PM Kisan Samman Nidhi",
-        shortDesc: "₹6,000 yearly direct benefit in 3 installments for farmers.",
-        dates: "Active Now (Phase 2026 Open)",
-        docs: ["Aadhaar Card", "Land Khatauni", "Bank Passbook"],
-        eligibility: "Farmers with registered land holdings.",
-        links: [{ name: "PM Kisan Portal", url: "https://pmkisan.gov.in" }],
-        minAge: 18, maxAge: 100, occupations: ["farmer"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L"]
-      },
-
-      // --- COMING SOON SCHEMES ---
-      {
-        id: "senior_digital_care_2026", category: "coming", stateCode: "Central", state: "Central (All India)",
-        title: "PM Senior Citizen Health & Digital Care Mission 2026",
-        shortDesc: "Free home healthcare checkups + smart health monitor devices for seniors.",
-        dates: "Expected Launch: November 2026",
-        docs: ["Aadhaar Card", "Senior Citizen ID Proof"],
-        eligibility: "Senior citizens aged 60+ across all states.",
-        links: [{ name: "Social Justice Dept", url: "https://socialjustice.gov.in" }],
-        minAge: 60, maxAge: 100, occupations: ["senior", "all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L"]
+        id: "pmay_u", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH",
+        title: "Pradhan Mantri Awas Yojana - Urban",
+        shortDesc: "Subsidy & financial support for purchasing or constructing pucca homes in urban areas.",
+        dates: "Active",
+        docs: ["Aadhaar Card", "Income Certificate", "Property Documents"],
+        eligibility: "Urban households belonging to EWS/LIG/MIG.",
+        links: [{ name: "PMAY-U Portal", url: "https://pmaymis.gov.in" }],
+        minAge: 18, maxAge: 100, occupations: ["all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L"]
       },
       {
-        id: "ai_skill_2026", category: "coming", stateCode: "Central", state: "Central (All India)",
-        title: "National AI & Tech Skill Mission 2026",
-        shortDesc: "Free advanced AI training with ₹5,000 stipend for youth.",
-        dates: "Expected Launch: October 2026",
-        docs: ["10th/12th Marksheet", "Aadhaar Card"],
-        eligibility: "Students and Job seekers aged 18-30.",
-        links: [{ name: "Skill India Official", url: "https://www.skillindia.gov.in" }],
-        minAge: 18, maxAge: 30, occupations: ["student", "unemployed"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L"]
-      },
-
-      // --- MISSED OUT / EXPECTED RETURN SCHEMES ---
-      {
-        id: "senior_travel_pass_2025", category: "missed", stateCode: "MP", state: "MP (Madhya Pradesh)",
-        alertHeading: "Form Closed - Expected Reopening Jan 2027",
-        title: "Mukhyamantri Teerth Darshan Yojana (Senior Travel Pass)",
-        shortDesc: "Free pilgrimage travel & stay for senior citizens aged 60+.",
-        dates: "Last Phase Closed: August 2026 | Reopening: Jan 2027",
-        docs: ["Aadhaar Card", "MP Domicile Certificate", "Medical Fitness Certificate"],
-        eligibility: "Senior Citizens (60+) non-income tax payers of MP.",
-        links: [{ name: "MP Religious Trust Portal", url: "https://mp.gov.in" }],
-        minAge: 60, maxAge: 95, occupations: ["senior", "all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L"]
+        id: "pm_surya_ghar", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH",
+        title: "PM Surya Ghar: Muft Bijli Yojana",
+        shortDesc: "Rooftop solar subsidy providing up to 300 units of free electricity per month.",
+        dates: "Active",
+        docs: ["Electricity Bill", "Aadhaar Card", "Bank Details"],
+        eligibility: "Residential households with roof availability.",
+        links: [{ name: "PM Surya Ghar Portal", url: "https://pmsuryaghar.gov.in" }],
+        minAge: 18, maxAge: 100, occupations: ["all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L", "above10L"]
       },
       {
-        id: "vishwakarma_kit", category: "missed", stateCode: "Central", state: "Central (All India)",
-        alertHeading: "Form Closed - Reopening Soon",
-        title: "PM Vishwakarma Toolkit Voucher",
-        shortDesc: "₹15,000 e-voucher for toolkit purchase + low interest loan.",
-        dates: "Last Date: June 2026 | Next Expected: Jan 2027",
-        docs: ["Artisan Trade Proof", "Aadhaar"],
-        eligibility: "Traditional Trade Artisans.",
+        id: "pm_vishwakarma", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH",
+        title: "PM Vishwakarma Scheme",
+        shortDesc: "Skill training, ₹15,000 tool kit voucher & collateral-free loan at 5% interest for traditional artisans.",
+        dates: "Active",
+        docs: ["Aadhaar Card", "Trade Proof", "Bank Account"],
+        eligibility: "Artisans and craftspeople in 18 traditional trades.",
         links: [{ name: "PM Vishwakarma Portal", url: "https://pmvishwakarma.gov.in" }],
-        minAge: 18, maxAge: 75, occupations: ["artisan"], income: ["below1L", "1Lto2.5L", "2.5Lto5L"]
+        minAge: 18, maxAge: 75, occupations: ["artisan", "labor"], income: ["below1L", "1Lto2.5L", "2.5Lto5L"]
       },
-
-      // --- DISCONTINUED SCHEMES ---
       {
-        id: "pmvvnl_legacy", category: "discontinued", stateCode: "Central", state: "Central (All India)",
-        title: "Pradhan Mantri Vaya Vandana Yojana (PMVVY - Pension Plan)",
-        shortDesc: "LIC Senior pension deposit scheme replaced by SCSS & SC-Banks schemes.",
-        dates: "Discontinued Permanently (Closed for new enrollment)",
-        docs: ["Historical Data Only"],
-        eligibility: "Scheme closed on 31st March 2023.",
-        links: [{ name: "LIC Portal Info", url: "https://licindia.in" }],
-        minAge: 60, maxAge: 100, occupations: ["senior", "all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L", "above10L"]
+        id: "pm_svanidhi", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH",
+        title: "PM SVANidhi Scheme",
+        shortDesc: "Micro working-capital loan up to ₹50,000 for street vendors and small sellers.",
+        dates: "Active",
+        docs: ["Vending Certificate / ID", "Aadhaar Card"],
+        eligibility: "Street vendors operating in urban and semi-urban areas.",
+        links: [{ name: "PM SVANidhi Portal", url: "https://pmsvanidhi.mohua.gov.in" }],
+        minAge: 18, maxAge: 70, occupations: ["business", "labor", "all"], income: ["below1L", "1Lto2.5L"]
       }
     ];
 
-    function renderGrids(schemesToRender = allSchemes) {
-      const grids = {
-        active: document.getElementById('activeGrid'),
-        coming: document.getElementById('comingGrid'),
-        missed: document.getElementById('missedGrid'),
-        discontinued: document.getElementById('discontinuedGrid')
-      };
+    function renderGrids(schemesToRender = activeSchemes) {
+      const grid = document.getElementById('activeGrid');
+      grid.innerHTML = '';
 
-      Object.values(grids).forEach(g => g.innerHTML = '');
-      const categoryCounts = { active: 0, coming: 0, missed: 0, discontinued: 0 };
+      if (schemesToRender.length === 0) {
+        grid.innerHTML = `<div class="no-results">Aapke dale gaye details ke hisab se koi Active scheme nahi mili. Kripya criteria change karke search karein.</div>`;
+        return;
+      }
 
       schemesToRender.forEach(s => {
         const card = document.createElement('div');
         card.className = 'scheme-card';
-
-        let redHeading = s.alertHeading ? `<span class="red-alert-heading">${s.alertHeading}</span>` : '';
-
         card.innerHTML = `
           <div>
-            ${redHeading}
             <span class="state-tag">📍 ${s.state}</span>
+            <span class="pop-tag">🔥 ${s.popularity}</span>
             <h3>${s.title}</h3>
             <p>${s.shortDesc}</p>
           </div>
@@ -389,23 +269,12 @@
             <button class="see-details-btn" onclick="openModal('${s.id}')">See Details</button>
           </div>
         `;
-
-        if (grids[s.category]) {
-          grids[s.category].appendChild(card);
-          categoryCounts[s.category]++;
-        }
-      });
-
-      // Handle Empty Categories
-      Object.keys(grids).forEach(cat => {
-        if (categoryCounts[cat] === 0) {
-          grids[cat].innerHTML = `<div class="no-results">No matching scheme found in this category for your selected criteria.</div>`;
-        }
+        grid.appendChild(card);
       });
     }
 
     function openModal(id) {
-      const s = allSchemes.find(item => item.id === id);
+      const s = activeSchemes.find(item => item.id === id);
       if (!s) return;
 
       document.getElementById('mTitle').innerText = s.title;
@@ -435,17 +304,10 @@
       const ageVal = parseInt(document.getElementById('age').value);
       const incomeVal = document.getElementById('income').value;
 
-      const filtered = allSchemes.filter(s => {
-        // State Filter
+      const filtered = activeSchemes.filter(s => {
         let matchState = (stateVal === 'all') || (s.stateCode === 'Central') || (s.stateCode === stateVal);
-        
-        // Age Filter
         let matchAge = isNaN(ageVal) || (ageVal >= s.minAge && ageVal <= s.maxAge);
-        
-        // Income Filter
         let matchIncome = (incomeVal === 'all') || s.income.includes(incomeVal);
-        
-        // Occupation Filter
         let matchOcc = (selectedOccupation === 'all') || s.occupations.includes('all') || s.occupations.includes(selectedOccupation);
 
         return matchState && matchAge && matchIncome && matchOcc;
