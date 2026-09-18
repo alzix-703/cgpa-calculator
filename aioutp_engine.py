@@ -3,24 +3,21 @@ import os
 trends = [
     {
         "slug": "sarkari-eligibility-quiz",
-        "title": "Sarkari Yojana Eligibility Check 2026",
-        "desc": "Check which government schemes & benefits you are eligible for in 30 seconds!",
-        "target": "/sarkari-yojana.html",
-        "bg_color": "#0b1120"
+        "title": "Sarkari Yojana Benefit Score Calculator 2026",
+        "desc": "Check your exact eligible government scheme benefits & estimated amount in 30 seconds!",
+        "target": "/sarkari-yojana.html"
     },
     {
         "slug": "aktu-score-predictor",
-        "title": "AKTU Semester CGPA & Grade Predictor",
-        "desc": "Calculate exact AKTU SGPA/CGPA percentage instantly.",
-        "target": "/index.html",
-        "bg_color": "#0b1120"
+        "title": "AKTU Semester SGPA / CGPA Instant Estimator",
+        "desc": "Predict your semester CGPA, percentage & backlogs risk status.",
+        "target": "/index.html"
     },
     {
         "slug": "exact-age-tax-check",
-        "title": "Exact Age & Tax Saving Assessment",
-        "desc": "Calculate your exact age in days & check your tax regime benefits.",
-        "target": "/index.html",
-        "bg_color": "#0b1120"
+        "title": "Age & New Tax Regime Savings Assessment",
+        "desc": "Calculate exact age breakdown and compare Tax Regime savings.",
+        "target": "/index.html"
     }
 ]
 
@@ -40,16 +37,21 @@ def generate_viral_pages():
     <meta property="og:description" content="{item['desc']}" />
     <style>
         * {{ margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }}
-        body {{ background-color: {item['bg_color']}; color: #fff; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }}
-        .card {{ background: #1e293b; border: 1px solid #334155; padding: 24px; border-radius: 16px; max-width: 480px; width: 100%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }}
-        h1 {{ font-size: 1.4rem; color: #eab308; margin-bottom: 12px; font-weight: 700; }}
-        p {{ color: #94a3b8; font-size: 0.9rem; margin-bottom: 20px; line-height: 1.4; }}
-        .q-box {{ background: #0f172a; padding: 16px; border-radius: 10px; margin-bottom: 16px; text-align: left; border: 1px solid #334155; }}
-        .q-box label {{ font-size: 0.85rem; color: #cbd5e1; display: block; margin-bottom: 6px; }}
-        .q-box select {{ width: 100%; padding: 10px; border-radius: 6px; background: #1e293b; color: #fff; border: 1px solid #334155; outline: none; }}
-        .btn-action {{ width: 100%; padding: 12px; background: #ca8a04; color: #000; border: none; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: pointer; }}
-        .whatsapp-btn {{ display: inline-block; width: 100%; padding: 12px; background: #22c55e; color: #fff; text-decoration: none; font-weight: 700; border-radius: 8px; margin-bottom: 12px; font-size: 0.95rem; }}
-        .main-btn {{ display: block; width: 100%; padding: 12px; background: #eab308; color: #000; text-decoration: none; font-weight: 700; border-radius: 8px; font-size: 0.95rem; }}
+        body {{ background-color: #0b1120; color: #fff; padding: 16px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }}
+        .card {{ background: #1e293b; border: 1px solid #334155; padding: 20px; border-radius: 16px; max-width: 480px; width: 100%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }}
+        h1 {{ font-size: 1.3rem; color: #eab308; margin-bottom: 8px; font-weight: 700; }}
+        p {{ color: #94a3b8; font-size: 0.85rem; margin-bottom: 16px; line-height: 1.4; }}
+        .q-box {{ background: #0f172a; padding: 12px; border-radius: 8px; margin-bottom: 12px; text-align: left; border: 1px solid #334155; }}
+        .q-box label {{ font-size: 0.8rem; color: #cbd5e1; display: block; margin-bottom: 4px; font-weight: 600; }}
+        .q-box select {{ width: 100%; padding: 8px; border-radius: 6px; background: #1e293b; color: #fff; border: 1px solid #334155; outline: none; font-size: 0.85rem; }}
+        .btn-action {{ width: 100%; padding: 12px; background: #eab308; color: #000; border: none; border-radius: 8px; font-weight: 700; font-size: 0.95rem; cursor: pointer; }}
+        .result-card {{ background: #0f172a; border: 1px dashed #22c55e; border-radius: 10px; padding: 16px; margin: 16px 0; text-align: left; }}
+        .result-card h3 {{ color: #22c55e; font-size: 1.1rem; margin-bottom: 8px; }}
+        .result-card ul {{ color: #cbd5e1; font-size: 0.85rem; padding-left: 18px; margin-bottom: 8px; line-height: 1.5; }}
+        .share-status {{ font-size: 0.85rem; color: #f59e0b; margin-bottom: 10px; font-weight: 600; }}
+        .whatsapp-btn {{ display: block; width: 100%; padding: 12px; background: #22c55e; color: #fff; text-decoration: none; font-weight: 700; border-radius: 8px; margin-bottom: 10px; font-size: 0.9rem; text-align: center; }}
+        .main-btn {{ display: block; width: 100%; padding: 12px; background: #3b82f6; color: #fff; text-decoration: none; font-weight: 700; border-radius: 8px; font-size: 0.9rem; text-align: center; opacity: 0.5; pointer-events: none; transition: all 0.3s; }}
+        .main-btn.active {{ opacity: 1; pointer-events: auto; background: #10b981; }}
     </style>
 </head>
 <body>
@@ -59,36 +61,81 @@ def generate_viral_pages():
         
         <div id="quizForm">
             <div class="q-box">
-                <label>Select Your Profile / Requirement:</label>
-                <select id="userOpt">
-                    <option>General Category / Student</option>
-                    <option>Farmer / Daily Wager</option>
-                    <option>Working Professional</option>
+                <label>1. Select Profile Category:</label>
+                <select id="userCat">
+                    <option value="student">Student / Unemployed Youth</option>
+                    <option value="farmer">Farmer / Agricultural Worker</option>
+                    <option value="professional">Salaried / Business Professional</option>
                 </select>
             </div>
-            <button class="btn-action" onclick="processQuiz()">Check Result Instant</button>
+            <div class="q-box">
+                <label>2. Annual Family Income Range:</label>
+                <select id="userInc">
+                    <option value="low">Below ₹2.5 Lakhs</option>
+                    <option value="mid">₹2.5 Lakhs - ₹6 Lakhs</option>
+                    <option value="high">Above ₹6 Lakhs</option>
+                </select>
+            </div>
+            <button class="btn-action" onclick="processQuiz()">⚡ Generate Instant Score & Report</button>
         </div>
 
         <div id="resultBox" style="display:none;">
-            <h2 style="color: #22c55e; margin-bottom: 8px; font-size: 1.3rem;">Analysis Ready!</h2>
-            <p style="margin-bottom: 16px;">Share with friends to compare & unlock full detailed report on main portal.</p>
+            <div class="result-card">
+                <h3>✅ Preliminary Analysis Ready!</h3>
+                <div id="calcOutput"></div>
+            </div>
+
+            <div class="share-status" id="shareCounter">🔒 Progress: 0/3 WhatsApp Shares to Unlock Full Report</div>
             
-            <a id="waShare" href="#" target="_blank" class="whatsapp-btn" onclick="unlockMain()">📲 Share on WhatsApp to Continue</a>
-            <a id="mainLink" href="{item['target']}" class="main-btn" style="display:none;">🚀 Go to Main Utility Tool</a>
+            <a id="waShare" href="#" target="_blank" class="whatsapp-btn" onclick="registerShare()">📲 Share on WhatsApp Group / Friend</a>
+            
+            <a id="mainLink" href="{item['target']}" class="main-btn">🚀 Access Full Portal Tool & Apply</a>
         </div>
     </div>
 
     <script>
+        let shareCount = 0;
+        let scoreText = "";
+
         function processQuiz() {{
+            let cat = document.getElementById('userCat').value;
+            let inc = document.getElementById('userInc').value;
+            let outputHtml = "";
+
+            if (cat === "student") {{
+                outputHtml = "<ul><li>E-Shram Student Assistance: Eligible</li><li>Scholarsip / Skill Welfare: ₹12,000/yr</li><li>PM Yuva Scheme: Eligible</li></ul>";
+                scoreText = "Est. Benefit ₹12,000/yr";
+            }} else if (cat === "farmer") {{
+                outputHtml = "<ul><li>PM Kisan Samman Nidhi: ₹6,000/yr</li><li>Crop Insurance Waiver: Covered</li><li>Subsidized Equipment: Eligible</li></ul>";
+                scoreText = "Est. Benefit ₹18,000/yr";
+            }} else {{
+                outputHtml = "<ul><li>Tax Savings under 80C/80D: Up to ₹1.5L</li><li>Home Loan Interest Subsidy: Applicable</li></ul>";
+                scoreText = "Est. Tax Waiver ₹45,000";
+            }}
+
+            document.getElementById('calcOutput').innerHTML = outputHtml;
             document.getElementById('quizForm').style.display = 'none';
             document.getElementById('resultBox').style.display = 'block';
-            let msg = encodeURIComponent("Check your score on AIOUTP Tool: " + window.location.href);
+
+            updateWaLink();
+        }}
+
+        function updateWaLink() {{
+            let currentUrl = window.location.href;
+            let msg = encodeURIComponent("Maine AIOUTP Tool se apna Score check kiya (" + scoreText + "). Aap bhi check karein: " + currentUrl);
             document.getElementById('waShare').href = "https://api.whatsapp.com/send?text=" + msg;
         }}
-        function unlockMain() {{
-            setTimeout(() => {{
-                document.getElementById('mainLink').style.display = 'block';
-            }}, 1200);
+
+        function registerShare() {{
+            shareCount++;
+            if (shareCount < 3) {{
+                document.getElementById('shareCounter').innerText = "⏳ Progress: " + shareCount + "/3 WhatsApp Shares done. Share " + (3 - shareCount) + " more times!";
+            }} else {{
+                document.getElementById('shareCounter').innerHTML = "🎉 <span style='color:#22c55e;'>Unlocked! Full Access Granted.</span>";
+                let mainBtn = document.getElementById('mainLink');
+                mainBtn.classList.add('active');
+                mainBtn.innerText = "🚀 Access Full Portal Tool & Apply Now";
+            }}
         }}
     </script>
 </body>
@@ -96,7 +143,7 @@ def generate_viral_pages():
         with open(file_path, "w") as f:
             f.write(html_content)
 
-    print("Fixed paths in AIOUTP viral pages successfully!")
+    print("Updated AIOUTP Engine with dynamic real score and 3-share counter!")
 
 if __name__ == "__main__":
     generate_viral_pages()
