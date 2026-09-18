@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+import os
+
+html_code = """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -264,4 +266,13 @@
         }
     </script>
 </body>
-</html>
+</html>"""
+
+os.makedirs("viral", exist_ok=True)
+with open("index.html", "w") as f:
+    f.write(html_code)
+
+with open("viral/sarkari-eligibility-quiz.html", "w") as f:
+    f.write(html_code)
+
+print("Files updated successfully!")
