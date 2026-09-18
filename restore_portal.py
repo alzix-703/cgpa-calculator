@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+import os
+
+# Main Portal HTML (All Calculators & Tools Restored)
+main_index_html = """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -93,4 +96,10 @@
         </footer>
     </div>
 </body>
-</html>
+</html>"""
+
+# Write main index.html
+with open("index.html", "w") as f:
+    f.write(main_index_html)
+
+print("Main Portal index.html restored successfully!")
