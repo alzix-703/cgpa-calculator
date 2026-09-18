@@ -28,14 +28,17 @@ def generate_viral_pages():
         h1 {{ font-size: 1.3rem; color: #f43f5e; margin-bottom: 8px; font-weight: 700; }}
         p {{ color: #94a3b8; font-size: 0.85rem; margin-bottom: 16px; line-height: 1.4; }}
         
+        .code-search-box {{ background: #0f172a; padding: 14px; border-radius: 12px; border: 1px solid #3b82f6; margin-bottom: 20px; text-align: left; }}
+        .code-search-box label {{ font-size: 0.82rem; color: #60a5fa; display: block; margin-bottom: 6px; font-weight: 700; }}
+        .input-group {{ display: flex; gap: 8px; }}
+        .code-search-box input {{ flex: 1; padding: 10px; background: #1e293b; border: 1px solid #334155; color: #fff; border-radius: 8px; font-size: 0.9rem; outline: none; }}
+        .code-search-box button {{ padding: 10px 16px; background: #2563eb; border: none; color: #fff; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.85rem; }}
+
+        .divider {{ border-top: 1px dashed #334155; margin: 20px 0; }}
+
         .mode-btn-container {{ display: flex; gap: 8px; margin-bottom: 16px; }}
         .mode-btn {{ flex: 1; padding: 10px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.8rem; transition: all 0.3s; }}
         .mode-btn.active {{ background: #e11d48; border-color: #f43f5e; }}
-
-        .code-search-box {{ background: #0f172a; padding: 10px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 14px; display: none; text-align: left; }}
-        .code-search-box label {{ font-size: 0.78rem; color: #cbd5e1; display: block; margin-bottom: 4px; font-weight: 600; }}
-        .code-search-box input {{ width: 68%; padding: 8px; background: #1e293b; border: 1px solid #334155; color: #fff; border-radius: 6px; font-size: 0.85rem; outline: none; }}
-        .code-search-box button {{ width: 28%; padding: 8px; background: #3b82f6; border: none; color: #fff; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.8rem; }}
 
         .teaser-box {{ background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 14px; text-align: left; margin-bottom: 16px; position: relative; overflow: hidden; }}
         .teaser-text {{ font-size: 0.9rem; line-height: 1.5; color: #e2e8f0; }}
@@ -46,31 +49,36 @@ def generate_viral_pages():
         .share-status {{ font-size: 0.85rem; color: #f59e0b; margin-bottom: 10px; font-weight: 600; }}
         .whatsapp-btn {{ display: block; width: 100%; padding: 12px; background: #22c55e; color: #fff; text-decoration: none; font-weight: 700; border-radius: 8px; margin-bottom: 10px; font-size: 0.9rem; text-align: center; cursor: pointer; }}
 
-        .select-box {{ background: #0f172a; padding: 12px; border-radius: 8px; margin-bottom: 12px; text-align: left; border: 1px solid #334155; display: none; }}
+        .select-box {{ background: #0f172a; padding: 12px; border-radius: 8px; margin-between: 12px; text-align: left; border: 1px solid #334155; display: none; }}
         .select-box label {{ font-size: 0.8rem; color: #cbd5e1; display: block; margin-bottom: 6px; font-weight: 600; }}
         .select-box select {{ width: 100%; padding: 10px; border-radius: 6px; background: #1e293b; color: #fff; border: 1px solid #334155; outline: none; font-size: 0.85rem; }}
 
         .content-display {{ background: #0f172a; border: 1px solid #22c55e; border-radius: 10px; padding: 16px; text-align: left; margin-top: 16px; display: none; font-size: 0.9rem; line-height: 1.6; color: #f8fafc; }}
         .code-tag {{ background: #1e293b; border: 1px solid #eab308; color: #eab308; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; display: inline-block; margin-bottom: 10px; }}
-        .error-msg {{ color: #ef4444; font-weight: bold; font-size: 0.85rem; margin-top: 6px; display: none; }}
+        .error-msg {{ color: #ef4444; font-weight: bold; font-size: 0.82rem; margin-top: 8px; display: none; text-align: left; }}
     </style>
 </head>
 <body>
     <div class="card">
-        <h1>🔥 Premium Shayari & Stories Hub</h1>
-        <p>Choose what you want to read & unlock extreme dopamine content!</p>
+        <h1>🔥 Premium Content Portal</h1>
+        <p>Find your saved content or unlock fresh dopamine stories!</p>
 
-        <div class="mode-btn-container">
-            <button id="btnShayari" class="mode-btn active" onclick="switchMode('shayari')">✨ Shayaris</button>
-            <button id="btnStory" class="mode-btn" onclick="switchMode('story')">📖 Stories</button>
-            <button id="btnCode" class="mode-btn" onclick="switchMode('code')">🔑 Search Code</button>
+        <!-- TOP SEARCH BOX SECTION -->
+        <div class="code-search-box">
+            <label>🔍 Find Saved Story/Shayari (Enter valid code with 5 digits):</label>
+            <div class="input-group">
+                <input type="text" id="codeInput" placeholder="Enter 5-digit code">
+                <button onclick="fetchByCode()">Search</button>
+            </div>
+            <div class="error-msg" id="codeError"></div>
         </div>
 
-        <div class="code-search-box" id="codeSearchBox">
-            <label>Enter Saved Content Code:</label>
-            <input type="text" id="codeInput" placeholder="e.g. SH-1001 or ST-2001">
-            <button onclick="fetchByCode()">Search</button>
-            <div class="error-msg" id="codeError">❌ Invalid Code! Ye code exist nahi karta.</div>
+        <div class="divider"></div>
+
+        <!-- SHARE UNLOCK SECTION -->
+        <div class="mode-btn-container">
+            <button id="btnShayari" class="mode-btn active" onclick="switchMode('shayari')">✨ Fresh Shayaris</button>
+            <button id="btnStory" class="mode-btn" onclick="switchMode('story')">📖 Fresh Stories</button>
         </div>
 
         <div id="mainFlow">
@@ -107,51 +115,21 @@ def generate_viral_pages():
         let requiredTime = 30.0;
         let leaveTime = 0;
         let isWaitingForReturn = false;
-        let isOwnerDevice = false;
+        let isOwnerUnlocked = false;
 
-        // Registered Database Codes
+        const OWNER_SECRET_CODE = "ArpitF703T";
+
+        // Registered 5-Digit Database Codes
         const validDatabase = {{
-            "SH-1001": "🔥 <b>7 Unseen Shayaris (One-Sided Love):</b><br><br>1. Tumhe chaahna hamari galti thi...<br>2. Ek tarfa pyaar ki taaqat hi alag hai...<br>3. Khamoshi par mat jaao...<br>4. Unke reply ka intezaar...<br>5. Dil ki dua...<br>6. Gehra dard...<br>7. Zid hoti toh baahon mein hoti!",
-            "ST-2001": "📖 <b>One-Sided Love: The Silent Sacrifice:</b><br><br>Rohan hamesha library ke corner table par baithta tha, sirf Ananya ko dekhne ke liye... Usne letter kitaab mein hi chupa diya aur kabhi nahi diya."
+            "10001": "🔥 <b>7 Unseen Shayaris (One-Sided Love):</b><br><br>1. Tumhe chaahna hamari galti thi...<br>2. Ek tarfa pyaar ki taaqat hi alag hai...<br>3. Khamoshi par mat jaao...<br>4. Unke reply ka intezaar...<br>5. Dil ki dua...<br>6. Gehra dard...<br>7. Zid hoti toh baahon mein hoti!",
+            "20001": "📖 <b>One-Sided Love: The Silent Sacrifice:</b><br><br>Rohan hamesha library ke corner table par baithta tha, sirf Ananya ko dekhne ke liye... Usne letter kitaab mein hi chupa diya aur kabhi nahi diya."
         }};
-
-        // IP Detection API Check
-        fetch('https://api.ipify.org?format=json')
-            .then(res => res.json())
-            .then(data => {{
-                // Auto Detect Owner Device
-                if(data.ip) {{
-                    checkOwnerIp(data.ip);
-                }}
-            }}).catch(() => {{}});
-
-        function checkOwnerIp(userIp) {{
-            // Automatic Bypass logic for Owner IP
-            if(localStorage.getItem('owner_verified') === 'true') {{
-                isOwnerDevice = true;
-                unlockContentOptions();
-            }}
-        }}
 
         function switchMode(mode) {{
             currentMode = mode;
             shareCount = 0;
             document.getElementById('finalOutput').style.display = 'none';
             document.getElementById('categorySelectBox').style.display = 'none';
-            document.getElementById('codeSearchBox').style.display = 'none';
-            document.getElementById('codeError').style.display = 'none';
-            
-            if(mode === 'code') {{
-                document.getElementById('mainFlow').style.display = 'none';
-                document.getElementById('codeSearchBox').style.display = 'block';
-                document.getElementById('btnCode').classList.add('active');
-                document.getElementById('btnShayari').classList.remove('active');
-                document.getElementById('btnStory').classList.remove('active');
-                return;
-            }}
-
-            document.getElementById('mainFlow').style.display = 'block';
-            document.getElementById('btnCode').classList.remove('active');
             document.getElementById('waShare').style.display = 'block';
 
             if(mode === 'shayari') {{
@@ -170,13 +148,13 @@ def generate_viral_pages():
                 document.getElementById('shareCounter').innerText = "🔒 Progress: 0/5 Shares Done";
             }}
 
-            if(isOwnerDevice) {{
+            if(isOwnerUnlocked) {{
                 unlockContentOptions();
             }}
         }}
 
         function startShareProcess() {{
-            if(isOwnerDevice) {{
+            if(isOwnerUnlocked) {{
                 unlockContentOptions();
                 return;
             }}
@@ -199,9 +177,9 @@ def generate_viral_pages():
                 let returnTime = Date.now();
                 let timeSpent = (returnTime - leaveTime) / 1000;
 
-                if (timeSpent >= requiredTime || isOwnerDevice) {{
+                if (timeSpent >= requiredTime || isOwnerUnlocked) {{
                     shareCount++;
-                    if (shareCount < requiredShares && !isOwnerDevice) {{
+                    if (shareCount < requiredShares && !isOwnerUnlocked) {{
                         document.getElementById('shareCounter').innerText = "⏳ Progress: " + shareCount + "/" + requiredShares + " Shares Done. Share " + (requiredShares - shareCount) + " more times!";
                     }} else {{
                         unlockContentOptions();
@@ -244,7 +222,7 @@ def generate_viral_pages():
             let output = document.getElementById('finalOutput');
             if(!val) return;
 
-            let randomCode = (currentMode === 'shayari' ? 'SH-' : 'ST-') + Math.floor(1000 + Math.random() * 9000);
+            let randomCode = Math.floor(10000 + Math.random() * 90000);
 
             output.style.display = 'block';
 
@@ -265,10 +243,28 @@ def generate_viral_pages():
         }}
 
         function fetchByCode() {{
-            let code = document.getElementById('codeInput').value.toUpperCase().trim();
+            let code = document.getElementById('codeInput').value.trim();
             let output = document.getElementById('finalOutput');
             let err = document.getElementById('codeError');
 
+            // Secret Owner Code Check
+            if(code === OWNER_SECRET_CODE) {{
+                isOwnerUnlocked = true;
+                err.style.display = 'none';
+                alert("⚡ Welcome Arpit Bhai! Owner Bypass Activated.");
+                unlockContentOptions();
+                return;
+            }}
+
+            // Validation Rule 1: Check if length is NOT 5 digits
+            if(code.length !== 5 || isNaN(code)) {{
+                output.style.display = 'none';
+                err.style.display = 'block';
+                err.innerText = "❌ Invalid Code! Code must be exactly 5 digits.";
+                return;
+            }}
+
+            // Validation Rule 2: Check if code exists in Database
             if(validDatabase[code]) {{
                 err.style.display = 'none';
                 output.style.display = 'block';
@@ -276,6 +272,7 @@ def generate_viral_pages():
             }} else {{
                 output.style.display = 'none';
                 err.style.display = 'block';
+                err.innerText = "❌ Invalid Code! Ye code exist nahi karta.";
             }}
         }}
     </script>
@@ -284,7 +281,7 @@ def generate_viral_pages():
         with open(file_path, "w") as f:
             f.write(html_content)
 
-    print("Deployed IP Auto-Detect & Strict Code Error Engine!")
+    print("Deployed Strict 5-Digit Code & Owner Secret Bypass Engine!")
 
 if __name__ == "__main__":
     generate_viral_pages()
