@@ -49,7 +49,7 @@ def generate_viral_pages():
         .result-card h3 {{ color: #22c55e; font-size: 1.1rem; margin-bottom: 8px; }}
         .result-card ul {{ color: #cbd5e1; font-size: 0.85rem; padding-left: 18px; margin-bottom: 8px; line-height: 1.5; }}
         .share-status {{ font-size: 0.85rem; color: #f59e0b; margin-bottom: 10px; font-weight: 600; }}
-        .whatsapp-btn {{ display: block; width: 100%; padding: 12px; background: #22c55e; color: #fff; text-decoration: none; font-weight: 700; border-radius: 8px; margin-bottom: 10px; font-size: 0.9rem; text-align: center; }}
+        .whatsapp-btn {{ display: block; width: 100%; padding: 12px; background: #22c55e; color: #fff; text-decoration: none; font-weight: 700; border-radius: 8px; margin-bottom: 10px; font-size: 0.9rem; text-align: center; cursor: pointer; }}
         .main-btn {{ display: block; width: 100%; padding: 12px; background: #3b82f6; color: #fff; text-decoration: none; font-weight: 700; border-radius: 8px; font-size: 0.9rem; text-align: center; opacity: 0.5; pointer-events: none; transition: all 0.3s; }}
         .main-btn.active {{ opacity: 1; pointer-events: auto; background: #10b981; }}
     </style>
@@ -87,7 +87,7 @@ def generate_viral_pages():
 
             <div class="share-status" id="shareCounter">🔒 Progress: 0/3 WhatsApp Shares to Unlock Full Report</div>
             
-            <a id="waShare" href="#" target="_blank" class="whatsapp-btn" onclick="registerShare()">📲 Share on WhatsApp Group / Friend</a>
+            <a id="waShare" href="javascript:void(0)" class="whatsapp-btn" onclick="startShareProcess()">📲 Share on WhatsApp Direct</a>
             
             <a id="mainLink" href="{item['target']}" class="main-btn">🚀 Access Full Portal Tool & Apply</a>
         </div>
@@ -96,6 +96,8 @@ def generate_viral_pages():
     <script>
         let shareCount = 0;
         let scoreText = "";
+        let leaveTime = 0;
+        let isWaitingForReturn = false;
 
         function processQuiz() {{
             let cat = document.getElementById('userCat').value;
@@ -115,34 +117,50 @@ def generate_viral_pages():
             document.getElementById('calcOutput').innerHTML = outputHtml;
             document.getElementById('quizForm').style.display = 'none';
             document.getElementById('resultBox').style.display = 'block';
-
-            updateWaLink();
         }}
 
-        function updateWaLink() {{
+        function startShareProcess() {{
             let currentUrl = window.location.href;
-            let msg = encodeURIComponent("Maine AIOUTP Tool se apna Score check kiya (" + scoreText + "). Aap bhi check karein: " + currentUrl);
-            document.getElementById('waShare').href = "https://api.whatsapp.com/send?text=" + msg;
+            let rawMsg = "Maine AIOUTP Tool se apna Score check kiya (" + scoreText + "). Aap bhi check karein: " + currentUrl;
+            let waUrl = "whatsapp://send?text=" + encodeURIComponent(rawMsg);
+
+            leaveTime = Date.now();
+            isWaitingForReturn = true;
+
+            // Direct trigger deep link (skips browser app chooser)
+            window.location.href = waUrl;
         }}
 
-        function registerShare() {{
-            shareCount++;
-            if (shareCount < 3) {{
-                document.getElementById('shareCounter').innerText = "⏳ Progress: " + shareCount + "/3 WhatsApp Shares done. Share " + (3 - shareCount) + " more times!";
-            }} else {{
-                document.getElementById('shareCounter').innerHTML = "🎉 <span style='color:#22c55e;'>Unlocked! Full Access Granted.</span>";
-                let mainBtn = document.getElementById('mainLink');
-                mainBtn.classList.add('active');
-                mainBtn.innerText = "🚀 Access Full Portal Tool & Apply Now";
+        // Detect when user returns back to browser tab
+        document.addEventListener("visibilitychange", function() {{
+            if (document.visibilityState === "visible" && isWaitingForReturn) {{
+                isWaitingForReturn = false;
+                let returnTime = Date.now();
+                let timeSpent = (returnTime - leaveTime) / 1000;
+
+                // User must spend at least 2.5 seconds in WhatsApp to count as real share
+                if (timeSpent >= 2.5) {{
+                    shareCount++;
+                    if (shareCount < 3) {{
+                        document.getElementById('shareCounter').innerText = "⏳ Progress: " + shareCount + "/3 WhatsApp Shares done. Share " + (3 - shareCount) + " more times!";
+                    }} else {{
+                        document.getElementById('shareCounter').innerHTML = "🎉 <span style='color:#22c55e;'>Unlocked! Full Access Granted.</span>";
+                        let mainBtn = document.getElementById('mainLink');
+                        mainBtn.classList.add('active');
+                        mainBtn.innerText = "🚀 Access Full Portal Tool & Apply Now";
+                    }}
+                }} else {{
+                    alert("⚠️ Share not completed! Please select a WhatsApp contact/group and send the message to unlock.");
+                }}
             }}
-        }}
+        }});
     </script>
 </body>
 </html>"""
         with open(file_path, "w") as f:
             f.write(html_content)
 
-    print("Updated AIOUTP Engine with dynamic real score and 3-share counter!")
+    print("Updated AIOUTP Engine with direct WhatsApp deep-linking & return time validation!")
 
 if __name__ == "__main__":
     generate_viral_pages()
