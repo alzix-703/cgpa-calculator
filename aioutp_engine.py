@@ -28,14 +28,6 @@ def generate_viral_pages():
         h1 {{ font-size: 1.3rem; color: #f43f5e; margin-bottom: 8px; font-weight: 700; }}
         p {{ color: #94a3b8; font-size: 0.85rem; margin-bottom: 16px; line-height: 1.4; }}
         
-        .code-search-box {{ background: #0f172a; padding: 14px; border-radius: 12px; border: 1px solid #3b82f6; margin-bottom: 20px; text-align: left; }}
-        .code-search-box label {{ font-size: 0.82rem; color: #60a5fa; display: block; margin-bottom: 6px; font-weight: 700; }}
-        .input-group {{ display: flex; gap: 8px; }}
-        .code-search-box input {{ flex: 1; padding: 10px; background: #1e293b; border: 1px solid #334155; color: #fff; border-radius: 8px; font-size: 0.9rem; outline: none; }}
-        .code-search-box button {{ padding: 10px 16px; background: #2563eb; border: none; color: #fff; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.85rem; }}
-
-        .divider {{ border-top: 1px dashed #334155; margin: 20px 0; }}
-
         .mode-btn-container {{ display: flex; gap: 8px; margin-bottom: 16px; }}
         .mode-btn {{ flex: 1; padding: 10px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.8rem; transition: all 0.3s; }}
         .mode-btn.active {{ background: #e11d48; border-color: #f43f5e; }}
@@ -47,9 +39,19 @@ def generate_viral_pages():
         .note-box {{ background: #451a03; border: 1px solid #78350f; color: #fcd34d; padding: 10px; border-radius: 8px; font-size: 0.78rem; text-align: left; margin-bottom: 14px; line-height: 1.3; }}
         
         .share-status {{ font-size: 0.85rem; color: #f59e0b; margin-bottom: 10px; font-weight: 600; }}
-        .whatsapp-btn {{ display: block; width: 100%; padding: 12px; background: #22c55e; color: #fff; text-decoration: none; font-weight: 700; border-radius: 8px; margin-bottom: 10px; font-size: 0.9rem; text-align: center; cursor: pointer; }}
+        .whatsapp-btn {{ display: block; width: 100%; padding: 12px; background: #22c55e; color: #fff; text-decoration: none; font-weight: 700; border-radius: 8px; margin-bottom: 16px; font-size: 0.9rem; text-align: center; cursor: pointer; }}
 
-        .select-box {{ background: #0f172a; padding: 12px; border-radius: 8px; margin-between: 12px; text-align: left; border: 1px solid #334155; display: none; }}
+        .divider {{ border-top: 1px dashed #334155; margin: 18px 0; }}
+
+        /* CODE SEARCH SECTION BELOW WHATSAPP BUTTON */
+        .code-search-box {{ background: #0f172a; padding: 14px; border-radius: 12px; border: 1px solid #3b82f6; text-align: left; margin-top: 10px; }}
+        .code-search-box label {{ font-size: 0.82rem; color: #60a5fa; display: block; margin-bottom: 8px; font-weight: 700; }}
+        .type-select {{ width: 100%; padding: 8px; background: #1e293b; border: 1px solid #334155; color: #fff; border-radius: 6px; font-size: 0.85rem; outline: none; margin-bottom: 8px; }}
+        .input-group {{ display: flex; gap: 8px; }}
+        .code-search-box input {{ flex: 1; padding: 9px; background: #1e293b; border: 1px solid #334155; color: #fff; border-radius: 6px; font-size: 0.85rem; outline: none; }}
+        .code-search-box button {{ padding: 9px 16px; background: #2563eb; border: none; color: #fff; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.85rem; }}
+
+        .select-box {{ background: #0f172a; padding: 12px; border-radius: 8px; margin-top: 12px; text-align: left; border: 1px solid #334155; display: none; }}
         .select-box label {{ font-size: 0.8rem; color: #cbd5e1; display: block; margin-bottom: 6px; font-weight: 600; }}
         .select-box select {{ width: 100%; padding: 10px; border-radius: 6px; background: #1e293b; color: #fff; border: 1px solid #334155; outline: none; font-size: 0.85rem; }}
 
@@ -60,27 +62,16 @@ def generate_viral_pages():
 </head>
 <body>
     <div class="card">
-        <h1>🔥 Premium Content Portal</h1>
-        <p>Find your saved content or unlock fresh dopamine stories!</p>
+        <h1>🔥 Premium Shayari & Stories Hub</h1>
+        <p>Choose what you want to read & unlock extreme dopamine content!</p>
 
-        <!-- TOP SEARCH BOX SECTION -->
-        <div class="code-search-box">
-            <label>🔍 Find Saved Story/Shayari (Enter valid code with 5 digits):</label>
-            <div class="input-group">
-                <input type="text" id="codeInput" placeholder="Enter 5-digit code">
-                <button onclick="fetchByCode()">Search</button>
-            </div>
-            <div class="error-msg" id="codeError"></div>
-        </div>
-
-        <div class="divider"></div>
-
-        <!-- SHARE UNLOCK SECTION -->
+        <!-- TOP MODES -->
         <div class="mode-btn-container">
-            <button id="btnShayari" class="mode-btn active" onclick="switchMode('shayari')">✨ Fresh Shayaris</button>
-            <button id="btnStory" class="mode-btn" onclick="switchMode('story')">📖 Fresh Stories</button>
+            <button id="btnShayari" class="mode-btn active" onclick="switchMode('shayari')">✨ Shayaris</button>
+            <button id="btnStory" class="mode-btn" onclick="switchMode('story')">📖 One-Sided Love Stories</button>
         </div>
 
+        <!-- MAIN FLOW -->
         <div id="mainFlow">
             <div class="teaser-box">
                 <div id="teaserContent" class="teaser-text">
@@ -98,6 +89,23 @@ def generate_viral_pages():
             <a id="waShare" href="javascript:void(0)" class="whatsapp-btn" onclick="startShareProcess()">📲 Share on WhatsApp Direct</a>
         </div>
 
+        <div class="divider"></div>
+
+        <!-- SEARCH CODE BOX (BELOW WHATSAPP BUTTON) -->
+        <div class="code-search-box">
+            <label>🔍 Find Saved Content (Enter valid code with 5 digits):</label>
+            <select id="contentTypeSelect" class="type-select">
+                <option value="shayari">✨ Shayari Code</option>
+                <option value="story">📖 Story Code</option>
+            </select>
+            <div class="input-group">
+                <input type="text" id="codeInput" placeholder="Enter 5-digit code">
+                <button onclick="fetchByCode()">Search</button>
+            </div>
+            <div class="error-msg" id="codeError"></div>
+        </div>
+
+        <!-- CATEGORY SELECT -->
         <div class="select-box" id="categorySelectBox">
             <label id="selectLabel">Choose Category:</label>
             <select id="userCategory" onchange="loadContent()">
@@ -105,6 +113,7 @@ def generate_viral_pages():
             </select>
         </div>
 
+        <!-- CONTENT DISPLAY -->
         <div class="content-display" id="finalOutput"></div>
     </div>
 
@@ -119,10 +128,14 @@ def generate_viral_pages():
 
         const OWNER_SECRET_CODE = "ArpitF703T";
 
-        // Registered 5-Digit Database Codes
-        const validDatabase = {{
-            "10001": "🔥 <b>7 Unseen Shayaris (One-Sided Love):</b><br><br>1. Tumhe chaahna hamari galti thi...<br>2. Ek tarfa pyaar ki taaqat hi alag hai...<br>3. Khamoshi par mat jaao...<br>4. Unke reply ka intezaar...<br>5. Dil ki dua...<br>6. Gehra dard...<br>7. Zid hoti toh baahon mein hoti!",
-            "20001": "📖 <b>One-Sided Love: The Silent Sacrifice:</b><br><br>Rohan hamesha library ke corner table par baithta tha, sirf Ananya ko dekhne ke liye... Usne letter kitaab mein hi chupa diya aur kabhi nahi diya."
+        // Separate Database for Shayaris and Stories
+        const database = {{
+            "shayari": {{
+                "10001": "🔥 <b>7 Unseen Shayaris (One-Sided Love):</b><br><br>1. Tumhe chaahna hamari galti thi...<br>2. Ek tarfa pyaar ki taaqat hi alag hai...<br>3. Khamoshi par mat jaao...<br>4. Unke reply ka intezaar...<br>5. Dil ki dua...<br>6. Gehra dard...<br>7. Zid hoti toh baahon mein hoti!"
+            }},
+            "story": {{
+                "10001": "📖 <b>One-Sided Love: The Silent Sacrifice:</b><br><br>Rohan hamesha library ke corner table par baithta tha, sirf Ananya ko dekhne ke liye... Usne letter kitaab mein hi chupa diya aur kabhi nahi diya."
+            }}
         }};
 
         function switchMode(mode) {{
@@ -244,6 +257,7 @@ def generate_viral_pages():
 
         function fetchByCode() {{
             let code = document.getElementById('codeInput').value.trim();
+            let selectedType = document.getElementById('contentTypeSelect').value;
             let output = document.getElementById('finalOutput');
             let err = document.getElementById('codeError');
 
@@ -256,7 +270,7 @@ def generate_viral_pages():
                 return;
             }}
 
-            // Validation Rule 1: Check if length is NOT 5 digits
+            // Validation Rule 1: Code must be 5 digits
             if(code.length !== 5 || isNaN(code)) {{
                 output.style.display = 'none';
                 err.style.display = 'block';
@@ -264,11 +278,11 @@ def generate_viral_pages():
                 return;
             }}
 
-            // Validation Rule 2: Check if code exists in Database
-            if(validDatabase[code]) {{
+            // Validation Rule 2: Check in selected Type Database (Shayari or Story)
+            if(database[selectedType] && database[selectedType][code]) {{
                 err.style.display = 'none';
                 output.style.display = 'block';
-                output.innerHTML = `<span class="code-tag">Retrieved Code: ${code}</span><br>` + validDatabase[code];
+                output.innerHTML = `<span class="code-tag">Retrieved Code (${selectedType.toUpperCase()}): ${code}</span><br>` + database[selectedType][code];
             }} else {{
                 output.style.display = 'none';
                 err.style.display = 'block';
@@ -281,7 +295,7 @@ def generate_viral_pages():
         with open(file_path, "w") as f:
             f.write(html_content)
 
-    print("Deployed Strict 5-Digit Code & Owner Secret Bypass Engine!")
+    print("Deployed Updated Layout & Type-Based Code Validation Engine!")
 
 if __name__ == "__main__":
     generate_viral_pages()
