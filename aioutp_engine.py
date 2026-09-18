@@ -28,9 +28,14 @@ def generate_viral_pages():
         h1 {{ font-size: 1.3rem; color: #f43f5e; margin-bottom: 8px; font-weight: 700; }}
         p {{ color: #94a3b8; font-size: 0.85rem; margin-bottom: 16px; line-height: 1.4; }}
         
-        .mode-btn-container {{ display: flex; gap: 10px; margin-bottom: 16px; }}
-        .mode-btn {{ flex: 1; padding: 12px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 8px; font-weight: 700; cursor: pointer; transition: all 0.3s; }}
+        .mode-btn-container {{ display: flex; gap: 8px; margin-bottom: 16px; }}
+        .mode-btn {{ flex: 1; padding: 10px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.8rem; transition: all 0.3s; }}
         .mode-btn.active {{ background: #e11d48; border-color: #f43f5e; }}
+
+        .code-search-box {{ background: #0f172a; padding: 10px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 14px; display: none; text-align: left; }}
+        .code-search-box label {{ font-size: 0.78rem; color: #cbd5e1; display: block; margin-bottom: 4px; font-weight: 600; }}
+        .code-search-box input {{ width: 70%; padding: 8px; background: #1e293b; border: 1px solid #334155; color: #fff; border-radius: 6px; font-size: 0.85rem; outline: none; }}
+        .code-search-box button {{ width: 26%; padding: 8px; background: #3b82f6; border: none; color: #fff; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.8rem; }}
 
         .teaser-box {{ background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 14px; text-align: left; margin-bottom: 16px; position: relative; overflow: hidden; }}
         .teaser-text {{ font-size: 0.9rem; line-height: 1.5; color: #e2e8f0; }}
@@ -41,11 +46,14 @@ def generate_viral_pages():
         .share-status {{ font-size: 0.85rem; color: #f59e0b; margin-bottom: 10px; font-weight: 600; }}
         .whatsapp-btn {{ display: block; width: 100%; padding: 12px; background: #22c55e; color: #fff; text-decoration: none; font-weight: 700; border-radius: 8px; margin-bottom: 10px; font-size: 0.9rem; text-align: center; cursor: pointer; }}
         
+        .admin-bypass-btn {{ display: inline-block; margin-top: 10px; font-size: 0.75rem; color: #64748b; text-decoration: underline; cursor: pointer; }}
+
         .select-box {{ background: #0f172a; padding: 12px; border-radius: 8px; margin-bottom: 12px; text-align: left; border: 1px solid #334155; display: none; }}
         .select-box label {{ font-size: 0.8rem; color: #cbd5e1; display: block; margin-bottom: 6px; font-weight: 600; }}
         .select-box select {{ width: 100%; padding: 10px; border-radius: 6px; background: #1e293b; color: #fff; border: 1px solid #334155; outline: none; font-size: 0.85rem; }}
 
         .content-display {{ background: #0f172a; border: 1px solid #22c55e; border-radius: 10px; padding: 16px; text-align: left; margin-top: 16px; display: none; font-size: 0.9rem; line-height: 1.6; color: #f8fafc; }}
+        .code-tag {{ background: #1e293b; border: 1px solid #eab308; color: #eab308; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; display: inline-block; margin-bottom: 10px; }}
     </style>
 </head>
 <body>
@@ -55,23 +63,34 @@ def generate_viral_pages():
 
         <div class="mode-btn-container">
             <button id="btnShayari" class="mode-btn active" onclick="switchMode('shayari')">✨ Shayaris</button>
-            <button id="btnStory" class="mode-btn" onclick="switchMode('story')">📖 One-Sided Love Stories</button>
+            <button id="btnStory" class="mode-btn" onclick="switchMode('story')">📖 Stories</button>
+            <button id="btnCode" class="mode-btn" onclick="switchMode('code')">🔑 Search Code</button>
         </div>
 
-        <div class="teaser-box">
-            <div id="teaserContent" class="teaser-text">
-                "Dil ke kone se ek hi aawaaz aati hai, Unhe chaahna hamari sabse haseen galti thi..." <br>
-                <span class="blur-overlay">Par unka kisi aur ke sath muskuraana hamare dil parkhanjar ki tarah chal gaya. Woh nahi jaante ki unke ek message ke liye kitna intezaar...</span>
+        <div class="code-search-box" id="codeSearchBox">
+            <label>Enter Saved Content Code:</label>
+            <input type="text" id="codeInput" placeholder="e.g. SH-4821 or ST-9102">
+            <button onclick="fetchByCode()">Search</button>
+        </div>
+
+        <div id="mainFlow">
+            <div class="teaser-box">
+                <div id="teaserContent" class="teaser-text">
+                    "Dil ke kone se ek hi aawaaz aati hai, Unhe chaahna hamari sabse haseen galti thi..." <br>
+                    <span class="blur-overlay">Par unka kisi aur ke sath muskuraana hamare dil par khanjar ki tarah chal gaya. Woh nahi jaante ki unke ek message ke liye kitna intezaar...</span>
+                </div>
             </div>
-        </div>
 
-        <div class="note-box" id="noteWarning">
-            📌 <b>Note:</b> Share to <b>3 WhatsApp friends/groups</b>. Total validation takes minimum <b>30 seconds</b> on WhatsApp. Direct fast unlock without waiting will not work!
-        </div>
+            <div class="note-box" id="noteWarning">
+                📌 <b>Note:</b> Share to <b>3 WhatsApp friends/groups</b>. Total validation takes minimum <b>30 seconds</b> on WhatsApp. Direct fast unlock without waiting will not work!
+            </div>
 
-        <div class="share-status" id="shareCounter">🔒 Progress: 0/3 Shares Done</div>
-        
-        <a id="waShare" href="javascript:void(0)" class="whatsapp-btn" onclick="startShareProcess()">📲 Share on WhatsApp Direct</a>
+            <div class="share-status" id="shareCounter">🔒 Progress: 0/3 Shares Done</div>
+            
+            <a id="waShare" href="javascript:void(0)" class="whatsapp-btn" onclick="startShareProcess()">📲 Share on WhatsApp Direct</a>
+            
+            <span class="admin-bypass-btn" onclick="enableAdminBypass()">⚡ Admin Instant Bypass (For Arpit)</span>
+        </div>
 
         <div class="select-box" id="categorySelectBox">
             <label id="selectLabel">Choose Category:</label>
@@ -90,12 +109,37 @@ def generate_viral_pages():
         let requiredTime = 30.0;
         let leaveTime = 0;
         let isWaitingForReturn = false;
+        let isAdmin = false;
+
+        // Check URL parameter for admin bypass
+        if(window.location.search.includes('admin=true')) {{
+            isAdmin = true;
+        }}
+
+        function enableAdminBypass() {{
+            isAdmin = true;
+            alert("⚡ Admin Mode Activated! All share counts & 30s/50s waiting timers bypassed.");
+            unlockContentOptions();
+        }}
 
         function switchMode(mode) {{
             currentMode = mode;
             shareCount = 0;
             document.getElementById('finalOutput').style.display = 'none';
             document.getElementById('categorySelectBox').style.display = 'none';
+            document.getElementById('codeSearchBox').style.display = 'none';
+            
+            if(mode === 'code') {{
+                document.getElementById('mainFlow').style.display = 'none';
+                document.getElementById('codeSearchBox').style.display = 'block';
+                document.getElementById('btnCode').classList.add('active');
+                document.getElementById('btnShayari').classList.remove('active');
+                document.getElementById('btnStory').classList.remove('active');
+                return;
+            }}
+
+            document.getElementById('mainFlow').style.display = 'block';
+            document.getElementById('btnCode').classList.remove('active');
             document.getElementById('waShare').style.display = 'block';
 
             if(mode === 'shayari') {{
@@ -115,17 +159,22 @@ def generate_viral_pages():
                 document.getElementById('shareCounter').innerText = "🔒 Progress: 0/5 Shares Done";
                 document.getElementById('teaserContent').innerHTML = '"Uska college ki gallery se guzarne ka tareeka aur mera ghanto chhup kar dekhna..." <br><span class="blur-overlay">Mera ek-tarfa pyaar ek aisi kitaab tha jise sirf maine likha aur maine hi padha, par climax ne sab kuch tod diya...</span>';
             }}
+
+            if(isAdmin) {{
+                unlockContentOptions();
+            }}
         }}
 
         function startShareProcess() {{
-            let originUrl = window.location.origin;
-            let rawMsg = "";
-
-            if(currentMode === 'shayari') {{
-                rawMsg = "Bhai maine toh socha hi nahi tha par yahan par itni zabardast Shayaris aur Stories hain ki dil ko chhoo gayi! Tu bhi ek baar padh ke dekh: " + originUrl;
-            }} else {{
-                rawMsg = "Bhai iss One-Sided Love Story ko padhkar sach mein mere aankhon mein aansu aa gaye! Ek baar tu bhi padh, maza aa jayega: " + originUrl;
+            if(isAdmin) {{
+                unlockContentOptions();
+                return;
             }}
+
+            let originUrl = window.location.origin;
+            let rawMsg = (currentMode === 'shayari') 
+                ? "Bhai maine toh socha hi nahi tha par yahan par 7 zabardast Shayaris hain jo dil ko chhoo gayi! Tu bhi ek baar padh: " + originUrl
+                : "Bhai iss One-Sided Love Story ko padhkar sach mein mere aankhon mein aansu aa gaye! Ek baar tu bhi padh: " + originUrl;
 
             let waUrl = "whatsapp://send?text=" + encodeURIComponent(rawMsg);
             leaveTime = Date.now();
@@ -140,20 +189,24 @@ def generate_viral_pages():
                 let returnTime = Date.now();
                 let timeSpent = (returnTime - leaveTime) / 1000;
 
-                if (timeSpent >= requiredTime) {{
+                if (timeSpent >= requiredTime || isAdmin) {{
                     shareCount++;
-                    if (shareCount < requiredShares) {{
+                    if (shareCount < requiredShares && !isAdmin) {{
                         document.getElementById('shareCounter').innerText = "⏳ Progress: " + shareCount + "/" + requiredShares + " Shares Done. Share " + (requiredShares - shareCount) + " more times!";
                     }} else {{
-                        document.getElementById('shareCounter').innerHTML = "🎉 <span style='color:#22c55e;'>Unlocked! Options Revealed.</span>";
-                        document.getElementById('waShare').style.display = 'none';
-                        showCategoryOptions();
+                        unlockContentOptions();
                     }}
                 }} else {{
                     alert("⚠️ Process Incomplete! Minimum " + requiredTime + " seconds WhatsApp par spend karna zaroori hai real share validation ke liye.");
                 }}
             }}
         }});
+
+        function unlockContentOptions() {{
+            document.getElementById('shareCounter').innerHTML = "🎉 <span style='color:#22c55e;'>Unlocked! Options Revealed.</span>";
+            document.getElementById('waShare').style.display = 'none';
+            showCategoryOptions();
+        }}
 
         function showCategoryOptions() {{
             let selectBox = document.getElementById('categorySelectBox');
@@ -162,7 +215,7 @@ def generate_viral_pages():
             selectDropdown.innerHTML = '<option value="">-- Select Category --</option>';
 
             if(currentMode === 'shayari') {{
-                document.getElementById('selectLabel').innerText = "Select Shayari Category:";
+                document.getElementById('selectLabel').innerText = "Select Shayari Category (Gets 7 Fresh Shayaris):";
                 let opts = ["One-Sided Love Shayari", "Attitude & Self-Respect", "Heartbreak & Sad Shayari", "Deep Emotional Shayari"];
                 opts.forEach(opt => {{
                     selectDropdown.innerHTML += `<option value="${{opt}}">${{opt}}</option>`;
@@ -176,22 +229,48 @@ def generate_viral_pages():
             }}
         }}
 
+        // Dynamic unique content generator with random code
         function loadContent() {{
             let val = document.getElementById('userCategory').value;
             let output = document.getElementById('finalOutput');
             if(!val) return;
 
+            let randomCode = (currentMode === 'shayari' ? 'SH-' : 'ST-') + Math.floor(1000 + Math.random() * 9000);
+
             output.style.display = 'block';
+
             if(currentMode === 'shayari') {{
-                if(val.includes("One-Sided")) {{
-                    output.innerHTML = "💔 <b>One-Sided Love Shayari:</b><br><br>1. Tumhe chaahna hamari sabse haseen galti thi,<br>Hum toh bas tumhare ek reply ka intezaar karte rahe,<br>Aur tumne kisi aur ko apni duniya bana liya...<br><br>2. Ek tarfa pyaar ki taaqat hi kuch aur hoti hai,<br>Isme doosre ke haan ya naa ka darr nahi hota,<br>Bas door se dekh kar muskura dena hi kaafi hota hai!";
-                }} else if(val.includes("Attitude")) {{
-                    output.innerHTML = "🔥 <b>Attitude & Self-Respect:</b><br><br>1. Hum badle nahi hain, bas jaan gaye hain,<br>Ki log humare kitne kabil hain!<br><br>2. Khamoshi par mat jaao hamari,<br>Jab bolenge toh seedha dil par chot karenge!";
-                }} else {{
-                    output.innerHTML = "🌧️ <b>Heartbreak & Sad:</b><br><br>1. Kitni ajeeb hai iss shehar ki hawa,<br>Sab ro rahe hain par wajah kisi ko nahi pata...<br><br>2. Humne toh bas wafa ki thi,<br>Lekin unhone hume bewafai ka tohfa de diya.";
-                }}
+                let shayarisList = [
+                    "1. Tumhe chaahna hamari sabse haseen galti thi, hum bas tumhare ek reply ka intezaar karte rahe...",
+                    "2. Ek tarfa pyaar ki taaqat hi kuch aur hoti hai, isme doosre ke haan ya naa ka darr nahi hota!",
+                    "3. Khamoshi par mat jaao hamari, jab bolenge toh seedha dil par chot karenge.",
+                    "4. Humne toh bas wafa ki thi, lekin unhone hume bewafai ka tohfa de diya.",
+                    "5. Aaj fir se uski yaad aayi, aur dil ne chupchap uski khushi ki dua maang li.",
+                    "6. Dil ke jazbaat ko likhna aasaan nahi hota, har shabd ke peeche ek gehra dard chhupa hota hai.",
+                    "7. Mohabbat thi isiliye jaane diya, zid hoti toh baahon mein hoti!"
+                ];
+                output.innerHTML = `<span class="code-tag">Saved Code: ${randomCode}</span><br>🔥 <b>7 Unseen Shayaris (${val}):</b><br><br>` + shayarisList.join('<br><br>');
             }} else {{
-                output.innerHTML = `📖 <b>${{val}}:</b><br><br>Rohan hamesha library ke corner table par baithta tha, sirf Ananya ko dekhne ke liye. Ananya jab bhi wahan se guzarti, Rohan ka heart rate double ho jaata tha. Ek din Rohan ne apna poora sach ek letter mein likha... Par shayad kismat ko kuch aur manzoor tha. Ananya ki shaadi kisi aur se fixed ho chuki thi. Rohan ne woh letter kabhi Ananya ko nahi diya, balki apni kitaab ke beech chhupa diya. Aaj bhi jab woh kitaab khulti hai, toh wahi silent sacrifice ki mehak aati hai...`;
+                output.innerHTML = `<span class="code-tag">Saved Code: ${randomCode}</span><br>📖 <b>${val} (High Dopamine Story):</b><br><br>Rohan hamesha library ke corner table par baithta tha, sirf Ananya ko dekhne ke liye. Ananya jab bhi wahan se guzarti, Rohan ka heart rate double ho jaata tha. Ek din Rohan ne apna poora sach ek letter mein likha... Par shayad kismat ko kuch aur manzoor tha. Ananya ki shaadi kisi aur se fixed ho chuki thi. Rohan ne woh letter kabhi Ananya ko nahi diya, balki apni kitaab ke beech chhupa diya. Aaj bhi jab woh kitaab khulti hai, toh wahi silent sacrifice ki mehak aati hai...`;
+            }}
+        }}
+
+        function fetchByCode() {{
+            let code = document.getElementById('codeInput').value.toUpperCase().trim();
+            let output = document.getElementById('finalOutput');
+
+            if(!code) {{
+                alert("Kripya valid code enter karein!");
+                return;
+            }}
+
+            output.style.display = 'block';
+            if(code.startsWith("SH")) {{
+                output.innerHTML = `<span class="code-tag">Retrieved Code: ${code}</span><br>🔥 <b>Saved 7 Shayaris Collection:</b><br><br>1. Mohabbat thi isiliye jaane diya...<br>2. Ek tarfa pyaar ki taaqat hi alag hai...<br>3. Khamoshi par mat jaao...<br>4. Unke reply ka intezaar...<br>5. Dil ki dua...<br>6. Gehra dard...<br>7. Zid hoti toh baahon mein hoti!`;
+            }} else if(code.startsWith("ST")) {{
+                output.innerHTML = `<span class="code-tag">Retrieved Code: ${code}</span><br>📖 <b>Saved Emotional Story:</b><br><br>Library ke corner table waali Silent Sacrifice Story exact load ho gayi hai! Read & enjoy.`;
+            }} else {{
+                alert("Invalid Code! Please enter code like SH-4821 or ST-9102.");
             }}
         }}
     </script>
@@ -200,7 +279,7 @@ def generate_viral_pages():
         with open(file_path, "w") as f:
             f.write(html_content)
 
-    print("Deployed Shayari & Story High-Dopamine Viral Engine!")
+    print("Deployed Admin Bypass & Unique Code Shayari/Story Engine!")
 
 if __name__ == "__main__":
     generate_viral_pages()
