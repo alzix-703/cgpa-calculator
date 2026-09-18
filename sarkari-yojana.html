@@ -1,474 +1,347 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SYFT - Smart Yojana Finder Tool 2026</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: #0b1120; color: #f8fafc; padding: 20px; max-width: 1100px; margin: 0 auto; }
-    .back-btn { display: inline-block; margin-bottom: 20px; color: #38bdf8; text-decoration: none; font-weight: 600; }
-    
-    .smart-finder-banner {
-      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
-      border: 2px solid #6366f1;
-      border-radius: 16px;
-      padding: 24px;
-      margin-bottom: 30px;
-      box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.3);
-    }
-    .smart-finder-banner h1 { font-size: 1.8rem; color: #ffffff; margin-bottom: 8px; }
-    .smart-finder-banner p { color: #c7d2fe; font-size: 0.95rem; margin-bottom: 20px; }
-    
-    .finder-form { background-color: rgba(15, 23, 42, 0.7); padding: 20px; border-radius: 12px; border: 1px solid #3730a3; }
-    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 16px; }
-    .form-group label { display: block; color: #e0e7ff; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
-    .form-group select, .form-group input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #4338ca; background-color: #0f172a; color: #fff; outline: none; }
-    
-    .occ-box { border: 1px solid #4338ca; background-color: #0f172a; border-radius: 8px; padding: 8px; max-height: 140px; overflow-y: auto; }
-    .occ-search-input { width: 100%; padding: 6px 10px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #334155; background: #1e293b; color: #fff; font-size: 0.85rem; }
-    .occ-option { padding: 8px; font-size: 0.85rem; cursor: pointer; border-radius: 4px; color: #cbd5e1; margin-bottom: 2px; }
-    .occ-option:hover, .occ-option.selected { background-color: #6366f1; color: #fff; font-weight: 600; }
-
-    .find-btn { width: 100%; padding: 12px; border-radius: 8px; border: none; background: #6366f1; color: #fff; font-weight: 700; cursor: pointer; font-size: 1rem; margin-top: 10px; }
-    .find-btn:hover { background: #4f46e5; }
-    
-    .category-section { margin-bottom: 35px; }
-    .category-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #1e293b; color: #22c55e; border-color: #22c55e; }
-
-    .scheme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-    .scheme-card { background-color: #131c31; border: 1px solid #1e293b; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; min-height: 220px; }
-    .scheme-card h3 { font-size: 1.05rem; color: #f8fafc; margin-bottom: 8px; line-height: 1.3; }
-    .scheme-card p { color: #94a3b8; font-size: 0.85rem; line-height: 1.4; margin-bottom: 12px; }
-    
-    .state-tag { font-size: 0.75rem; background: #1e293b; color: #38bdf8; padding: 2px 8px; border-radius: 12px; font-weight: 600; margin-bottom: 6px; display: inline-block; }
-    .pop-tag { font-size: 0.7rem; background: #312e81; color: #a5b4fc; padding: 2px 6px; border-radius: 8px; margin-left: 4px; font-weight: 600; }
-    .date-info { font-size: 0.78rem; color: #cbd5e1; background: #0f172a; padding: 6px 10px; border-radius: 6px; margin-bottom: 12px; border-left: 3px solid #64748b; }
-    
-    .see-details-btn { width: 100%; padding: 8px 12px; background-color: #1e293b; color: #38bdf8; border: 1px solid #334155; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; text-align: center; }
-    .see-details-btn:hover { background-color: #334155; color: #fff; }
-    .no-results { color: #64748b; font-size: 0.9rem; font-style: italic; padding: 12px 0; }
-
-    /* Modal */
-    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
-    .modal-content { background-color: #131c31; border: 1px solid #334155; border-radius: 16px; max-width: 650px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 24px; position: relative; }
-    .close-modal { position: absolute; top: 16px; right: 16px; background: #1e293b; color: #fff; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-weight: bold; }
-    .modal-title { font-size: 1.4rem; color: #818cf8; margin-bottom: 12px; }
-    .modal-section { margin-bottom: 14px; }
-    .modal-section h4 { color: #38bdf8; font-size: 0.95rem; margin-bottom: 4px; }
-    .modal-section p, .modal-section ul { color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; }
-    .modal-section ul { padding-left: 20px; }
-    .govt-link-btn { display: inline-block; margin-top: 6px; margin-right: 8px; padding: 6px 12px; background-color: #2563eb; color: #fff; text-decoration: none; border-radius: 6px; font-size: 0.85rem; font-weight: 600; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYFT - Smart Yojana Finder Tool 2026</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: #0b1120; color: #f8fafc; padding: 20px; max-width: 1100px; margin: 0 auto; }
+        a { color: #38bdf8; text-decoration: none; font-weight: 600; display: inline-block; margin-bottom: 20px; }
+        .smart-finder-banner { background: linear-gradient(135deg, #1e1b4b 0%, #111827 100%); border: 2px solid #6366f1; border-radius: 16px; padding: 24px; margin-bottom: 30px; box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.3); }
+        .smart-finder-banner h1 { font-size: 1.8rem; color: #ffffff; margin-bottom: 8px; }
+        .smart-finder-banner p { color: #c7d2fe; font-size: 0.95rem; margin-bottom: 20px; }
+        .finder-form { background-color: rgba(15, 23, 42, 0.7); padding: 20px; border-radius: 12px; border: 1px solid #374151; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 12px; }
+        .form-group label { display: block; color: #e2e8f0; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
+        .form-group select, .form-group input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #4b5563; background-color: #1f2937; color: #fff; font-size: 0.9rem; }
+        .occ-box { border: 1px solid #4b5563; background-color: #0f172a; border-radius: 8px; padding: 8px; max-height: 140px; overflow-y: auto; }
+        .occ-search-input { width: 100%; padding: 6px 10px; padding-bottom: 8px; border-radius: 6px; border: 1px solid #334155; background: #1e293b; color: #fff; font-size: 0.8rem; margin-bottom: 8px; }
+        .occ-option { padding: 8px; font-size: 0.85rem; cursor: pointer; border-radius: 4px; color: #cbd5e1; margin-bottom: 2px; }
+        .occ-option:hover, .occ-option.selected { background-color: #6366f1; color: #fff; font-weight: 600; }
+        .find-btn { width: 100%; padding: 12px; border-radius: 8px; border: none; background: #4f46e5; color: #fff; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.2s; }
+        .find-btn:hover { background: #4338ca; }
+        .category-section { margin-bottom: 35px; }
+        .category-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #334155; display: flex; align-items: center; gap: 8px; }
+        .scheme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+        .scheme-card { background-color: #131c31; border: 1px solid #1e293b; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; }
+        .scheme-card h3 { font-size: 1.05rem; color: #ffffff; margin-bottom: 8px; line-height: 1.3; }
+        .scheme-card p { color: #94a3b8; font-size: 0.85rem; line-height: 1.4; margin-bottom: 12px; }
+        .state-tag { font-size: 0.75rem; background: #1e293b; color: #38bdf8; padding: 2px 8px; border-radius: 12px; font-weight: 600; }
+        .pop-tag { font-size: 0.75rem; background: #111827; color: #f59e0b; padding: 2px 8px; border-radius: 8px; margin-left: 6px; }
+        .date-info { font-size: 0.78rem; color: #cbd5e1; background: #0f172a; padding: 6px 10px; border-radius: 6px; margin-bottom: 12px; }
+        .see-details-btn { width: 100%; padding: 8px 12px; background-color: #1e293b; color: #38bdf8; border: 1px solid #334155; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+        .see-details-btn:hover { background-color: #334155; }
+        .no-results { color: #e2e8f0; font-size: 0.95rem; font-style: italic; padding: 12px 0; }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; padding: 15px; }
+        .modal-content { background-color: #131c31; border: 1px solid #334155; border-radius: 15px; max-width: 650px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 24px; position: relative; }
+        .close-modal { position: absolute; top: 16px; right: 16px; background: #1e293b; color: #fff; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; }
+        .modal-title { font-size: 1.4rem; color: #fff; margin-bottom: 12px; padding-right: 30px; }
+        .modal-section { margin-bottom: 14px; }
+        .modal-section h4 { color: #38bdf8; font-size: 0.95rem; margin-bottom: 4px; }
+        .modal-section p, .modal-section ul { color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; }
+        .modal-section ul { padding-left: 20px; }
+        .govt-link-btn { display: inline-block; margin-top: 6px; margin-right: 8px; padding: 6px 12px; background-color: #2563eb; color: #fff; border-radius: 6px; font-size: 0.85rem; }
+    </style>
 </head>
 <body>
 
-  <a href="/index.html" class="back-btn">← Back to Home</a>
+    <a href="./index.html">← Back to Portal Home</a>
 
-  <div class="smart-finder-banner">
-    <h1>🎯 Smart Scheme Finder</h1>
-    <p>Apni details enter karein aur dekhein kaun-kaun si Active Sarkari Yojnaayein aapke liye hain.</p>
-
-    <div class="finder-form">
-      <div class="form-grid">
-        <div class="form-group">
-          <label for="state">State / UT</label>
-          <select id="state">
-            <option value="all">All India (Central & Any State)</option>
-            <option value="MP">Madhya Pradesh</option>
-            <option value="UP">Uttar Pradesh</option>
-            <option value="BR">Bihar</option>
-            <option value="MH">Maharashtra</option>
-            <option value="RJ">Rajasthan</option>
-            <option value="DL">Delhi</option>
-            <option value="WB">West Bengal</option>
-            <option value="TN">Tamil Nadu</option>
-            <option value="KA">Karnataka</option>
-            <option value="GJ">Gujarat</option>
-            <option value="PB">Punjab</option>
-            <option value="HR">Haryana</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="gender">Gender</label>
-          <select id="gender">
-            <option value="all">All Genders</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other / Transgender</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="age">Age (Years)</label>
-          <input type="number" id="age" placeholder="e.g. 25" min="1" max="100">
-        </div>
-
-        <div class="form-group">
-          <label for="income">Annual Family Income</label>
-          <select id="income">
-            <option value="all">Any Income Group</option>
-            <option value="below1L">Below ₹1 Lakh</option>
-            <option value="1Lto2.5L">₹1 Lakh to ₹2.5 Lakhs</option>
-            <option value="2.5Lto5L">₹2.5 Lakhs to ₹5 Lakhs</option>
-            <option value="5Lto10L">₹5 Lakhs to ₹10 Lakhs</option>
-            <option value="above10L">Above ₹10 Lakhs</option>
-          </select>
-        </div>
-
-        <div class="form-group" style="grid-column: span 1 / -1;">
-          <label>Occupation / Category</label>
-          <div class="occ-box">
-            <input type="text" class="occ-search-input" id="occSearch" placeholder="🔍 Search occupation..." onkeyup="filterOccupations()">
-            <div id="occList">
-              <div class="occ-option selected" data-val="all" onclick="selectOcc(this)">All Occupations</div>
-              <div class="occ-option" data-val="senior" onclick="selectOcc(this)">Senior Citizen / Pensioner</div>
-              <div class="occ-option" data-val="farmer" onclick="selectOcc(this)">Farmer / Kisan</div>
-              <div class="occ-option" data-val="student" onclick="selectOcc(this)">Student / Scholar</div>
-              <div class="occ-option" data-val="artisan" onclick="selectOcc(this)">Artisan / Craftsperson (Vishwakarma)</div>
-              <div class="occ-option" data-val="labor" onclick="selectOcc(this)">Daily Wager / Construction Laborer</div>
-              <div class="occ-option" data-val="unemployed" onclick="selectOcc(this)">Unemployed Youth / Job Seeker</div>
-              <div class="occ-option" data-val="business" onclick="selectOcc(this)">Small Business / Vendor</div>
-              <div class="occ-option" data-val="homemaker" onclick="selectOcc(this)">Homemaker / Women</div>
-              <div class="occ-option" data-val="driver" onclick="selectOcc(this)">Driver / Transport Worker</div>
-              <div class="occ-option" data-val="disability" onclick="selectOcc(this)">Person with Disability (Divyangjan)</div>
+    <div class="smart-finder-banner">
+        <h1>Smart Scheme Finder 2026</h1>
+        <p>Find exact government schemes tailored to your profile automatically.</p>
+        
+        <div class="finder-form">
+            <div class="form-group">
+                <label for="state">State / UT</label>
+                <select id="state">
+                    <option value="all">All India (Central + States)</option>
+                    <option value="UP">Uttar Pradesh</option>
+                    <option value="MP">Madhya Pradesh</option>
+                    <option value="MH">Maharashtra</option>
+                    <option value="BR">Bihar</option>
+                    <option value="DL">Delhi</option>
+                    <option value="RJ">Rajasthan</option>
+                </select>
             </div>
-          </div>
+            
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender">
+                    <option value="all">All Genders</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="transgender">Transgender</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="age">Age (Years)</label>
+                <input type="number" id="age" placeholder="e.g. 25" min="0" max="120">
+            </div>
+            
+            <div class="form-group">
+                <label for="income">Annual Family Income</label>
+                <select id="income">
+                    <option value="all">Any Income Group</option>
+                    <option value="below1L">Below ₹1 Lakh</option>
+                    <option value="1Lto2.5L">₹1 Lakh to ₹2.5 Lakhs</option>
+                    <option value="2.5Lto5L">₹2.5 Lakhs to ₹5 Lakhs</option>
+                    <option value="5Lto10L">₹5 Lakhs to ₹10 Lakhs</option>
+                    <option value="above10L">Above ₹10 Lakhs</option>
+                </select>
+            </div>
+            
+            <div class="form-group" style="grid-column: 1 / -1;">
+                <label>Occupation / Category</label>
+                <div class="occ-box">
+                    <input type="text" class="occ-search-input" id="occSearch" placeholder="🔍 Search occupation..." onkeyup="filterOccupations()">
+                    <div id="occList">
+                        <div class="occ-option selected" data-val="all" onclick="selectOcc(this)">All Occupations</div>
+                        <div class="occ-option" data-val="senior" onclick="selectOcc(this)">Senior Citizen / Pensioner</div>
+                        <div class="occ-option" data-val="farmer" onclick="selectOcc(this)">Farmer / Kisan</div>
+                        <div class="occ-option" data-val="student" onclick="selectOcc(this)">Student / Scholar</div>
+                        <div class="occ-option" data-val="artisan" onclick="selectOcc(this)">Artisan / Craftsperson (Vishwakarma)</div>
+                        <div class="occ-option" data-val="labor" onclick="selectOcc(this)">Daily Wager / Construction Laborer</div>
+                        <div class="occ-option" data-val="unemployed" onclick="selectOcc(this)">Unemployed Youth / Job Seeker</div>
+                        <div class="occ-option" data-val="business" onclick="selectOcc(this)">Small Business / Vendor</div>
+                        <div class="occ-option" data-val="homemaker" onclick="selectOcc(this)">Homemaker / Women</div>
+                        <div class="occ-option" data-val="driver" onclick="selectOcc(this)">Driver / Transport Worker</div>
+                        <div class="occ-option" data-val="disability" onclick="selectOcc(this)">Person with Disability (Divyang)</div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <button class="find-btn" onclick="filterSmartFinder()">Filter Active Schemes</button>
+        <button class="find-btn" onclick="filterSmartFinder()">Filter Active Schemes</button>
     </div>
-  </div>
 
-  <div class="category-section">
-    <h2 class="category-title">🟢 Active & Eligible Schemes</h2>
-    <div class="scheme-grid" id="activeGrid"></div>
-  </div>
-
-  <div class="modal-overlay" id="detailsModal">
-    <div class="modal-content">
-      <button class="close-modal" onclick="closeModal()">✕</button>
-      <h3 class="modal-title" id="mTitle"></h3>
-      <div class="modal-section">
-        <h4>Overview & Benefits</h4>
-        <p id="mDesc"></p>
-      </div>
-      <div class="modal-section">
-        <h4>Status</h4>
-        <p id="mDates"></p>
-      </div>
-      <div class="modal-section">
-        <h4>Required Documents</h4>
-        <ul id="mDocs"></ul>
-      </div>
-      <div class="modal-section">
-        <h4>Eligibility Criteria</h4>
-        <p id="mEligibility"></p>
-      </div>
-      <div class="modal-section">
-        <h4>Official Government Links</h4>
-        <div id="mLinks"></div>
-      </div>
+    <div class="category-section">
+        <h2 class="category-title">🟢 Active & Eligible Schemes</h2>
+        <div class="scheme-grid" id="activeGrid"></div>
     </div>
-  </div>
 
-  <script>
-    let selectedOccupation = "all";
+    <div class="modal-overlay" id="detailsModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">✕</button>
+            <h3 class="modal-title" id="mTitle"></h3>
+            <div class="modal-section">
+                <h4>Overview & Benefits</h4>
+                <p id="mDesc"></p>
+            </div>
+            <div class="modal-section">
+                <h4>Status</h4>
+                <p id="mDates"></p>
+            </div>
+            <div class="modal-section">
+                <h4>Required Documents</h4>
+                <ul id="mDocs"></ul>
+            </div>
+            <div class="modal-section">
+                <h4>Eligibility Criteria</h4>
+                <p id="mEligibility"></p>
+            </div>
+            <div class="modal-section">
+                <h4>Official Government Links</h4>
+                <div id="mLinks"></div>
+            </div>
+        </div>
+    </div>
 
-    function selectOcc(elem) {
-      document.querySelectorAll('.occ-option').forEach(el => el.classList.remove('selected'));
-      elem.classList.add('selected');
-      selectedOccupation = elem.getAttribute('data-val');
-    }
+<script>
+let selectedOccupation = 'all';
 
-    function filterOccupations() {
-      let q = document.getElementById('occSearch').value.toLowerCase();
-      let opts = document.querySelectorAll('.occ-option');
-      opts.forEach(opt => {
+function selectOcc(elem) {
+    document.querySelectorAll('.occ-option').forEach(el => el.classList.remove('selected'));
+    elem.classList.add('selected');
+    selectedOccupation = elem.getAttribute('data-val');
+}
+
+function filterOccupations() {
+    let q = document.getElementById('occSearch').value.toLowerCase();
+    let opts = document.querySelectorAll('.occ-option');
+    opts.forEach(opt => {
         let txt = opt.innerText.toLowerCase();
         opt.style.display = txt.includes(q) ? 'block' : 'none';
-      });
+    });
+}
+
+const activeSchemes = [
+  {
+    id: 'pm_kisan', stateCode: 'Central', state: 'Central (All India)', popularity: 'VERY HIGH', gender: ['all'],
+    title: 'PM-KISAN Samman Nidhi',
+    shortDesc: '₹6,000 yearly financial assistance in 3 installments for eligible landholding farmer families.',
+    dates: 'Active (Operational)',
+    docs: ['Aadhaar Card', 'Land Khasra/Khatauni Proof', 'Bank Passbook'],
+    eligibility: 'Landholding Farmers across India.',
+    links: [{ name: 'PM-Kisan Portal', url: 'https://pmkisan.gov.in' }],
+    minAge: 18, maxAge: 100, occupations: ['farmer', 'all'], income: ['below1L', '1Lto2.5L', '2.5Lto5L', '5Lto10L']
+  },
+  {
+    id: 'ayushman_bharat', stateCode: 'Central', state: 'Central (All India)', popularity: 'VERY HIGH', gender: ['all'],
+    title: 'Ayushman Bharat - PM-JAY',
+    shortDesc: '₹5 Lakh Free health insurance cover per family per year for secondary/tertiary hospital care.',
+    dates: 'Active (Continuous Registration)',
+    docs: ['Aadhaar Card', 'Ration Card / SECC Data'],
+    eligibility: 'Low-income families and senior citizens aged 70+.',
+    links: [{ name: 'PMJAY Portal', url: 'https://pmjay.gov.in' }],
+    minAge: 0, maxAge: 100, occupations: ['senior', 'farmer', 'student', 'artisan', 'labor', 'unemployed', 'business', 'homemaker', 'driver', 'disability', 'all'],
+    income: ['below1L', '1Lto2.5L', '2.5Lto5L']
+  },
+  {
+    id: 'pmay_u', stateCode: 'Central', state: 'Central (All India)', popularity: 'VERY HIGH', gender: ['all'],
+    title: 'Pradhan Mantri Awas Yojana - Urban',
+    shortDesc: 'Financial subsidy to build or purchase a pucca house for urban poor and low-income families.',
+    dates: 'Active (Phase 2 Open)',
+    docs: ['Income Certificate', 'Aadhaar Card', 'Bank Details', 'Property Documents'],
+    eligibility: 'EWS/LIG families without a pucca house anywhere in India.',
+    links: [{ name: 'PMAY Urban', url: 'https://pmaymis.gov.in' }],
+    minAge: 18, maxAge: 100, occupations: ['labor', 'business', 'driver', 'unemployed', 'all'], income: ['below1L', '1Lto2.5L', '2.5Lto5L']
+  },
+  {
+    id: 'ladli_behna', stateCode: 'MP', state: 'Madhya Pradesh', popularity: 'TRENDING', gender: ['female'],
+    title: 'MP Ladli Behna Yojana',
+    shortDesc: '₹1,250 monthly direct financial support to eligible women residents of Madhya Pradesh.',
+    dates: 'Active (Monthly Payouts)',
+    docs: ['Samagra ID', 'Aadhaar Card', 'Bank Account Linked with DBT'],
+    eligibility: 'Married/Widowed/Divorced women aged 21-60 with annual family income < ₹2.5 Lakhs.',
+    links: [{ name: 'Ladli Behna Portal', url: 'https://cmladlibehna.mp.gov.in' }],
+    minAge: 21, maxAge: 60, occupations: ['homemaker', 'farmer', 'labor', 'unemployed', 'all'], income: ['below1L', '1Lto2.5L']
+  },
+  {
+    id: 'pm_vishwakarma', stateCode: 'Central', state: 'Central (All India)', popularity: 'NEW & HIGH', gender: ['all'],
+    title: 'PM Vishwakarma Yojana',
+    shortDesc: 'Toolkit incentive of ₹15,000, skill training, and collateral-free loan up to ₹3 Lakhs at 5% interest.',
+    dates: 'Active (Registrations Open)',
+    docs: ['Aadhaar Card', 'Mobile Number', 'Bank Passbook', 'Trade Proof'],
+    eligibility: 'Traditional artisans and craftspeople in 18 specified trades.',
+    links: [{ name: 'PM Vishwakarma Portal', url: 'https://pmvishwakarma.gov.in' }],
+    minAge: 18, maxAge: 100, occupations: ['artisan', 'labor'], income: ['below1L', '1Lto2.5L', '2.5Lto5L']
+  }
+];
+
+function renderGrids(schemesToRender) {
+    const grid = document.getElementById('activeGrid');
+    grid.innerHTML = '';
+
+    if (schemesToRender.length === 0) {
+        grid.innerHTML = '<div class="no-results">Aapke dwara gaye details ke hisab se koi Active scheme nahi mili. Kripya filter change kare.</div>';
+        return;
     }
 
-    const activeSchemes = [
-      {
-        id: "pm_kisan", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH", gender: ["all", "male", "female", "other"],
-        title: "PM-KISAN Samman Nidhi",
-        shortDesc: "₹6,000 yearly financial assistance in 3 installments for eligible landholding farmer families.",
-        dates: "Active (Operational)",
-        docs: ["Aadhaar Card", "Land Khatauni / Proof", "Bank Passbook"],
-        eligibility: "Landholding farmers across India.",
-        links: [{ name: "PM Kisan Portal", url: "https://pmkisan.gov.in" }],
-        minAge: 18, maxAge: 100, occupations: ["farmer", "all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L"]
-      },
-      {
-        id: "ayushman_bharat", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH", gender: ["all", "male", "female", "other"],
-        title: "Ayushman Bharat - PM-JAY",
-        shortDesc: "₹5 Lakh free health insurance cover per family per year for secondary/tertiary hospital care.",
-        dates: "Active (Continuous Registration)",
-        docs: ["Aadhaar Card", "Ration Card / SECC Data"],
-        eligibility: "Low-income families and senior citizens aged 70+.",
-        links: [{ name: "PMJAY Portal", url: "https://pmjay.gov.in" }],
-        minAge: 1, maxAge: 100, occupations: ["senior", "farmer", "student", "artisan", "labor", "unemployed", "business", "homemaker", "driver", "disability", "all"],
-        income: ["below1L", "1Lto2.5L", "2.5Lto5L"]
-      },
-      {
-        id: "pmay_u", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH", gender: ["all", "male", "female", "other"],
-        title: "Pradhan Mantri Awas Yojana - Urban",
-        shortDesc: "Subsidy & financial support for purchasing or constructing pucca homes in urban areas.",
-        dates: "Active",
-        docs: ["Aadhaar Card", "Income Certificate", "Property Documents"],
-        eligibility: "Urban households belonging to EWS/LIG/MIG.",
-        links: [{ name: "PMAY-U Portal", url: "https://pmaymis.gov.in" }],
-        minAge: 18, maxAge: 100, occupations: ["all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L"]
-      },
-      {
-        id: "pmay_g", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH", gender: ["all", "male", "female", "other"],
-        title: "Pradhan Mantri Awas Yojana - Gramin",
-        shortDesc: "Financial assistance for construction of basic pucca house with hygienic cooking space in rural areas.",
-        dates: "Active",
-        docs: ["Aadhaar Card", "Job Card", "Bank Account Details"],
-        eligibility: "Houseless or living in kutcha/dilapidated houses in rural areas.",
-        links: [{ name: "PMAY Gramin Portal", url: "https://pmayg.nic.in" }],
-        minAge: 18, maxAge: 100, occupations: ["farmer", "labor", "artisan", "all"], income: ["below1L", "1Lto2.5L"]
-      },
-      {
-        id: "pm_surya_ghar", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH", gender: ["all", "male", "female", "other"],
-        title: "PM Surya Ghar: Muft Bijli Yojana",
-        shortDesc: "Rooftop solar subsidy providing up to 300 units of free electricity per month.",
-        dates: "Active",
-        docs: ["Electricity Bill", "Aadhaar Card", "Bank Details"],
-        eligibility: "Residential households with roof availability.",
-        links: [{ name: "PM Surya Ghar Portal", url: "https://pmsuryaghar.gov.in" }],
-        minAge: 18, maxAge: 100, occupations: ["all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L", "above10L"]
-      },
-      {
-        id: "pm_vishwakarma", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH", gender: ["all", "male", "female", "other"],
-        title: "PM Vishwakarma Scheme",
-        shortDesc: "Skill training, ₹15,000 tool kit voucher & collateral-free loan at 5% interest for traditional artisans.",
-        dates: "Active",
-        docs: ["Aadhaar Card", "Trade Proof", "Bank Account"],
-        eligibility: "Artisans and craftspeople in 18 traditional trades.",
-        links: [{ name: "PM Vishwakarma Portal", url: "https://pmvishwakarma.gov.in" }],
-        minAge: 18, maxAge: 75, occupations: ["artisan", "labor"], income: ["below1L", "1Lto2.5L", "2.5Lto5L"]
-      },
-      {
-        id: "pm_svanidhi", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH", gender: ["all", "male", "female", "other"],
-        title: "PM SVANidhi Scheme",
-        shortDesc: "Micro working-capital loan up to ₹50,000 for street vendors and small sellers.",
-        dates: "Active",
-        docs: ["Vending Certificate / ID", "Aadhaar Card"],
-        eligibility: "Street vendors operating in urban and semi-urban areas.",
-        links: [{ name: "PM SVANidhi Portal", url: "https://pmsvanidhi.mohua.gov.in" }],
-        minAge: 18, maxAge: 70, occupations: ["business", "labor", "all"], income: ["below1L", "1Lto2.5L"]
-      },
-      {
-        id: "pmuy", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH", gender: ["female"],
-        title: "Pradhan Mantri Ujjwala Yojana (PMUY)",
-        shortDesc: "Deposit-free LPG connection and subsidy support to adult women from poor households.",
-        dates: "Active",
-        docs: ["Ration Card", "Aadhaar Card", "Bank Account"],
-        eligibility: "Adult women from BPL / Poor households.",
-        links: [{ name: "PM Ujjwala Portal", url: "https://pmuy.gov.in" }],
-        minAge: 18, maxAge: 100, occupations: ["homemaker", "labor", "farmer", "all"], income: ["below1L", "1Lto2.5L"]
-      },
-      {
-        id: "pmmy", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH", gender: ["all", "male", "female", "other"],
-        title: "Pradhan Mantri MUDRA Yojana (PMMY)",
-        shortDesc: "Collateral-free business loans up to ₹10 Lakhs (Shishu, Kishor, Tarun) for micro/small enterprises.",
-        dates: "Active",
-        docs: ["Business Plan", "KYC Documents", "Bank Statement"],
-        eligibility: "Micro/small entrepreneurs, shopkeepers, artisans, small traders.",
-        links: [{ name: "MUDRA Official", url: "https://www.mudra.org.in" }],
-        minAge: 18, maxAge: 70, occupations: ["business", "artisan", "driver", "unemployed", "all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L"]
-      },
-      {
-        id: "pmfby", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH", gender: ["all", "male", "female", "other"],
-        title: "Pradhan Mantri Fasal Bima Yojana (PMFBY)",
-        shortDesc: "Comprehensive crop insurance against natural risks from pre-sowing to post-harvest.",
-        dates: "Active",
-        docs: ["Land Records", "Sowing Certificate", "Aadhaar", "Bank Account"],
-        eligibility: "Farmers growing notified crops in notified areas.",
-        links: [{ name: "PMFBY Portal", url: "https://pmfby.gov.in" }],
-        minAge: 18, maxAge: 100, occupations: ["farmer"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L"]
-      },
-      {
-        id: "apy", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH", gender: ["all", "male", "female", "other"],
-        title: "Atal Pension Yojana (APY)",
-        shortDesc: "Guaranteed monthly pension ranging from ₹1,000 to ₹5,000 per month after 60 years of age.",
-        dates: "Active",
-        docs: ["Bank Account", "Aadhaar", "Mobile Number"],
-        eligibility: "Unorganised sector workers aged 18 to 40 years.",
-        links: [{ name: "NPS Trust APY", url: "https://www.npstrust.org.in" }],
-        minAge: 18, maxAge: 40, occupations: ["labor", "artisan", "business", "farmer", "driver", "unemployed", "homemaker", "all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L"]
-      },
-      {
-        id: "pmjjby", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH", gender: ["all", "male", "female", "other"],
-        title: "PM Jeevan Jyoti Bima Yojana (PMJJBY)",
-        shortDesc: "Life insurance cover of ₹2 Lakh for any cause of death at just ₹436/year.",
-        dates: "Active",
-        docs: ["Savings Bank Account", "Aadhaar"],
-        eligibility: "Bank account holders aged 18 to 50 years.",
-        links: [{ name: "DFS Portal", url: "https://financialservices.gov.in" }],
-        minAge: 18, maxAge: 50, occupations: ["all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L", "above10L"]
-      },
-      {
-        id: "pmsby", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH", gender: ["all", "male", "female", "other"],
-        title: "PM Suraksha Bima Yojana (PMSBY)",
-        shortDesc: "Accident insurance cover of ₹2 Lakh for accidental death/disability at just ₹20/year.",
-        dates: "Active",
-        docs: ["Savings Bank Account", "Aadhaar"],
-        eligibility: "Bank account holders aged 18 to 70 years.",
-        links: [{ name: "DFS Portal", url: "https://financialservices.gov.in" }],
-        minAge: 18, maxAge: 70, occupations: ["all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L", "above10L"]
-      },
-      {
-        id: "eshram", stateCode: "Central", state: "Central (All India)", popularity: "VERY HIGH", gender: ["all", "male", "female", "other"],
-        title: "e-SHRAM Portal (Unorganised Worker Card)",
-        shortDesc: "National Database Card for Unorganised Workers providing ₹2 Lakh accidental insurance & social security benefits.",
-        dates: "Active",
-        docs: ["Aadhaar linked Mobile", "Bank Account"],
-        eligibility: "Unorganised workers (construction, maid, street vendor, driver) aged 16-59.",
-        links: [{ name: "e-SHRAM Portal", url: "https://eshram.gov.in" }],
-        minAge: 16, maxAge: 59, occupations: ["labor", "artisan", "driver", "business", "homemaker", "unemployed", "all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L"]
-      },
-      {
-        id: "nsp_scholarship", stateCode: "Central", state: "Central (All India)", popularity: "HIGH", gender: ["all", "male", "female", "other"],
-        title: "National Scholarship Portal (NSP Direct Scheme)",
-        shortDesc: "Central government pre-matric and post-matric financial scholarships for school & college students.",
-        dates: "Active",
-        docs: ["Student Aadhaar", "Income Cert", "Marksheet", "Bank Account"],
-        eligibility: "School/College students with family income under ₹2.5 Lakhs.",
-        links: [{ name: "NSP Portal", url: "https://scholarships.gov.in" }],
-        minAge: 5, maxAge: 30, occupations: ["student"], income: ["below1L", "1Lto2.5L"]
-      },
-      {
-        id: "startup_india", stateCode: "Central", state: "Central (All India)", popularity: "HIGH", gender: ["all", "male", "female", "other"],
-        title: "Startup India Seed Fund Scheme",
-        shortDesc: "Financial assistance to startups for proof of concept, prototype development, and market entry.",
-        dates: "Active",
-        docs: ["DPIIT Recognition", "Pitch Deck", "Business Incorporation Proof"],
-        eligibility: "DPIIT recognized startups incorporated within 2 years.",
-        links: [{ name: "Startup India", url: "https://www.startupindia.gov.in" }],
-        minAge: 18, maxAge: 70, occupations: ["business", "unemployed", "student", "all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L", "above10L"]
-      },
-      {
-        id: "mp_ladli_behna", stateCode: "MP", state: "Madhya Pradesh", popularity: "VERY HIGH", gender: ["female"],
-        title: "Ladli Behna Yojana (MP)",
-        shortDesc: "Financial assistance of ₹1,250/month directly deposited into bank accounts of eligible women in MP.",
-        dates: "Active",
-        docs: ["Samagra ID", "Aadhaar Card", "Bank Account DBT Active"],
-        eligibility: "Married/widowed/destitute women in MP aged 21 to 60 years.",
-        links: [{ name: "Ladli Behna MP Portal", url: "https://cmladlibehna.mp.gov.in" }],
-        minAge: 21, maxAge: 60, occupations: ["homemaker", "labor", "farmer", "all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L"]
-      },
-      {
-        id: "mp_seekho_kamao", stateCode: "MP", state: "Madhya Pradesh", popularity: "HIGH", gender: ["all", "male", "female", "other"],
-        title: "Mukhyamantri Seekho Kamao Yojana (MMSKY MP)",
-        shortDesc: "Skill training with monthly stipend of ₹8,000 to ₹10,000 for educated unemployed youth of MP.",
-        dates: "Active",
-        docs: ["12th / ITI / Graduation Marksheet", "Samagra ID", "Aadhaar"],
-        eligibility: "MP resident youth aged 18 to 29 years with 12th/Diploma/Degree.",
-        links: [{ name: "MMSKY Portal MP", url: "https://mmsky.mp.gov.in" }],
-        minAge: 18, maxAge: 29, occupations: ["student", "unemployed"], income: ["below1L", "1Lto2.5L", "2.5Lto5L", "5Lto10L"]
-      },
-      {
-        id: "up_kanya_sumangala", stateCode: "UP", state: "Uttar Pradesh", popularity: "HIGH", gender: ["female"],
-        title: "Mukhyamantri Kanya Sumangala Yojana (UP)",
-        shortDesc: "Financial support in 6 stages up to ₹25,000 for girl child health and education in UP.",
-        dates: "Active",
-        docs: ["Girl Child Birth Certificate", "Parents Aadhaar", "Income Certificate"],
-        eligibility: "UP resident girl children with family income up to ₹3 Lakhs.",
-        links: [{ name: "MKSY UP Portal", url: "https://mksy.up.gov.in" }],
-        minAge: 1, maxAge: 25, occupations: ["student", "homemaker", "all"], income: ["below1L", "1Lto2.5L", "2.5Lto5L"]
-      },
-      {
-        id: "mh_ladki_bahin", stateCode: "MH", state: "Maharashtra", popularity: "VERY HIGH", gender: ["female"],
-        title: "Mukhyamantri Majhi Ladki Bahin Yojana (MH)",
-        shortDesc: "Monthly assistance of ₹1,500 for eligible women aged 21 to 65 in Maharashtra.",
-        dates: "Active",
-        docs: ["Aadhaar", "Income Certificate / Ration Card", "Bank Account"],
-        eligibility: "Women residents of Maharashtra with family income under ₹2.5 Lakhs.",
-        links: [{ name: "Ladki Bahin MH Portal", url: "https://ladkibahin.maharashtra.gov.in" }],
-        minAge: 21, maxAge: 65, occupations: ["homemaker", "labor", "farmer", "all"], income: ["below1L", "1Lto2.5L"]
-      }
-    ];
-
-    function renderGrids(schemesToRender = activeSchemes) {
-      const grid = document.getElementById('activeGrid');
-      grid.innerHTML = '';
-
-      if (schemesToRender.length === 0) {
-        grid.innerHTML = `<div class="no-results">Aapke dale gaye details ke hisab se koi Active scheme nahi mili. Kripya criteria change karke search karein.</div>`;
-        return;
-      }
-
-      schemesToRender.forEach(s => {
+    schemesToRender.forEach(s => {
         const card = document.createElement('div');
         card.className = 'scheme-card';
         card.innerHTML = `
-          <div>
-            <span class="state-tag">📍 ${s.state}</span>
-            <span class="pop-tag">🔥 ${s.popularity}</span>
-            <h3>${s.title}</h3>
-            <p>${s.shortDesc}</p>
-          </div>
-          <div>
-            <div class="date-info">📅 ${s.dates}</div>
-            <button class="see-details-btn" onclick="openModal('${s.id}')">See Details</button>
-          </div>
+            <div>
+                <div>
+                    <span class="state-tag">${s.state}</span>
+                    <span class="pop-tag">🔥 ${s.popularity}</span>
+                </div>
+                <h3>${s.title}</h3>
+                <p>${s.shortDesc}</p>
+            </div>
+            <div>
+                <div class="date-info">📅 ${s.dates}</div>
+                <button class="see-details-btn" onclick="openModal('${s.id}')">See Details</button>
+            </div>
         `;
         grid.appendChild(card);
-      });
-    }
+    });
+}
 
-    function openModal(id) {
-      const s = activeSchemes.find(item => item.id === id);
-      if (!s) return;
+function openModal(id) {
+    const s = activeSchemes.find(item => item.id === id);
+    if (!s) return;
 
-      document.getElementById('mTitle').innerText = s.title;
-      document.getElementById('mDesc').innerText = s.shortDesc;
-      document.getElementById('mDates').innerText = s.dates;
-      document.getElementById('mEligibility').innerText = s.eligibility;
+    document.getElementById('mTitle').innerText = s.title;
+    document.getElementById('mDesc').innerText = s.shortDesc;
+    document.getElementById('mDates').innerText = s.dates;
+    document.getElementById('mEligibility').innerText = s.eligibility;
 
-      const docsList = document.getElementById('mDocs');
-      docsList.innerHTML = '';
-      s.docs.forEach(d => { docsList.innerHTML += `<li>${d}</li>`; });
+    const docsList = document.getElementById('mDocs');
+    docsList.innerHTML = '';
+    s.docs.forEach(d => { docsList.innerHTML += `<li>${d}</li>`; });
 
-      const linksDiv = document.getElementById('mLinks');
-      linksDiv.innerHTML = '';
-      s.links.forEach(l => {
+    const linksDiv = document.getElementById('mLinks');
+    linksDiv.innerHTML = '';
+    s.links.forEach(l => {
         linksDiv.innerHTML += `<a href="${l.url}" target="_blank" rel="noopener" class="govt-link-btn">🔗 ${l.name}</a>`;
-      });
+    });
 
-      document.getElementById('detailsModal').style.display = 'flex';
+    document.getElementById('detailsModal').style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('detailsModal').style.display = 'none';
+}
+
+function filterSmartFinder() {
+  var stateEl = document.getElementById('state');
+  var genderEl = document.getElementById('gender');
+  var ageEl = document.getElementById('age');
+  var incomeEl = document.getElementById('income');
+
+  var stateVal = stateEl ? stateEl.value : 'all';
+  var genderVal = genderEl ? genderEl.value : 'all';
+  var incomeVal = incomeEl ? incomeEl.value : 'all';
+
+  var ageInput = ageEl ? ageEl.value.trim() : '';
+  var ageVal = ageInput !== '' ? Number(ageInput) : NaN;
+
+  var filtered = activeSchemes.filter(function(s) {
+    if (!s) return false;
+
+    // 1. STATE MATCHING
+    var matchState = true;
+    if (stateVal !== 'all') {
+      matchState = (s.stateCode === 'Central') || (s.stateCode === stateVal);
     }
 
-    function closeModal() {
-      document.getElementById('detailsModal').style.display = 'none';
+    // 2. GENDER MATCHING
+    var matchGender = true;
+    if (genderVal !== 'all') {
+      if (Array.isArray(s.gender)) {
+        matchGender = s.gender.indexOf('all') !== -1 || s.gender.indexOf(genderVal) !== -1;
+      } else {
+        matchGender = false;
+      }
     }
 
-    function filterSmartFinder() {
-      const stateVal = document.getElementById('state').value;
-      const genderVal = document.getElementById('gender').value;
-      const ageVal = parseInt(document.getElementById('age').value);
-      const incomeVal = document.getElementById('income').value;
-
-      const filtered = activeSchemes.filter(s => {
-        let matchState = (stateVal === 'all') || (s.stateCode === 'Central') || (s.stateCode === stateVal);
-        let matchGender = (genderVal === 'all') || s.gender.includes('all') || s.gender.includes(genderVal);
-        let matchAge = isNaN(ageVal) || (ageVal >= s.minAge && ageVal <= s.maxAge);
-        let matchIncome = (incomeVal === 'all') || s.income.includes(incomeVal);
-        let matchOcc = (selectedOccupation === 'all') || s.occupations.includes('all') || s.occupations.includes(selectedOccupation);
-
-        return matchState && matchGender && matchAge && matchIncome && matchOcc;
-      });
-
-      renderGrids(filtered);
+    // 3. AGE RANGE MATCHING
+    var matchAge = true;
+    if (ageInput !== '' && !isNaN(ageVal)) {
+      if (typeof s.minAge === 'number' && ageVal < s.minAge) matchAge = false;
+      if (typeof s.maxAge === 'number' && ageVal > s.maxAge) matchAge = false;
     }
 
-    renderGrids();
-  </script>
+    // 4. INCOME MATCHING
+    var matchIncome = true;
+    if (incomeVal !== 'all') {
+      if (Array.isArray(s.income)) {
+        matchIncome = s.income.indexOf('all') !== -1 || s.income.indexOf(incomeVal) !== -1;
+      } else {
+        matchIncome = false;
+      }
+    }
+
+    // 5. OCCUPATION MATCHING
+    var matchOcc = true;
+    if (typeof selectedOccupation !== 'undefined' && selectedOccupation !== 'all') {
+      if (Array.isArray(s.occupations)) {
+        matchOcc = s.occupations.indexOf('all') !== -1 || s.occupations.indexOf(selectedOccupation) !== -1;
+      } else {
+        matchOcc = false;
+      }
+    }
+
+    return matchState && matchGender && matchAge && matchIncome && matchOcc;
+  });
+
+  renderGrids(filtered);
+}
+
+// Initial Render on Page Load
+renderGrids(activeSchemes);
+</script>
 </body>
 </html>
