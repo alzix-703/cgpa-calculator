@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+import os
+
+# Dedicated Viral Page HTML Code
+viral_html = """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -271,4 +274,16 @@
         }
     </script>
 </body>
-</html>
+</html>"""
+
+os.makedirs("viral", exist_ok=True)
+
+# 1. Save viral tool separately
+with open("viral/sarkari-eligibility-quiz.html", "w") as f:
+    f.write(viral_html)
+
+# 2. Regenerate original portal index.html
+import aioutp_engine
+aioutp_engine.generate_viral_pages()
+
+print("Architecture restored properly!")
