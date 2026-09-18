@@ -3,131 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sarkari Yojana Benefit Score Calculator 2026 - AIOUTP Tool</title>
-    <meta property="og:title" content="Sarkari Yojana Benefit Score Calculator 2026" />
-    <meta property="og:description" content="Check your exact eligible government scheme benefits & estimated amount in 30 seconds!" />
+    <title>AIOUTP Premium Shayari & Emotional Stories Portal 2026</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
         body { background-color: #0b1120; color: #fff; padding: 16px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
         .card { background: #1e293b; border: 1px solid #334155; padding: 20px; border-radius: 16px; max-width: 480px; width: 100%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
-        h1 { font-size: 1.3rem; color: #eab308; margin-bottom: 8px; font-weight: 700; }
+        h1 { font-size: 1.3rem; color: #f43f5e; margin-bottom: 8px; font-weight: 700; }
         p { color: #94a3b8; font-size: 0.85rem; margin-bottom: 16px; line-height: 1.4; }
-        .q-box { background: #0f172a; padding: 12px; border-radius: 8px; margin-bottom: 12px; text-align: left; border: 1px solid #334155; }
-        .q-box label { font-size: 0.8rem; color: #cbd5e1; display: block; margin-bottom: 4px; font-weight: 600; }
-        .q-box select { width: 100%; padding: 8px; border-radius: 6px; background: #1e293b; color: #fff; border: 1px solid #334155; outline: none; font-size: 0.85rem; }
-        .btn-action { width: 100%; padding: 12px; background: #eab308; color: #000; border: none; border-radius: 8px; font-weight: 700; font-size: 0.95rem; cursor: pointer; }
-        .result-card { background: #0f172a; border: 1px dashed #22c55e; border-radius: 10px; padding: 16px; margin: 16px 0; text-align: left; }
-        .result-card h3 { color: #22c55e; font-size: 1.1rem; margin-bottom: 8px; }
-        .result-card ul { color: #cbd5e1; font-size: 0.85rem; padding-left: 18px; margin-bottom: 8px; line-height: 1.5; }
+        
+        .mode-btn-container { display: flex; gap: 10px; margin-bottom: 16px; }
+        .mode-btn { flex: 1; padding: 12px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 8px; font-weight: 700; cursor: pointer; transition: all 0.3s; }
+        .mode-btn.active { background: #e11d48; border-color: #f43f5e; }
+
+        .teaser-box { background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 14px; text-align: left; margin-bottom: 16px; position: relative; overflow: hidden; }
+        .teaser-text { font-size: 0.9rem; line-height: 1.5; color: #e2e8f0; }
+        .blur-overlay { filter: blur(4px); opacity: 0.4; user-select: none; }
+        
+        .note-box { background: #451a03; border: 1px solid #78350f; color: #fcd34d; padding: 10px; border-radius: 8px; font-size: 0.78rem; text-align: left; margin-bottom: 14px; line-height: 1.3; }
+        
         .share-status { font-size: 0.85rem; color: #f59e0b; margin-bottom: 10px; font-weight: 600; }
         .whatsapp-btn { display: block; width: 100%; padding: 12px; background: #22c55e; color: #fff; text-decoration: none; font-weight: 700; border-radius: 8px; margin-bottom: 10px; font-size: 0.9rem; text-align: center; cursor: pointer; }
-        .main-btn { display: block; width: 100%; padding: 12px; background: #3b82f6; color: #fff; text-decoration: none; font-weight: 700; border-radius: 8px; font-size: 0.9rem; text-align: center; opacity: 0.5; pointer-events: none; transition: all 0.3s; }
-        .main-btn.active { opacity: 1; pointer-events: auto; background: #10b981; }
+        
+        .select-box { background: #0f172a; padding: 12px; border-radius: 8px; margin-bottom: 12px; text-align: left; border: 1px solid #334155; display: none; }
+        .select-box label { font-size: 0.8rem; color: #cbd5e1; display: block; margin-bottom: 6px; font-weight: 600; }
+        .select-box select { width: 100%; padding: 10px; border-radius: 6px; background: #1e293b; color: #fff; border: 1px solid #334155; outline: none; font-size: 0.85rem; }
+
+        .content-display { background: #0f172a; border: 1px solid #22c55e; border-radius: 10px; padding: 16px; text-align: left; margin-top: 16px; display: none; font-size: 0.9rem; line-height: 1.6; color: #f8fafc; }
     </style>
 </head>
 <body>
     <div class="card">
-        <h1>Sarkari Yojana Benefit Score Calculator 2026</h1>
-        <p>Check your exact eligible government scheme benefits & estimated amount in 30 seconds!</p>
+        <h1>🔥 Premium Shayari & Stories Hub</h1>
+        <p>Choose what you want to read & unlock extreme dopamine content!</p>
+
+        <div class="mode-btn-container">
+            <button id="btnShayari" class="mode-btn active" onclick="switchMode('shayari')">✨ Shayaris</button>
+            <button id="btnStory" class="mode-btn" onclick="switchMode('story')">📖 One-Sided Love Stories</button>
+        </div>
+
+        <div class="teaser-box">
+            <div id="teaserContent" class="teaser-text">
+                "Dil ke kone se ek hi aawaaz aati hai, Unhe chaahna hamari sabse haseen galti thi..." <br>
+                <span class="blur-overlay">Par unka kisi aur ke sath muskuraana hamare dil parkhanjar ki tarah chal gaya. Woh nahi jaante ki unke ek message ke liye kitna intezaar...</span>
+            </div>
+        </div>
+
+        <div class="note-box" id="noteWarning">
+            📌 <b>Note:</b> Share to <b>3 WhatsApp friends/groups</b>. Total validation takes minimum <b>30 seconds</b> on WhatsApp. Direct fast unlock without waiting will not work!
+        </div>
+
+        <div class="share-status" id="shareCounter">🔒 Progress: 0/3 Shares Done</div>
         
-        <div id="quizForm">
-            <div class="q-box">
-                <label>1. Select Profile Category:</label>
-                <select id="userCat">
-                    <option value="student">Student / Unemployed Youth</option>
-                    <option value="farmer">Farmer / Agricultural Worker</option>
-                    <option value="professional">Salaried / Business Professional</option>
-                </select>
-            </div>
-            <div class="q-box">
-                <label>2. Annual Family Income Range:</label>
-                <select id="userInc">
-                    <option value="low">Below ₹2.5 Lakhs</option>
-                    <option value="mid">₹2.5 Lakhs - ₹6 Lakhs</option>
-                    <option value="high">Above ₹6 Lakhs</option>
-                </select>
-            </div>
-            <button class="btn-action" onclick="processQuiz()">⚡ Generate Instant Score & Report</button>
+        <a id="waShare" href="javascript:void(0)" class="whatsapp-btn" onclick="startShareProcess()">📲 Share on WhatsApp Direct</a>
+
+        <div class="select-box" id="categorySelectBox">
+            <label id="selectLabel">Choose Category:</label>
+            <select id="userCategory" onchange="loadContent()">
+                <option value="">-- Select Category --</option>
+            </select>
         </div>
 
-        <div id="resultBox" style="display:none;">
-            <div class="result-card">
-                <h3>✅ Preliminary Analysis Ready!</h3>
-                <div id="calcOutput"></div>
-            </div>
-
-            <div class="share-status" id="shareCounter">🔒 Progress: 0/3 WhatsApp Shares to Unlock Full Tool</div>
-            
-            <a id="waShare" href="javascript:void(0)" class="whatsapp-btn" onclick="startShareProcess()">📲 Share on WhatsApp Direct</a>
-            
-            <a id="mainLink" href="/sarkari-yojana.html" class="main-btn">🚀 Access Full Portal Tool & Apply</a>
-        </div>
+        <div class="content-display" id="finalOutput"></div>
     </div>
 
     <script>
+        let currentMode = 'shayari';
         let shareCount = 0;
-        let scoreText = "";
+        let requiredShares = 3;
+        let requiredTime = 30.0;
         let leaveTime = 0;
         let isWaitingForReturn = false;
 
-        function processQuiz() {
-            let cat = document.getElementById('userCat').value;
-            let outputHtml = "";
+        function switchMode(mode) {
+            currentMode = mode;
+            shareCount = 0;
+            document.getElementById('finalOutput').style.display = 'none';
+            document.getElementById('categorySelectBox').style.display = 'none';
+            document.getElementById('waShare').style.display = 'block';
 
-            if (cat === "student") {
-                outputHtml = "<ul><li>E-Shram Student Assistance: Eligible</li><li>Scholarship Welfare: ₹12,000/yr</li><li>PM Yuva Scheme: Eligible</li></ul>";
-                scoreText = "Est. Benefit ₹12,000/yr";
-            } else if (cat === "farmer") {
-                outputHtml = "<ul><li>PM Kisan Samman Nidhi: ₹6,000/yr</li><li>Crop Insurance Waiver: Covered</li><li>Subsidized Equipment: Eligible</li></ul>";
-                scoreText = "Est. Benefit ₹18,000/yr";
+            if(mode === 'shayari') {
+                document.getElementById('btnShayari').classList.add('active');
+                document.getElementById('btnStory').classList.remove('active');
+                requiredShares = 3;
+                requiredTime = 30.0;
+                document.getElementById('noteWarning').innerHTML = "📌 <b>Note:</b> Share to <b>3 WhatsApp friends/groups</b>. Total process takes minimum <b>30 seconds</b> on WhatsApp for validation.";
+                document.getElementById('shareCounter').innerText = "🔒 Progress: 0/3 Shares Done";
+                document.getElementById('teaserContent').innerHTML = '"Dil ke kone se ek hi aawaaz aati hai, Unhe chaahna hamari sabse haseen galti thi..." <br><span class="blur-overlay">Par unka kisi aur ke sath muskuraana hamare dil par khanjar ki tarah chal gaya...</span>';
             } else {
-                outputHtml = "<ul><li>Tax Savings under 80C/80D: Up to ₹1.5L</li><li>Home Loan Interest Subsidy: Applicable</li></ul>";
-                scoreText = "Est. Tax Waiver ₹45,000";
+                document.getElementById('btnStory').classList.add('active');
+                document.getElementById('btnShayari').classList.remove('active');
+                requiredShares = 5;
+                requiredTime = 50.0;
+                document.getElementById('noteWarning').innerHTML = "📌 <b>Note:</b> Share to <b>5 WhatsApp friends/groups</b>. Total process takes minimum <b>50 seconds</b> on WhatsApp for validation.";
+                document.getElementById('shareCounter').innerText = "🔒 Progress: 0/5 Shares Done";
+                document.getElementById('teaserContent').innerHTML = '"Uska college ki gallery se guzarne ka tareeka aur mera ghanto chhup kar dekhna..." <br><span class="blur-overlay">Mera ek-tarfa pyaar ek aisi kitaab tha jise sirf maine likha aur maine hi padha, par climax ne sab kuch tod diya...</span>';
             }
-
-            document.getElementById('calcOutput').innerHTML = outputHtml;
-            document.getElementById('quizForm').style.display = 'none';
-            document.getElementById('resultBox').style.display = 'block';
         }
 
         function startShareProcess() {
             let originUrl = window.location.origin;
-            let currentUrl = window.location.href;
-            
-            let rawMsg = "Bhai maine toh socha hi nahi tha par abhi mujhe pata chala ki mere liye sarkaar ne kitni saari yojanaaye aur benefits banaye hain! Maine apna score check kiya (" + scoreText + "). Aap bhi check kijiye aur apna benefit dekhiye: " + originUrl;
-            
-            let waUrl = "whatsapp://send?text=" + encodeURIComponent(rawMsg);
+            let rawMsg = "";
 
+            if(currentMode === 'shayari') {
+                rawMsg = "Bhai maine toh socha hi nahi tha par yahan par itni zabardast Shayaris aur Stories hain ki dil ko chhoo gayi! Tu bhi ek baar padh ke dekh: " + originUrl;
+            } else {
+                rawMsg = "Bhai iss One-Sided Love Story ko padhkar sach mein mere aankhon mein aansu aa gaye! Ek baar tu bhi padh, maza aa jayega: " + originUrl;
+            }
+
+            let waUrl = "whatsapp://send?text=" + encodeURIComponent(rawMsg);
             leaveTime = Date.now();
             isWaitingForReturn = true;
 
-            // Open direct WhatsApp scheme
             window.location.href = waUrl;
         }
 
-        // Strict 7-second time check on tab focus
         document.addEventListener("visibilitychange", function() {
             if (document.visibilityState === "visible" && isWaitingForReturn) {
                 isWaitingForReturn = false;
                 let returnTime = Date.now();
                 let timeSpent = (returnTime - leaveTime) / 1000;
 
-                // User must spend at least 7 full seconds in WhatsApp
-                if (timeSpent >= 7.0) {
+                if (timeSpent >= requiredTime) {
                     shareCount++;
-                    if (shareCount < 3) {
-                        document.getElementById('shareCounter').innerText = "⏳ Progress: " + shareCount + "/3 WhatsApp Shares done. Share " + (3 - shareCount) + " more times!";
+                    if (shareCount < requiredShares) {
+                        document.getElementById('shareCounter').innerText = "⏳ Progress: " + shareCount + "/" + requiredShares + " Shares Done. Share " + (requiredShares - shareCount) + " more times!";
                     } else {
-                        document.getElementById('shareCounter').innerHTML = "🎉 <span style='color:#22c55e;'>Unlocked! Full Access Granted.</span>";
-                        let mainBtn = document.getElementById('mainLink');
-                        mainBtn.classList.add('active');
-                        mainBtn.innerText = "🚀 Access Full Portal Tool & Apply Now";
+                        document.getElementById('shareCounter').innerHTML = "🎉 <span style='color:#22c55e;'>Unlocked! Options Revealed.</span>";
+                        document.getElementById('waShare').style.display = 'none';
+                        showCategoryOptions();
                     }
                 } else {
-                    alert("⚠️ Share process incomplete! Message ko WhatsApp group ya contact par send karne mein kam se kam 7 second lagte hain. Kripya poora share karein!");
+                    alert("⚠️ Process Incomplete! Minimum " + requiredTime + " seconds WhatsApp par spend karna zaroori hai real share validation ke liye.");
                 }
             }
         });
+
+        function showCategoryOptions() {
+            let selectBox = document.getElementById('categorySelectBox');
+            let selectDropdown = document.getElementById('userCategory');
+            selectBox.style.display = 'block';
+            selectDropdown.innerHTML = '<option value="">-- Select Category --</option>';
+
+            if(currentMode === 'shayari') {
+                document.getElementById('selectLabel').innerText = "Select Shayari Category:";
+                let opts = ["One-Sided Love Shayari", "Attitude & Self-Respect", "Heartbreak & Sad Shayari", "Deep Emotional Shayari"];
+                opts.forEach(opt => {
+                    selectDropdown.innerHTML += `<option value="${opt}">${opt}</option>`;
+                });
+            } else {
+                document.getElementById('selectLabel').innerText = "Select Emotional Story Type:";
+                let opts = ["One-Sided Love: The Silent Sacrifice", "College Romance: Unsaid Goodbye", "Heartbreak: The Last Message", "Second Chance: Destiny Returns"];
+                opts.forEach(opt => {
+                    selectDropdown.innerHTML += `<option value="${opt}">${opt}</option>`;
+                });
+            }
+        }
+
+        function loadContent() {
+            let val = document.getElementById('userCategory').value;
+            let output = document.getElementById('finalOutput');
+            if(!val) return;
+
+            output.style.display = 'block';
+            if(currentMode === 'shayari') {
+                if(val.includes("One-Sided")) {
+                    output.innerHTML = "💔 <b>One-Sided Love Shayari:</b><br><br>1. Tumhe chaahna hamari sabse haseen galti thi,<br>Hum toh bas tumhare ek reply ka intezaar karte rahe,<br>Aur tumne kisi aur ko apni duniya bana liya...<br><br>2. Ek tarfa pyaar ki taaqat hi kuch aur hoti hai,<br>Isme doosre ke haan ya naa ka darr nahi hota,<br>Bas door se dekh kar muskura dena hi kaafi hota hai!";
+                } else if(val.includes("Attitude")) {
+                    output.innerHTML = "🔥 <b>Attitude & Self-Respect:</b><br><br>1. Hum badle nahi hain, bas jaan gaye hain,<br>Ki log humare kitne kabil hain!<br><br>2. Khamoshi par mat jaao hamari,<br>Jab bolenge toh seedha dil par chot karenge!";
+                } else {
+                    output.innerHTML = "🌧️ <b>Heartbreak & Sad:</b><br><br>1. Kitni ajeeb hai iss shehar ki hawa,<br>Sab ro rahe hain par wajah kisi ko nahi pata...<br><br>2. Humne toh bas wafa ki thi,<br>Lekin unhone hume bewafai ka tohfa de diya.";
+                }
+            } else {
+                output.innerHTML = `📖 <b>${val}:</b><br><br>Rohan hamesha library ke corner table par baithta tha, sirf Ananya ko dekhne ke liye. Ananya jab bhi wahan se guzarti, Rohan ka heart rate double ho jaata tha. Ek din Rohan ne apna poora sach ek letter mein likha... Par shayad kismat ko kuch aur manzoor tha. Ananya ki shaadi kisi aur se fixed ho chuki thi. Rohan ne woh letter kabhi Ananya ko nahi diya, balki apni kitaab ke beech chhupa diya. Aaj bhi jab woh kitaab khulti hai, toh wahi silent sacrifice ki mehak aati hai...`;
+            }
+        }
     </script>
 </body>
 </html>
