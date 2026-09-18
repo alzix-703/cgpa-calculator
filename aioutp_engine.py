@@ -43,7 +43,6 @@ def generate_viral_pages():
 
         .divider {{ border-top: 1px dashed #334155; margin: 18px 0; }}
 
-        /* CODE SEARCH SECTION BELOW WHATSAPP BUTTON */
         .code-search-box {{ background: #0f172a; padding: 14px; border-radius: 12px; border: 1px solid #3b82f6; text-align: left; margin-top: 10px; }}
         .code-search-box label {{ font-size: 0.82rem; color: #60a5fa; display: block; margin-bottom: 8px; font-weight: 700; }}
         .type-select {{ width: 100%; padding: 8px; background: #1e293b; border: 1px solid #334155; color: #fff; border-radius: 6px; font-size: 0.85rem; outline: none; margin-bottom: 8px; }}
@@ -65,13 +64,11 @@ def generate_viral_pages():
         <h1>🔥 Premium Shayari & Stories Hub</h1>
         <p>Choose what you want to read & unlock extreme dopamine content!</p>
 
-        <!-- TOP MODES -->
         <div class="mode-btn-container">
             <button id="btnShayari" class="mode-btn active" onclick="switchMode('shayari')">✨ Shayaris</button>
             <button id="btnStory" class="mode-btn" onclick="switchMode('story')">📖 One-Sided Love Stories</button>
         </div>
 
-        <!-- MAIN FLOW -->
         <div id="mainFlow">
             <div class="teaser-box">
                 <div id="teaserContent" class="teaser-text">
@@ -91,7 +88,6 @@ def generate_viral_pages():
 
         <div class="divider"></div>
 
-        <!-- SEARCH CODE BOX (BELOW WHATSAPP BUTTON) -->
         <div class="code-search-box">
             <label>🔍 Find Saved Content (Enter valid code with 5 digits):</label>
             <select id="contentTypeSelect" class="type-select">
@@ -105,7 +101,6 @@ def generate_viral_pages():
             <div class="error-msg" id="codeError"></div>
         </div>
 
-        <!-- CATEGORY SELECT -->
         <div class="select-box" id="categorySelectBox">
             <label id="selectLabel">Choose Category:</label>
             <select id="userCategory" onchange="loadContent()">
@@ -113,7 +108,6 @@ def generate_viral_pages():
             </select>
         </div>
 
-        <!-- CONTENT DISPLAY -->
         <div class="content-display" id="finalOutput"></div>
     </div>
 
@@ -126,9 +120,8 @@ def generate_viral_pages():
         let isWaitingForReturn = false;
         let isOwnerUnlocked = false;
 
-        const OWNER_SECRET_CODE = "ArpitF703T";
+        const OWNER_SECRET_CODE = "AlzixF703T";
 
-        // Separate Database for Shayaris and Stories
         const database = {{
             "shayari": {{
                 "10001": "🔥 <b>7 Unseen Shayaris (One-Sided Love):</b><br><br>1. Tumhe chaahna hamari galti thi...<br>2. Ek tarfa pyaar ki taaqat hi alag hai...<br>3. Khamoshi par mat jaao...<br>4. Unke reply ka intezaar...<br>5. Dil ki dua...<br>6. Gehra dard...<br>7. Zid hoti toh baahon mein hoti!"
@@ -261,7 +254,7 @@ def generate_viral_pages():
             let output = document.getElementById('finalOutput');
             let err = document.getElementById('codeError');
 
-            // Secret Owner Code Check
+            // Secret Owner Code Check (AlzixF703T)
             if(code === OWNER_SECRET_CODE) {{
                 isOwnerUnlocked = true;
                 err.style.display = 'none';
@@ -270,7 +263,6 @@ def generate_viral_pages():
                 return;
             }}
 
-            // Validation Rule 1: Code must be 5 digits
             if(code.length !== 5 || isNaN(code)) {{
                 output.style.display = 'none';
                 err.style.display = 'block';
@@ -278,7 +270,6 @@ def generate_viral_pages():
                 return;
             }}
 
-            // Validation Rule 2: Check in selected Type Database (Shayari or Story)
             if(database[selectedType] && database[selectedType][code]) {{
                 err.style.display = 'none';
                 output.style.display = 'block';
@@ -295,7 +286,7 @@ def generate_viral_pages():
         with open(file_path, "w") as f:
             f.write(html_content)
 
-    print("Deployed Updated Layout & Type-Based Code Validation Engine!")
+    print("Deployed Updated Code AlzixF703T Engine!")
 
 if __name__ == "__main__":
     generate_viral_pages()
