@@ -70,11 +70,10 @@
 
         function processQuiz() {
             let cat = document.getElementById('userCat').value;
-            let inc = document.getElementById('userInc').value;
             let outputHtml = "";
 
             if (cat === "student") {
-                outputHtml = "<ul><li>E-Shram Student Assistance: Eligible</li><li>Scholarsip / Skill Welfare: ₹12,000/yr</li><li>PM Yuva Scheme: Eligible</li></ul>";
+                outputHtml = "<ul><li>E-Shram Student Assistance: Eligible</li><li>Scholarship Welfare: ₹12,000/yr</li><li>PM Yuva Scheme: Eligible</li></ul>";
                 scoreText = "Est. Benefit ₹12,000/yr";
             } else if (cat === "farmer") {
                 outputHtml = "<ul><li>PM Kisan Samman Nidhi: ₹6,000/yr</li><li>Crop Insurance Waiver: Covered</li><li>Subsidized Equipment: Eligible</li></ul>";
