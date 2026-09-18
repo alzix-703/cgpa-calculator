@@ -85,7 +85,7 @@ def generate_viral_pages():
                 <div id="calcOutput"></div>
             </div>
 
-            <div class="share-status" id="shareCounter">🔒 Progress: 0/3 WhatsApp Shares to Unlock Full Report</div>
+            <div class="share-status" id="shareCounter">🔒 Progress: 0/3 WhatsApp Shares to Unlock Full Tool</div>
             
             <a id="waShare" href="javascript:void(0)" class="whatsapp-btn" onclick="startShareProcess()">📲 Share on WhatsApp Direct</a>
             
@@ -120,26 +120,29 @@ def generate_viral_pages():
         }}
 
         function startShareProcess() {{
+            let originUrl = window.location.origin;
             let currentUrl = window.location.href;
-            let rawMsg = "Maine AIOUTP Tool se apna Score check kiya (" + scoreText + "). Aap bhi check karein: " + currentUrl;
+            
+            let rawMsg = "Bhai maine toh socha hi nahi tha par abhi mujhe pata chala ki mere liye sarkaar ne kitni saari yojanaaye aur benefits banaye hain! Maine apna score check kiya (" + scoreText + "). Aap bhi check kijiye aur apna benefit dekhiye: " + originUrl;
+            
             let waUrl = "whatsapp://send?text=" + encodeURIComponent(rawMsg);
 
             leaveTime = Date.now();
             isWaitingForReturn = true;
 
-            // Direct trigger deep link (skips browser app chooser)
+            // Open direct WhatsApp scheme
             window.location.href = waUrl;
         }}
 
-        // Detect when user returns back to browser tab
+        // Strict 7-second time check on tab focus
         document.addEventListener("visibilitychange", function() {{
             if (document.visibilityState === "visible" && isWaitingForReturn) {{
                 isWaitingForReturn = false;
                 let returnTime = Date.now();
                 let timeSpent = (returnTime - leaveTime) / 1000;
 
-                // User must spend at least 2.5 seconds in WhatsApp to count as real share
-                if (timeSpent >= 2.5) {{
+                // User must spend at least 7 full seconds in WhatsApp
+                if (timeSpent >= 7.0) {{
                     shareCount++;
                     if (shareCount < 3) {{
                         document.getElementById('shareCounter').innerText = "⏳ Progress: " + shareCount + "/3 WhatsApp Shares done. Share " + (3 - shareCount) + " more times!";
@@ -150,7 +153,7 @@ def generate_viral_pages():
                         mainBtn.innerText = "🚀 Access Full Portal Tool & Apply Now";
                     }}
                 }} else {{
-                    alert("⚠️ Share not completed! Please select a WhatsApp contact/group and send the message to unlock.");
+                    alert("⚠️ Share process incomplete! Message ko WhatsApp group ya contact par send karne mein kam se kam 7 second lagte hain. Kripya poora share karein!");
                 }}
             }}
         }});
@@ -160,7 +163,7 @@ def generate_viral_pages():
         with open(file_path, "w") as f:
             f.write(html_content)
 
-    print("Updated AIOUTP Engine with direct WhatsApp deep-linking & return time validation!")
+    print("Updated AIOUTP Engine with 7-second strict validation and natural viral message!")
 
 if __name__ == "__main__":
     generate_viral_pages()
